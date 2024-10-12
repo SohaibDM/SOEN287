@@ -7,42 +7,91 @@
     font-family:"Poppins", sans-serif;
 }
 
-
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height:100vh;
-    background: linear-gradient(to bottom, #3C314F, #000000); background-repeat: no-repeat; background-size: cover;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+      background: linear-gradient(to bottom, #3C314F, #000000);
+      background-repeat: no-repeat;
+      background-size: cover;
 }
 
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
+
+
+
+
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
     width: 100%;
-    padding: 20px 100px;
+    box-sizing: border-box;
+    color: white
+}
+
+#title h1 {
+    margin: 0;
+}
+
+
+
+#nav-bar ul {
+    list-style-type: none;
     display: flex;
-    justify-content: space_between;
+    margin: 0;
+    padding: 0;
+}
+
+#nav-bar ul li {
+    margin-right: 20px;
+}
+
+#nav-bar ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+
+
+#search-bar {
+    display: flex;
     align-items: center;
-    z-index: 99;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #5A4F70;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    height: 20px;
 }
 
-.logo{
-    font-family:"Poppins", sans-serif;
-    color: #fff;
-    user-select: none;
+#search-bar input {
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #5A4F70;
+    color: white;
+    flex: 1;
+    font-size: 16px;
 }
 
-.navigation {
-    position: relative;
-    font-size: 1.1em;
-    color:#fff;
-    font-weight: 500;
+#search-bar input::placeholder {
+    color: white;
+    opacity: 0.7;
+}
+
+
+#account {
+    font-size: 16px;
+    text-align: right;
     margin-left: 20px;
+    white-space: nowrap;
+    color: white;
 }
 
-.navigation .btnLogin-popup {
+
+.btnLogin-popup {
     width: 130px;
     height: 50px;
     background: transparent;
@@ -53,17 +102,20 @@ header {
     font-size: 1.1em;
     color: white;
     font-weight: 500;
-    margin-left: 1000px;
+    margin-left: 100px;
     transition: .5s;
 }
 
-.navigation .btnLogin-popup:hover {
+.btnLogin-popup:hover {
     background: white;
     color:#beaae1
 }
 
 .wrapper {
-    position: relative;
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
     width: 420px;
     height:440px;
     background: transparent;
@@ -87,47 +139,73 @@ header {
 
 .wrapper.active{
     height:760px;
+    text-align: center;
 }
 
-
-
 .wrapper .form-box {
+    position: absolute;
+    text-align: center;
     width: 100%;
-    padding: 40px;
+    padding: 20px 30px;
+    border-radius: 8px;  
 }
 
 .form-box h2 {
-    font-size: 2em;
+    font-size: 1.8em;
     color:white;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 
 .wrapper .form-box.login{
-    transition: transform .17s ease;
-    transform: translateX(0)
+    position:absolute;
+    transition: .17s ease;
+    transform: translateX(0);
 }
 
 .wrapper.active .form-box.login{
     transition: none;
-    transform: translateX(-400px)
+    transform: translateX(-400px);
 }
 
 .wrapper .form-box.register{
     position:absolute;
     transition: none;
-    transform: translateX(400px)
+    transform: translateX(400px);
 }
 
 .wrapper.active .form-box.register{
     transition: transform .17s ease;
-    transform: translateX(0)
+    transform: translateX(0);
+}
+
+.wrapper .form-box.admin{
+    position:absolute;
+    transition: none;
+    transform: translateX(400px);
+}
+
+.wrapper.admin-active .form-box.admin{
+    transition: transform .17s ease;
+    transform: translateX(0px);
+}
+.wrapper.admin-active .form-box.login{
+    transition: none;
+    overflow: hidden;
+    transform: translateX(-400px);
 }
 
 
 .wrapper h1{
     font-size: 36px;
     text-align: center;
+}
+
+.wrapper h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
 }
 
 .wrapper .input-box{
@@ -139,10 +217,13 @@ header {
 }
 
 .input-box{
-    position: relative;
-    width: 100%;
+    display: flex; /
+    align-items: center; 
+    justify-content: center; 
+    width: 100%; 
     height: 50px;
-    margin: 30px;
+    margin: 20px 0; 
+    position: relative;
 }
 
 .input-box input {
@@ -155,7 +236,7 @@ header {
     border-radius: 40px;
     font-size:16px;
     color: lavender;
-    padding: 20px 45px 20px 20px;
+    padding: 0 45px 0 20px;
 }
 
 .input-box input::placeholder{
@@ -219,5 +300,21 @@ header {
 }
 
 .register-link p a:hover{
+    text-decoration: underline;
+}
+
+.wrapper .admin-link{
+    font-size: 14.5px;
+    text-align: center;
+    margin-top: 20px 0 15px;
+}
+
+.admin-link p a{
+    color: lavender;
+    text-decoration: none;
+    font-weight:600;
+}
+
+.admin-link p a:hover{
     text-decoration: underline;
 }
