@@ -1,13 +1,41 @@
 const wrapper = document.querySelector('.wrapper');
-const loginLink= document.querySelector('.login-link');
-const registerLink =  document.querySelector('.register-link');
-const adminLink =  document.querySelector('.admin-link');
+const loginLink = document.querySelectorAll('.login-link');
+const registerLink = document.querySelectorAll('.register-link');
+const adminLink = document.querySelectorAll('.admin-link');
 const adminPopupBtn = document.querySelector('.btnAdmin-popup');
 
+function resetForms() {
+    loginForm.classList.remove('active');
+    registerForm.classList.remove('active');
+    adminForm.classList.remove('active');
+}
 
-registerLink.addEventListener('click', ()=>{wrapper.classList.add('active');});
-loginLink.addEventListener('click', ()=>{wrapper.classList.remove('active', 'admin-active');});
-adminLink.addEventListener('click', ()=>{wrapper.classList.add('admin-active');});
-adminPopupBtn.addEventListener('click', () => {wrapper.classList.add('admin-active');});
+loginLink.forEach(link => {
+  link.addEventListener('click', (event) => {
+    event.preventDefault(); // Prevent href default behavior
+    wrapper.classList.remove('active');
+    wrapper.classList.remove('admin-active');
+    resetForms();
+  });
+});
+
+registerLink.forEach(link => {
+  link.addEventListener('click', (event) => {
+    event.preventDefault(); 
+    wrapper.classList.add('active');
+    resetForms();
+  });
+});
 
 
+adminLink.forEach(link => {
+  link.addEventListener('click', (event) => {
+    event.preventDefault(); 
+    wrapper.classList.add('admin-active');
+  });
+});
+
+adminPopupBtn.addEventListener('click', (event) => {
+  event.preventDefault();
+  wrapper.classList.add('admin-active');
+});
