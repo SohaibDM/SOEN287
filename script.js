@@ -12,10 +12,11 @@ function resetForms() {
 
 loginLink.forEach(link => {
   link.addEventListener('click', (event) => {
-    event.preventDefault(); // Prevent href default behavior
+    wrapper.classList.add('login-active');
     wrapper.classList.remove('active');
     wrapper.classList.remove('admin-active');
     resetForms();
+    event.preventDefault(); 
   });
 });
 
@@ -23,6 +24,8 @@ registerLink.forEach(link => {
   link.addEventListener('click', (event) => {
     event.preventDefault(); 
     wrapper.classList.add('active');
+    wrapper.classList.remove('admin-active');
+    wrapper.classList.remove('login-active');
     resetForms();
   });
 });
@@ -32,6 +35,8 @@ adminLink.forEach(link => {
   link.addEventListener('click', (event) => {
     event.preventDefault(); 
     wrapper.classList.add('admin-active');
+    wrapper.classList.remove('active');
+    wrapper.classList.remove('login-active');
   });
 });
 
