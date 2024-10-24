@@ -20,7 +20,9 @@
   <body>
      <div id="header">
         <div id="title">
-            <h1>Company Name</h1>
+           <a href="home-page.html" style="text-decoration: none; color: inherit;">
+              <h1>Company Name</h1>
+          </a>
         </div>
         
         <div id="nav-bar">
@@ -35,8 +37,9 @@
             <input type="text" placeholder="search" name="q">
         </form>
     </div>
-    <a href="#" class="login-link"><button class="btnLogin-popup">Login</button></a>
-    <a href="#" class="admin-link"><button type="submit"  class="btnLogin-popup" style="margin:2px;"> Admin Login</button></a>
+    <button class="btnLogin-popup login-button" onclick="window.location.href='login.html'">Login</button>
+    <button class="btnLogin-popup logout-button" style="margin:2px;">Logout</button>
+
 
         <div id="account">
              <p><span id="displayUsername">Guest</span></p>

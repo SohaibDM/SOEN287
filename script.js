@@ -16,9 +16,18 @@ const loginForm = document.getElementById("loginForm");
 const usernameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");
 const displayUsername = document.getElementById("displayUsername");
+const logoutButton = document.querySelector(".logout-button");
+
+
+logoutButton.addEventListener("click", () => {
+  sessionStorage.removeItem("loggedInUsername");
+
+  window.location.href = "login.html";
+});
+
 
 document.addEventListener("DOMContentLoaded", () => {
-  const loggedInUser = localStorage.getItem("loggedInUsername");
+  const loggedInUser = sessionStorage.getItem("loggedInUsername");
   if (loggedInUser) {
     displayUsername.textContent = loggedInUser;
   }
@@ -36,9 +45,12 @@ loginForm.addEventListener("submit", (event) => {
   );
 
   if (validUser) {
-    localStorage.setItem("loggedInUsername", validUser.username);
+    sessionStorage.setItem("loggedInUsername", validUser.username);
 
     displayUsername.textContent = validUser.username;
+
+    usernameInput.value = "";
+    passwordInput.value = "";
 
     window.location.href = "home-page.html";
   } else {
