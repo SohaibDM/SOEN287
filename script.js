@@ -21,8 +21,9 @@ const logoutButton = document.querySelector(".logout-button");
 
 logoutButton.addEventListener("click", () => {
   sessionStorage.removeItem("loggedInUsername");
+  displayUsername.textContent = "Guest";
+  alert("You have been logged out.");
 
-  window.location.href = "login.html";
 });
 
 
