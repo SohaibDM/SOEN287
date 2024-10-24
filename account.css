@@ -6,25 +6,7 @@ body {
 
   font-family: 'Poppins';
 }
-.header-section{
-  padding-top: 24px;
-}
 
-.company-name{
-  font-weight: bold;
-  font-size: 50px;
-  color: white;
-  margin-left: 53px;
-}
-.header-buttons{
-  color: white;
-  opacity: 85%;
-  font-weight: lighter;
-  font-size: 23px;
-  text-decoration: none !important;
-  padding-left: 15px;
-  padding-right: 15px;
-}
 .username{
   color: white;
   font-weight: normal;
@@ -140,3 +122,5 @@ body {
   margin-left: 75%;
   width: 160px !important;
 }
+
+

@@ -3,6 +3,61 @@ const loginLink = document.querySelectorAll('.login-link');
 const registerLink = document.querySelectorAll('.register-link');
 const adminLink = document.querySelectorAll('.admin-link');
 const adminPopupBtn = document.querySelector('.btnAdmin-popup');
+const loginButton = document.querySelector('.login-button');
+const adminButton = document.querySelector('.admin-button');
+
+const users = [
+  { username: "user1", password: "password123" },
+  { username: "admin", password: "adminpass" },
+  { username: "john", password: "doe123" }
+];
+
+const loginForm = document.getElementById("loginForm");
+const usernameInput = document.getElementById("username");
+const passwordInput = document.getElementById("password");
+const displayUsername = document.getElementById("displayUsername");
+
+document.addEventListener("DOMContentLoaded", () => {
+  const loggedInUser = localStorage.getItem("loggedInUsername");
+  if (loggedInUser) {
+    displayUsername.textContent = loggedInUser;
+  }
+});
+
+loginForm.addEventListener("submit", (event) => {
+  event.preventDefault(); 
+
+  const enteredUsername = usernameInput.value;
+  const enteredPassword = passwordInput.value;
+
+  const validUser = users.find(
+    (user) =>
+      user.username === enteredUsername && user.password === enteredPassword
+  );
+
+  if (validUser) {
+    localStorage.setItem("loggedInUsername", validUser.username);
+
+    displayUsername.textContent = validUser.username;
+
+    window.location.href = "home-page.html";
+  } else {
+    alert("Invalid username or password. Please try again.");
+  }
+});
+
+
+
+
+
+
+
+// loginButton.addEventListener('click', () => {
+//   window.location.href = 'login.html'; 
+// });
+
+
+
 
 function resetForms() {
     loginForm.classList.remove('active');
