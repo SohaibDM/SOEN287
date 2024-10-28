@@ -121,3 +121,8 @@ body {
   font-weight: bold;
   margin-left: auto !important;
 }
+
+.service-bloc .custom-btn {
+  width: 150px;
+  margin: 5px auto;
+}

@@ -10,3 +10,10 @@ function showSection(section) {
     accountSection.classList.add("d-none");
   }
 }
+
+function goToOrderPreview(orderName) {
+  window.location.href = `order-preview-page.html?order=${encodeURIComponent(
+    orderName
+  )}`;
+}
+
