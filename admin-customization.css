@@ -1,0 +1,86 @@
+.form-container {
+    width: 80%;
+    max-width: 800px;
+    background-color: #3e3251;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@media (max-width: 500px) {
+    .form-container {
+        width: 90%;
+    }
+}
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 8px;
+    background-color: #2e2133;
+    color: #ffffff;
+}
+
+input::placeholder {
+    color: #ffffff;
+    opacity: 1;
+}
+label {
+    color: #ffffff; 
+    font-weight: bold; 
+}
+
+
+.submit-button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background-color: #5c58a6;
+    border: none;
+    border-radius: 8px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #716bb8;
+}
+
+.split-form {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+    position: relative;
+}
+
+.split-form::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background-color: #d6d5e6;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.form-left,
+.form-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+}

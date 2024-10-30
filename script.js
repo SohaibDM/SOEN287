@@ -49,6 +49,7 @@ loginForm.addEventListener("submit", (event) => {
     sessionStorage.setItem("loggedInUsername", validUser.username);
 
     displayUsername.textContent = validUser.username;
+    
 
     usernameInput.value = "";
     passwordInput.value = "";
