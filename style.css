@@ -181,8 +181,13 @@ body {
     transition: transform .17s ease;
     transform: translateX(0);
 }
+.wrapper.login-active .form-box.register{
+    position:absolute;
+    transition: .17s ease;
+    transform: translateX(400);
+}
 
-.wrapper .form-box.admin{
+/*.wrapper .form-box.admin{
     position:absolute;
     transition: none;
     transform: translateX(400px);
@@ -196,7 +201,7 @@ body {
     transition: none;
     overflow: hidden;
     transform: translateX(-400px);
-}
+}*/
 
 
 .wrapper h1{
