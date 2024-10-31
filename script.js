@@ -3,11 +3,13 @@ const loginLink = document.querySelectorAll('.login-link');
 const registerLink = document.querySelectorAll('.register-link');
 const adminLink = document.querySelectorAll('.admin-link');
 const adminPopupBtn = document.querySelector('.btnAdmin-popup');
+const loginForm = document.querySelector('.form-box.login');
+const registerForm = document.querySelector('.form-box.register');
+const adminForm = document.querySelector('.form-box.admin');
 
 function resetForms() {
-    loginForm.classList.remove('active');
-    registerForm.classList.remove('active');
-    adminForm.classList.remove('active');
+  document.querySelector(".form-box.login").classList.remove("active");
+  document.querySelector(".form-box.register").classList.remove("active");
 }
 
 loginLink.forEach(link => {
