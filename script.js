@@ -66,9 +66,7 @@ loginForm.addEventListener("submit", (event) => {
 
 
 
-// loginButton.addEventListener('click', () => {
-//   window.location.href = 'login.html'; 
-// });
+
 
 
 
@@ -113,3 +111,14 @@ adminPopupBtn.addEventListener('click', (event) => {
   event.preventDefault();
   wrapper.classList.add('admin-active');
 });
+
+
+function checkUser() {
+  const displayUsername = document.getElementById("displayUsername");
+
+  if (displayUsername.textContent.trim() === "Guest") {
+    event.preventDefault();
+    window.location.href = "login.html";
+  }
+}
+

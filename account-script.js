@@ -11,9 +11,14 @@ function showSection(section) {
   }
 }
 
-function goToOrderPreview(orderName) {
-  window.location.href = `order-preview-page.html?order=${encodeURIComponent(
-    orderName
-  )}`;
+
+function goToOrderPreview(button) {
+  const serviceBloc = button.closest('.service-bloc');
+  const serviceTitle = serviceBloc.querySelector('.service-title').textContent;
+  const price = serviceBloc.querySelector('.price-button').textContent;
+
+  window.location.href = `order-preview-page.html?order=${encodeURIComponent(serviceTitle)}&price=${encodeURIComponent(price)}`;
 }
+
+
 

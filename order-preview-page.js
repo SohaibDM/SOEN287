@@ -3,20 +3,16 @@ function getQueryParam(param) {
   return urlParams.get(param);
 }
 
-// Retrieve the order name from the query parameter
 const orderName = getQueryParam("order");
+const orderPrice = getQueryParam("price");
 
-// Populate the page with the correct order details
 const serviceTitle = document.querySelector(".service-title");
 const priceButton = document.querySelector(".price-button");
 
-if (orderName === "Plugin Builder") {
-  serviceTitle.textContent = "Plugin Builder";
-  priceButton.textContent = "15.25$";
-} else if (orderName === "Website Builder") {
-  serviceTitle.textContent = "Website Builder";
-  priceButton.textContent = "324.00$";
-} else if (orderName === "Logo Design") {
-  serviceTitle.textContent = "Logo Design";
-  priceButton.textContent = "152.11$";
+if (orderName) {
+  serviceTitle.textContent = orderName;
+}
+
+if (orderPrice) {
+  priceButton.textContent = orderPrice;
 }

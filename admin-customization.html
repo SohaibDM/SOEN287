@@ -4,11 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./home-page.css">
     <link rel="stylesheet" href="admin-customization.css">
     <title>Admin</title>
 </head>
 <body>
-    
+    <div id="header">
+        <div id="title">
+           <a href="home-page.html" style="text-decoration: none; color: inherit;">
+              <h1>Company Name</h1>
+          </a>
+        </div>
+        
+        <div id="nav-bar">
+            <ul>
+                <li><a href="#about-us">About Us</a></li>
+                <li><a href="/ServicesPage.html">Services</a></li>
+            </ul>
+        </div>
+        
+        <div id="search-bar">
+        <form action="/search" method="get">
+            <input type="text" placeholder="search" name="q">
+        </form>
+    </div>
+    <button class="btnLogin-popup login-button" onclick="window.location.href='login.html'">Login</button>
+    <button class="btnLogin-popup logout-button" style="margin:2px;">Logout</button>
+
+
+        <div id="account">
+             <p><a href="account-settings.html" id="displayUsername" onclick="checkUser()">Guest</a></p>
+        </div>
+    </div>
 
    <div class="form-container">
     <form class="split-form">
@@ -38,6 +65,9 @@
         </div>
     </form>
 </div>
+
+
+    
 
 
     <script src="script.js"></script>
