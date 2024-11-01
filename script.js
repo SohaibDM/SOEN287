@@ -193,3 +193,19 @@ function deleteService(serviceName) {
     alert(serviceName + " has been deleted.");
     }
   }
+
+
+function handleSearch(event) {
+  event.preventDefault(); // Prevent the default form submission
+  const searchQuery = event.target
+    .querySelector('input[name="q"]')
+    .value.trim()
+    .toLowerCase(); // Get the search input value
+
+  if (searchQuery.startsWith("serv")) {
+    window.location.href = "servicesPage.html"; // Redirect to the services page
+  } else {
+    window.location.href = "home-page.html"; // Redirect to the homepage for any other input
+  }
+}
+

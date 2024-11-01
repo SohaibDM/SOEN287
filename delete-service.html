@@ -25,7 +25,7 @@
         </div>
         
         <div id="search-bar">
-            <form action="/search" method="get">
+            <form action="/search" method="get" onsubmit="return handleSearch(event)">
                 <input type="text" placeholder="search" name="q">
             </form>
         </div>
