@@ -18,23 +18,18 @@
         
         <div id="nav-bar">
             <ul>
-                <li><a href="#about-us">About Us</a></li>
-                <li><a href="#services">Services</a></li>
+                <li><a href="./home-page.html#footer">About Us</a></li>
+                <li><a href="/ServicesPage.html">Services</a></li>
             </ul>
         </div>
         
-        <div id="search-bar">
-        <form action="/search" method="get">
-            <input type="text" placeholder="search" name="q">
-        </form>
-    </div>
     <button class="btnLogin-popup login-button" onclick="window.location.href='login.html'">Login</button>
     <button class="btnLogin-popup logout-button" style="margin:2px;">Logout</button>
 
-        <div id="account">
-             <p><a href="account-settings.html" id="displayUsername">Guest</a></p>
-        </div>
 
+        <div id="account">
+             <p><a  href="account-settings.html" id="displayUsername" onclick="checkUser()">Guest</a></p>
+        </div>
     </div>
     
         
@@ -104,23 +99,12 @@
                 </div>
             </form>
         </div>
-        <div class="form-box admin">
-            <h3>Admin login</h3>
-            <form action="#"> 
-                <div class="input-box">
-                    <input type="text" placeholder="Admin Username" required>
-                    <i class="bx bxs-user"></i>
-                </div>
-                <div class="input-box">
-                    <input type="password" placeholder="Admin Password" required>
-                    <i class='bx bxs-lock-alt'></i>
-                </div>
-                <button type="submit" class="btn">Login</button>
-                <p>Not an admin? <a href="#" class="login-link">Log in</a> </p>
-            </div class= "admin-link">
-         </form>
-        </div>
-    </div>
+
+
+
+        
+        
+       
     
     <script src="script.js"></script>
 </body>

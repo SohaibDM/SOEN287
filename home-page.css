@@ -1,22 +1,15 @@
 html,
-body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-      background: linear-gradient(to bottom, #3C314F, #000000);
-      background-repeat: no-repeat;
-      background-size: cover;
-    
-}
-/* 
-body {
-
+  body {
     min-height: 100vh;
     background: linear-gradient(to bottom, #3C314F, #000000);
     background-repeat: no-repeat;
+    background-attachment: fixed;
     background-size: cover;
-  } */
+
+    font-family: 'Poppins';
+    margin: 0;
+      
+  }
   
   
   #header {
@@ -104,12 +97,12 @@ body {
     margin: 0;
   }
 
-/* .album py-5 bg-body-tertiary {
+  /* .album py-5 bg-body-tertiary {
       background-color: rgba(115, 102, 141, 0.5);
       border-radius: 20px;z
       padding: 50px 0;
   } */
 
-.album.py-5.bg-body-tertiary {
+  .album.py-5.bg-body-tertiary {
     background-color: transparent !important;
-}
+  }

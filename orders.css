@@ -2,10 +2,17 @@ body {
   min-height: 100vh;
   background: linear-gradient(to bottom, #3C314F, #000000);
   background-repeat: no-repeat;
+  background-attachment: fixed;
   background-size: cover;
 
   font-family: 'Poppins';
+  margin: 0;
 }
+
+.custom-container {
+  min-height: calc(100vh - 100px);
+}
+
 .header-section{
   padding-top: 24px;
 }
@@ -33,11 +40,12 @@ body {
   margin-right: 40px;
 }
 
+/*
 .account-page{
   max-width: 90%;
   margin: 0 auto;
 }
-
+*/
 .left-column {
   background-color: #554274;
   border-radius: 10px;
@@ -76,6 +84,7 @@ body {
 .right-column{
   background-color: rgba(85,66,116,0.1); /* This sets the background to 10% opacity while keeping the text opaque */
   border-radius: 10px;
+  height: auto !important;
   padding: 18px; /* Adds padding inside the container */
 }
 .title-paragraph{
@@ -111,4 +120,9 @@ body {
   font-size: 25px !important;
   font-weight: bold;
   margin-left: auto !important;
+}
+
+.service-bloc .custom-btn {
+  width: 150px;
+  margin: 5px auto;
 }
