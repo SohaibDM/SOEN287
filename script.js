@@ -24,14 +24,13 @@ function extractServices() {
 
   serviceElements.forEach((element) => {
       const name = element.querySelector(".bbb_deals_title a").textContent.trim();
-      const description = descriptionElement 
-      ? descriptionElement.textContent.trim() 
-      : element.getAttribute('data-description') || '';
+      const description = element.getAttribute('service-description');
       services.push({ name, description });
   });
 
   return services;
 }
+
 
 const services = extractServices(); // Call this function once to get the array of services
 
@@ -135,17 +134,6 @@ loginForm.addEventListener("submit", (event) => {
     alert("Invalid username or password. Please try again.");
   }
 });
-
-
-
-
-
-
-
-
-
-
-
 
 function resetForms() {
     loginForm.classList.remove('active');
