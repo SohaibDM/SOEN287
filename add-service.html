@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="add-service.css">
+    <title>Add New Service</title>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Add New Service</h2>
+        <form class="service-form" onsubmit="handleAddService(event)">
+            <label for="serviceName">Service Name:</label>
+            <input type="text" id="serviceName" name="serviceName" placeholder="Enter service name" required>
+
+            <label for="category">Category:</label>
+            <input type="text" id="category" name="category" placeholder="Enter category" required>
+
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" placeholder="Enter price" required>
+
+            <label for="originalPrice">Original Price:</label>
+            <input type="number" id="originalPrice" name="originalPrice" placeholder="Enter original price" required>
+
+            <label for="availability">Availability:</label>
+            <input type="number" id="availability" name="availability" placeholder="Enter availability count" required>
+
+            <button type="submit" class="submit-button">Add Service</button>
+        </form>
+    </div>
+
+    <script>
+        function handleAddService(event) {
+            event.preventDefault();
+            const serviceName = document.getElementById('serviceName').value;
+            const category = document.getElementById('category').value;
+            const price = parseFloat(document.getElementById('price').value);
+            const originalPrice = parseFloat(document.getElementById('originalPrice').value);
+            const available = parseInt(document.getElementById('availability').value);
+
+            // Call the addService function from services.js
+            alert('Service added successfully!');
+            addService(serviceName, category, price, originalPrice, available);
+             // Optional alert for user feedback
+
+            // Optionally reset the form after submission
+            document.querySelector('.service-form').reset();
+        }
+    </script>
+    <script src="services.js"></script>
+    <script src="services-delete.js"></script>
+    <script src="home-page-services.js"></script> <!-- Ensure services.js is included -->
+</body>
+</html>

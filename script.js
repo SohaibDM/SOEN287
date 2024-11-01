@@ -28,6 +28,7 @@ logoutButton.addEventListener("click", () => {
 
 
 document.addEventListener("DOMContentLoaded", () => {
+  updateFromLocalStorage();
   const loggedInUser = sessionStorage.getItem("loggedInUsername");
   if (loggedInUser) {
     displayUsername.textContent = loggedInUser;
@@ -122,3 +123,73 @@ function checkUser() {
   }
 }
 
+function updateFromLocalStorage() {
+  const companyName = localStorage.getItem("companyName");
+  const companyAddress = localStorage.getItem("companyAddress");
+  const companyEmail = localStorage.getItem("companyEmail");
+  const phoneNumber = localStorage.getItem("phoneNumber");
+
+  const instagramLink = localStorage.getItem("instagramLink");
+  const twitterLink = localStorage.getItem("twitterLink");
+  const linkedinLink = localStorage.getItem("linkedinLink");
+  const companyImage = localStorage.getItem("companyImage");
+  const description = localStorage.getItem("description");
+  const title = localStorage.getItem("descriptionTitle");
+
+
+  if (companyImage) {
+    const imgElement = document.getElementById("companyImageDisplay");
+    imgElement.src = companyImage;
+    imgElement.style.display = "block";
+  }
+
+  if (companyName) {
+    document.getElementById("title").querySelector("h1").textContent =
+      companyName;
+  }
+
+  if (companyAddress) {
+    document.querySelector(
+      "footer .col.mb-3:nth-child(3) .nav-link"
+    ).textContent = companyAddress;
+  }
+
+  if (companyEmail) {
+    document.querySelector(
+      "footer .col.mb-3:nth-child(2) .nav-link"
+    ).textContent = companyEmail;
+  }
+
+  if (phoneNumber) {
+    document.querySelector(
+      "footer .col.mb-3:nth-child(4) .nav-link"
+    ).textContent = phoneNumber;
+  }
+
+  if (instagramLink) {
+    document.getElementById("instagram-link").href = instagramLink;
+  }
+
+  if (twitterLink) {
+    document.getElementById("twitter-link").href = twitterLink;
+  }
+
+  if (linkedinLink) {
+    document.getElementById("linkedin-link").href = linkedinLink;
+  }
+
+  if (title) {
+    document.getElementById("descriptionTitle").textContent = title; 
+  }
+
+  if (description) {
+    document.getElementById("description").textContent = description; 
+  }
+}
+
+
+function deleteService(serviceName) {
+    if (confirm("Are you sure you want to delete " + serviceName + "?")) {
+    alert(serviceName + " has been deleted.");
+    }
+  }

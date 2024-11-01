@@ -19,6 +19,9 @@
 
 input[type="text"],
 input[type="email"],
+input[type="title"],
+textarea,
+input[type="tel"],
 input[type="url"],
 input[type="file"] {
     width: 100%;
@@ -34,14 +37,15 @@ input::placeholder {
     color: #ffffff;
     opacity: 1;
 }
-label {
-    color: #ffffff; 
-    font-weight: bold; 
-}
 
+label {
+    color: #ffffff;
+    font-weight: bold;
+}
 
 .submit-button {
     width: 100%;
+    /* Adjusted width for buttons */
     padding: 12px;
     margin-top: 15px;
     background-color: #5c58a6;
@@ -83,4 +87,21 @@ label {
     flex-direction: column;
     position: relative;
     z-index: 2;
+}
+
+/* New Styles for Button Container */
+.button-container {
+    display: flex;
+    /* Use flexbox for alignment */
+    justify-content: center;
+    /* Center the buttons */
+    margin-top: 20px;
+    /* Add margin on top for spacing */
+}
+
+.button-container .submit-button {
+    width: auto;
+    /* Let the button size adjust based on content */
+    margin: 0 10px;
+    /* Add margin for spacing between buttons */
 }
