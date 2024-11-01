@@ -77,7 +77,6 @@
     display: none;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .bbb_deals {
         margin-bottom: 20px;

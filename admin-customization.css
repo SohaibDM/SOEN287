@@ -45,7 +45,6 @@ label {
 
 .submit-button {
     width: 100%;
-    /* Adjusted width for buttons */
     padding: 12px;
     margin-top: 15px;
     background-color: #5c58a6;
@@ -89,19 +88,13 @@ label {
     z-index: 2;
 }
 
-/* New Styles for Button Container */
 .button-container {
     display: flex;
-    /* Use flexbox for alignment */
     justify-content: center;
-    /* Center the buttons */
     margin-top: 20px;
-    /* Add margin on top for spacing */
 }
 
 .button-container .submit-button {
     width: auto;
-    /* Let the button size adjust based on content */
     margin: 0 10px;
-    /* Add margin for spacing between buttons */
 }

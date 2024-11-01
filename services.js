@@ -49,10 +49,11 @@ let services = [
   },
 ];
 
-// Function to render services
+let servicesNum = services.length;
+
 function renderServices() {
   const serviceList = document.getElementById("service-list");
-  serviceList.innerHTML = ""; // Clear previous services
+  serviceList.innerHTML = ""; 
   services.forEach((service) => {
     const serviceHTML = `
             <div class="col-md-4 mb-4">
@@ -101,7 +102,7 @@ function renderServices() {
 
 function addService(name, category, price, originalPrice, available) {
   const newService = {
-    id: services.length + 1, // Generate a new ID
+    id: Math.floor(Math.random() * (230 - 7 + 1)) + 7, 
     name,
     category,
     price,
@@ -109,12 +110,11 @@ function addService(name, category, price, originalPrice, available) {
     available,
   };
 
-  services.push(newService); // Add the new service to the array
-  localStorage.setItem("services", JSON.stringify(services)); // Update localStorage
-  renderServices(); // Re-render the services list
+  services.push(newService); 
+  localStorage.setItem("services", JSON.stringify(services)); 
+  renderServices(); 
 }
 
-// Load services from localStorage if available
 function loadServices() {
   const savedServices = localStorage.getItem("services");
   if (savedServices) {
@@ -123,5 +123,4 @@ function loadServices() {
   renderServices();
 }
 
-// Call loadServices on page load
 document.addEventListener("DOMContentLoaded", loadServices);

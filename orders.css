@@ -40,19 +40,14 @@ body {
   margin-right: 40px;
 }
 
-/*
-.account-page{
-  max-width: 90%;
-  margin: 0 auto;
-}
-*/
+
 .left-column {
   background-color: #554274;
   border-radius: 10px;
   padding: 18px;
   display: flex;
   flex-direction: column;
-  align-self: flex-start; /* Prevents it from stretching vertically */
+  align-self: flex-start; 
 }
 .custom-btn {
   color: white !important;
@@ -82,10 +77,10 @@ body {
   border: none !important;
 }
 .right-column{
-  background-color: rgba(85,66,116,0.1); /* This sets the background to 10% opacity while keeping the text opaque */
+  background-color: rgba(85,66,116,0.1); 
   border-radius: 10px;
   height: auto !important;
-  padding: 18px; /* Adds padding inside the container */
+  padding: 18px; 
 }
 .title-paragraph{
   color: white !important;
@@ -97,7 +92,7 @@ body {
 .service-bloc{
   background-color: rgba(85,66,116,0.1);
   width: 92% !important;
-  padding: 15px; /* Optional: Add some padding inside for spacing */
+  padding: 15px;
   border-radius: 10px;
   margin-bottom: 38px;
 }

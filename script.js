@@ -196,16 +196,16 @@ function deleteService(serviceName) {
 
 
 function handleSearch(event) {
-  event.preventDefault(); // Prevent the default form submission
+  event.preventDefault(); 
   const searchQuery = event.target
     .querySelector('input[name="q"]')
     .value.trim()
-    .toLowerCase(); // Get the search input value
+    .toLowerCase(); 
 
   if (searchQuery.startsWith("serv")) {
-    window.location.href = "servicesPage.html"; // Redirect to the services page
+    window.location.href = "servicesPage.html"; 
   } else {
-    window.location.href = "home-page.html"; // Redirect to the homepage for any other input
+    window.location.href = "home-page.html";
   }
 }
 
