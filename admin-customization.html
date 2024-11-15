@@ -24,7 +24,7 @@
         </div>
         
          <div id="search-bar">
-            <form action="/search" method="get" onsubmit="return handleSearch(event)">
+            <form action="/search" method="get" >
                 <input type="text" placeholder="search" name="q">
             </form>
         </div>
@@ -38,7 +38,7 @@
     </div>
 
    <div class="form-container">
-    <form class="split-form" onsubmit="updatePage(event)">
+    <form class="split-form" >
         <div class="form-left">
             <label for="upload">Upload Image:</label>
             <input type="file" id="upload" name="upload" accept="image/*">
@@ -81,12 +81,6 @@
 
 
 
-
-
-
-    
-
-    <script src="custom.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

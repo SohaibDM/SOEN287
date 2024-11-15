@@ -24,7 +24,7 @@
         </div>
         
          <div id="search-bar">
-            <form action="/search" method="get" onsubmit="return handleSearch(event)">
+            <form action="/search" method="get" >
                 <input type="text" placeholder="search" name="q">
             </form>
         </div>
@@ -39,7 +39,7 @@
 
     <div class="form-container">
         <h2>Add New Service</h2>
-        <form class="service-form" onsubmit="handleAddService(event)">
+        <form class="service-form" >
             <label for="serviceName">Service Name:</label>
             <input type="text" id="serviceName" name="serviceName" placeholder="Enter service name" required>
 
@@ -58,26 +58,7 @@
             <button type="submit" class="submit-button">Add Service</button>
         </form>
     </div>
-
-    <script>
-        function handleAddService(event) {
-            event.preventDefault();
-            const serviceName = document.getElementById('serviceName').value;
-            const category = document.getElementById('category').value;
-            const price = parseFloat(document.getElementById('price').value);
-            const originalPrice = parseFloat(document.getElementById('originalPrice').value);
-            const available = parseInt(document.getElementById('availability').value);
-
-            alert('Service added successfully!');
-            addService(serviceName, category, price, originalPrice, available);
-
-
-
-            document.querySelector('.service-form').reset();
-        }
-    </script>
-    <script src="services.js"></script>
-    <script src="services-delete.js"></script>
+    
     <script src="home-page-services.js"></script> 
 </body>
 </html>
