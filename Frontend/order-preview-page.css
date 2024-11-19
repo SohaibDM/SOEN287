@@ -1,0 +1,126 @@
+body {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #3C314F, #000000);
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  font-family: 'Poppins';
+}
+.header-section{
+  padding-top: 24px;
+}
+
+.company-name{
+  font-weight: bold;
+  font-size: 50px;
+  color: white;
+  margin-left: 53px;
+}
+.header-buttons{
+  color: white;
+  opacity: 85%;
+  font-weight: lighter;
+  font-size: 23px;
+  text-decoration: none !important;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.username{
+  color: white;
+  font-weight: normal;
+  font-size: 20px;
+  text-decoration:none !important;
+  margin-right: 40px;
+}
+
+.account-page{
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.left-column {
+  background-color: #554274;
+  border-radius: 10px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+}
+.custom-btn {
+  color: white !important;
+  font-size: 20px !important;
+  font-weight: lighter !important;
+  background-color: #A782E5 !important;
+  border-radius: 23px !important;
+  padding-top: 5px !important;
+  padding-left: 25px !important;
+  padding-bottom: 5px !important;
+  margin-bottom: 5px !important;
+  margin-top: 5px !important;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left !important;
+}
+.price-button{
+  font-size: 22px !important;
+  font-weight: bold !important;
+  background-color: #A782E5 !important;
+  border-radius: 50px !important;
+  padding: 10px !important;
+  text-align: center !important;
+  margin-left: 38px !important;
+  pointer-events: none !important;
+  cursor: default !important;
+  border: none !important;
+}
+.right-column{
+  background-color: rgba(85,66,116,0.1); 
+  border-radius: 10px;
+  padding: 18px; 
+}
+.title-paragraph{
+  color: white !important;
+  width: 92% !important;
+  padding-left: 0px !important;
+  font-size: 30px !important;
+  font-weight: bold;
+}
+.service-bloc{
+  background-color: rgba(85,66,116,0.1);
+  width: 92% !important;
+  padding: 15px; 
+  border-radius: 10px;
+  margin-bottom: 38px;
+}
+.service-title{
+  color: white;
+  font-size: 25px !important;
+  font-weight: bold;
+}
+.thin-text{
+  color: #c7c7c7 !important;
+  font-size: 26px !important;
+}
+.info-container{
+  display: flex !important;
+  align-items: baseline !important;
+  margin-bottom: 15px !important;
+}
+.date-info {
+  color: white;
+  font-size: 25px !important;
+  font-weight: bold;
+  margin-left: auto !important;
+}
+.sign-out-button{
+  background-color: #A00000 !important;
+  color: white;
+  border: none !important;
+  padding: 7px;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 25px;
+  margin-top: 20px !important;
+  margin-left: 75% !important;
+  width: 160px !important;
+}
