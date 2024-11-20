@@ -6,19 +6,16 @@ const cors = require("cors");
 const app = express();
 const port = 3000;
 
-// Middleware
-app.use(cors()); // To allow cross-origin requests
-app.use(bodyParser.json()); // To parse JSON data from the frontend
+app.use(cors()); 
+app.use(bodyParser.json()); 
 
-// Database connection
 const db = mysql.createConnection({
   host: "localhost",
-  user: "root", // Default username for XAMPP
-  password: "", // Default password for XAMPP is empty
-  database: "soen287project", // Replace with your database name
+  user: "root", 
+  password: "", 
+  database: "soen287project", 
 });
 
-// Connect to the database
 db.connect((err) => {
   if (err) {
     console.error("Database connection failed:", err);
@@ -27,16 +24,14 @@ db.connect((err) => {
   console.log("Connected to the database.");
 });
 
-// Route to handle form submission
-//admin_ID	Image	Company_Name	Address	Email	Number	Desc_Title	Description	Twitter	Instagram	Linkedi
 app.post("/submit", (req, res) => {
   const {
-    image, // Add file upload handling logic here later
+    image, 
     company_name,
     address,
     email,
     number,
-    desc_title,
+    title,
     description,
     twitter,
     instagram,
@@ -55,12 +50,14 @@ app.post("/submit", (req, res) => {
     address,
     email,
     number,
-    desc_title,
+    title,
     description,
     twitter,
     instagram,
     linkedin,
   ];
+
+  console.log(values)
 
   db.query(sql, values, (err, result) => {
     if (err) {
@@ -72,7 +69,19 @@ app.post("/submit", (req, res) => {
   });
 });
 
-// Start the server
+app.get("/pages", (req, res) => {
+  const sql = "SELECT * FROM page";
+
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error("Error fetching data:", err);
+      res.status(500).send("Failed to retrieve data.");
+      return;
+    }
+    res.json(results);
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
