@@ -9,12 +9,14 @@ document
       address: document.getElementById("address").value,
       email: document.getElementById("email").value,
       number: document.getElementById("phone").value,
-      desc_title: document.getElementById("title").value,
+      title: document.getElementById("desc_title").value,
       description: document.getElementById("description").value,
       twitter: document.querySelector("[name='twitter']").value,
       instagram: document.querySelector("[name='instagram']").value,
       linkedin: document.querySelector("[name='linkedin']").value,
     };
+
+    console.log(formData);
 
     fetch("http://localhost:3000/submit", {
       method: "POST",
