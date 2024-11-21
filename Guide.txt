@@ -11,7 +11,7 @@ instrcutions:
 to log in as admin you need to open the admin.html page use: username: admin1 , password: password1
 then you will be redirected to the edit page where you could customize the page or add and delete services
 
-to use the page as a customer open the home-page.html page, and then navigate however you want 
+to use the page as a customer, open the home-page.html page, and then navigate however you want 
 if you want to log in use:
 username: admin
 password: adminpass
