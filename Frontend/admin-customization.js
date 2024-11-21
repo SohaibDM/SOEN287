@@ -3,27 +3,37 @@ document
   .addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent default form submission
 
-    const formData = {
-      image: null, // File uploads require separate handling (add this later with multer or similar)
-      company_name: document.getElementById("name").value,
-      address: document.getElementById("address").value,
-      email: document.getElementById("email").value,
-      number: document.getElementById("phone").value,
-      title: document.getElementById("desc_title").value,
-      description: document.getElementById("description").value,
-      twitter: document.querySelector("[name='twitter']").value,
-      instagram: document.querySelector("[name='instagram']").value,
-      linkedin: document.querySelector("[name='linkedin']").value,
-    };
+    // Create a FormData object
+    const formData = new FormData();
+    formData.append("image", document.getElementById("upload").files[0]); 
+    formData.append("company_name", document.getElementById("name").value);
+    formData.append("address", document.getElementById("address").value);
+    formData.append("email", document.getElementById("email").value);
+    formData.append("number", document.getElementById("phone").value);
+    formData.append("title", document.getElementById("desc_title").value);
+    formData.append(
+      "description",
+      document.getElementById("description").value
+    );
+    formData.append(
+      "twitter",
+      document.querySelector("[name='twitter']").value
+    );
+    formData.append(
+      "instagram",
+      document.querySelector("[name='instagram']").value
+    );
+    formData.append(
+      "linkedin",
+      document.querySelector("[name='linkedin']").value
+    );
 
-    console.log(formData);
+    console.log("FormData ready to be sent.");
 
+    // Send the FormData object to the backend
     fetch("http://localhost:3000/submit", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
+      body: formData, // Send FormData directly
     })
       .then((response) => response.text())
       .then((data) => {
