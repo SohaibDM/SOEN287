@@ -19,6 +19,9 @@
 
 input[type="text"],
 input[type="email"],
+input[type="title"],
+textarea,
+input[type="tel"],
 input[type="url"],
 input[type="file"] {
     width: 100%;
@@ -34,11 +37,11 @@ input::placeholder {
     color: #ffffff;
     opacity: 1;
 }
-label {
-    color: #ffffff; 
-    font-weight: bold; 
-}
 
+label {
+    color: #ffffff;
+    font-weight: bold;
+}
 
 .submit-button {
     width: 100%;
@@ -83,4 +86,15 @@ label {
     flex-direction: column;
     position: relative;
     z-index: 2;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.button-container .submit-button {
+    width: auto;
+    margin: 0 10px;
 }

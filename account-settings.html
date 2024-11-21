@@ -35,10 +35,10 @@
         </div>
         
         <div id="search-bar">
-          <form id="searchForm">
-              <input type="text" placeholder="search services" name="q" id="searchInput">
-          </form>
-        </div>
+              <form id="searchForm" onsubmit="return handleSearch(event)">
+                  <input type="text" placeholder="search services" name="q" id="searchInput">
+              </form>
+            </div>
     <button class="btnLogin-popup login-button" onclick="window.location.href='login.html'">Login</button>
     <button class="btnLogin-popup logout-button" style="margin:2px;">Logout</button>
 
@@ -57,7 +57,6 @@
           </div>
         </div>
 
-        <!-- My Account Section -->
         <div class="col-md-8 right-column mx-4" id="account-section">
           <div class="row d-flex justify-content-center">
             <p class="title-paragraph">My Account</p>
@@ -91,7 +90,6 @@
           </div>
         </div>
 
-        <!-- My Orders Section -->
         <div class="col-md-8 right-column mx-4 d-none" id="orders-section">
           <div class="row d-flex justify-content-center">
             <p class="title-paragraph">My Orders</p>
@@ -163,42 +161,25 @@
     
     <div class="container">
       <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top" style="color: white;">
-        <div class="col mb-3">
-          <img src="https://1000logos.net/wp-content/uploads/2017/02/insta-logo.png" height="20px"> </img>
-          <img src="https://1000logos.net/wp-content/uploads/2017/02/insta-logo.png" height="20px"> </img>
-          <img src="https://1000logos.net/wp-content/uploads/2017/02/insta-logo.png" height="20px"> </img>
-
-          <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none" style="color: white;">
-            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+       <div class="col mb-3">
+        <h5>Follow Us:</h5>
+        <div style="display: flex; gap: 10px;"> <!-- Add gap for spacing -->
+          <a id="instagram-link" href="#" target="_blank" class="nav-link p-0 text-body-primary" style="color: white;">
+            <img src="https://1000logos.net/wp-content/uploads/2017/02/insta-logo.png" height="20px" alt="Instagram Logo">
           </a>
-          <p class="text-body-primary">© 2024</p>
+          <a id="twitter-link" href="#" target="_blank" class="nav-link p-0 text-body-primary" style="color: white;">
+            <img src="https://1000logos.net/wp-content/uploads/2017/06/Twitter-Log%D0%BE.png" height="20px" alt="Twitter Logo">
+          </a>
+          <a id="linkedin-link" href="#" target="_blank" class="nav-link p-0 text-body-primary" style="color: white;">
+            <img src="./linkedin-logo.png" height="20px" alt="LinkedIn Logo">
+          </a>
         </div>
+        <br></br>
+        <p class="text-body-primary">© 2024</p>
+      </div>
+
     
-        <div class="col mb-3">
-    
-        </div>
-    
-        <div class="col mb-3">
-          <h5>About us</h5>
-          <ul class="nav flex-column">
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-primary" style="color: white;">Home</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-primary" style="color: white;">Features</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-primary" style="color: white;">Pricing</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-primary" style="color: white;">FAQs</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ttext-body-primary" style="color: white;">About</a></li>
-          </ul>
-        </div>
-    
-        <div class="col mb-3">
-          <h5>Main Services</h5>
-          <ul class="nav flex-column">
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-primary" style="color: white;">Service 1</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-primary" style="color: white;">Service 2 </a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-primary" style="color: white;">Service 3</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-primary" style="color: white;">Service 4</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-primary" style="color: white;">Service 5</a></li>
-          </ul>
-        </div>
+        
     
         <div class="col mb-3">
           <h5>Email us at:</h5>
@@ -206,6 +187,34 @@
             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-primary" style="color: white;">Email123@service.qc.ca</a></li>
           </ul>
         </div>
+
+        <div class="col mb-3">
+          <h5>Our Address:</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-primary" style="color: white;">123 Service St., City, Province, QC, Canada</a></li>
+          </ul>
+        </div>
+
+        <div class="col mb-3">
+          <h5>Phone Number:</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="tel:+1234567890" class="nav-link p-0 text-body-primary" style="color: white;">+1 (234) 567-890</a></li>
+          </ul>
+        </div>
+
+        
+    
+        <div class="col mb-3">
+          <h5>Services</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2">
+              <a href="ServicesPage.html" class="nav-link p-0 text-body-primary" style="color: white; text-decoration: underline;">Go to services page</a>
+            </li>
+          </ul>
+        </div>
+
+
+
       </footer>
   </div>
   </div>

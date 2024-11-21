@@ -28,7 +28,7 @@ body {
   padding: 18px;
   display: flex;
   flex-direction: column;
-  align-self: flex-start; /* Prevents it from stretching vertically */
+  align-self: flex-start; 
 }
 .custom-btn {
   color: white !important;
@@ -46,9 +46,9 @@ body {
   text-align: left !important;
 }
 .right-column{
-  background-color: rgba(85,66,116,0.1); /* This sets the background to 10% opacity while keeping the text opaque */
+  background-color: rgba(85,66,116,0.1); 
   border-radius: 10px;
-  padding: 18px; /* Adds padding inside the container */
+  padding: 18px; 
   height: 750px;
 }
 
@@ -63,7 +63,7 @@ body {
 .user-info{
   background-color: #1A1524;
   width: 92% !important;
-  padding: 15px; /* Optional: Add some padding inside for spacing */
+  padding: 15px; 
   border-radius: 10px;
 }
 .Username{
@@ -85,11 +85,11 @@ body {
 }
 
 .line {
-  border: none; /* Remove default border */
-  height: 2px; /* Adjust the thickness of the line */
-  background-color: white; /* Set the color of the line */
-  width: 92% !important; /* Set the width (full width of the container) */
-  margin-top: 26px !important; /* Optional: Add margin for spacing */
+  border: none; 
+  height: 2px; 
+  background-color: white; 
+  width: 92% !important; 
+  margin-top: 26px !important; 
 }
 
 .personal-info{

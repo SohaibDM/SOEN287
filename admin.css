@@ -1,0 +1,195 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #3C314F, #000000);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: 'Poppins';
+}
+
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#title h1 {
+    margin: 0;
+    font-size: 20px;
+}
+
+#nav-bar ul {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+#nav-bar ul li {
+    margin-right: 20px;
+}
+
+#nav-bar ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+#search-bar {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 40px;
+    background-color: #5A4F70;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    height: 45px;
+}
+
+#search-bar input {
+    border: none;
+    outline: none;
+    background-color: #5A4F70;
+    color: white;
+    flex: 1;
+    font-size: 16px;
+}
+
+#search-bar input::placeholder {
+    color: white;
+    opacity: 0.7;
+}
+
+#account {
+    font-size: 16px;
+    text-align: right;
+    margin-left: 20px;
+    color: white;
+}
+
+#displayUsername {
+    color: white;
+    text-decoration: none;
+    cursor: default;
+}
+
+.btnLogin-popup {
+    width: 130px;
+    height: 50px;
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    color: white;
+    margin-left: 100px;
+    transition: .5s;
+}
+
+.btnLogin-popup:hover {
+    background: white;
+    color: #beaae1;
+}
+
+.wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 420px;
+    height: 440px;
+    background: transparent;
+    color: white;
+    border: 2px solid gray;
+    border-radius: 10px;
+    padding: 30px 40px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px black;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper .form-box {
+    text-align: center;
+    width: 100%;
+}
+
+.form-box h3 {
+    font-size: 1.8em;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.input-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 50px;
+    margin: 20px 0;
+    position: relative;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: lavender;
+    padding: 0 45px 0 20px;
+}
+
+.input-box input::placeholder {
+    color: lavender;
+}
+
+.wrapper .btn {
+    width: 100%;
+    height: 45px;
+    background: rgb(242, 220, 242);
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}
+
+.wrapper .register-link,
+.wrapper .admin-link {
+    font-size: 14.5px;
+    text-align: center;
+    margin-top: 20px 0 15px;
+}
+
+.register-link p a,
+.admin-link p a {
+    color: lavender;
+    text-decoration: none;
+}
+
+.register-link p a:hover,
+.admin-link p a:hover {
+    text-decoration: underline;
+}
+
+html {
+    scroll-behavior: smooth;
+}

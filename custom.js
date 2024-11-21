@@ -7,7 +7,10 @@ function updatePage(event) {
   const twitterLink = document.querySelector('input[name="twitter"]').value;
   const linkedinLink = document.querySelector('input[name="linkedin"]').value;
   const instagramLink = document.querySelector('input[name="instagram"]').value;
-  const youtubeLink = document.querySelector('input[name="youtube"]').value;
+  const phoneNumber = document.getElementById("phone").value;
+  const descriptionTitle = document.getElementById("title").value;
+  const description = document.getElementById("description").value;
+  const companyImage = document.getElementById("upload").files[0];
 
   localStorage.setItem("companyName", companyName);
   localStorage.setItem("companyAddress", companyAddress);
@@ -15,8 +18,20 @@ function updatePage(event) {
   localStorage.setItem("twitterLink", twitterLink);
   localStorage.setItem("linkedinLink", linkedinLink);
   localStorage.setItem("instagramLink", instagramLink);
-  localStorage.setItem("youtubeLink", youtubeLink);
+  localStorage.setItem("phoneNumber", phoneNumber);
+  localStorage.setItem("descriptionTitle", descriptionTitle);
+  localStorage.setItem("description", description);
 
-  alert("Company information saved successfully!");
-  window.location.href = "home-page.html";
+  if (companyImage) {
+    const reader = new FileReader();
+    reader.onloadend = function () {
+      localStorage.setItem("companyImage", reader.result);
+      alert("Company information saved successfully!");
+      window.location.href = "home-page.html";
+    };
+    reader.readAsDataURL(companyImage);
+  } else {
+    alert("Company information saved successfully, but no image was uploaded.");
+    window.location.href = "home-page.html";
+  }
 }
