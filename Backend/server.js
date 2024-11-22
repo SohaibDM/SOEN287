@@ -20,12 +20,53 @@ const db = mysql.createConnection({
   database: "soen287project",
 });
 
+const Customer1 = {
+  Name: 'ro',
+  Email: 'emai963@gmail.com',
+  DOB: '2009/06/01',
+  Address: '2 boul adress',
+  Username: 'user4',
+  Password: 'pass4'
+ }; 
+ 
+ const insertCustomer = 'INSERT INTO customers (Name, Email, DOB, Address, Username, Password) VALUES (?,?,?,?,?,?)';
+
+
 db.connect((err) => {
   if (err) {
     console.error("Database connection failed:", err);
     return;
   }
   console.log("Connected to the database.");
+});
+/*
+db.query(insertCustomer, [Customer1.Name, Customer1.Email, Customer1.DOB, Customer1.Address, Customer1.Username, Customer1.Password], (error, results) => {
+  if(error){
+    console.error('Error inserting customer: ', error);
+  }
+  else{
+    console.log('Student added successfully! ', results);
+  }
+});
+*/
+
+app.get("/Frontend/account-settings/:customer_ID", (req, res) => {
+  const userId = req.params.customer_ID; // Use the ID passed in the URL
+  const query = "SELECT Username, Name, Email, DOB, payment FROM customers WHERE customer_ID = ?";
+  
+  db.query(query, [userId], (err, result) => {
+    if (err){
+      console.error('Error accessing customer: ', err);
+      res.status(500).send("Internal Server Error");
+    }
+    else{
+      if (result.length > 0) {
+        res.json(result[0]); // Return all fields
+      } else {
+        res.json({ Username: 'Guest',Name: "N/A", Email: "N/A", DOB: "N/A", payment: "N/A",}); // Fallback if user not found
+      }
+    }
+  });
 });
 
 app.post("/submit", upload.single("image"), (req, res) => {
