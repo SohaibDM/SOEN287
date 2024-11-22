@@ -28,6 +28,22 @@ db.connect((err) => {
   console.log("Connected to the database.");
 });
 
+
+app.get("/data", (req, res) => {
+  const sql = `
+    SELECT * FROM page
+  `;
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error("Error fetching data:", err);
+      res.status(500).send("Failed to fetch data.");
+      return;
+    }
+    res.send(result);
+  });
+});
+
 app.post("/submit", upload.single("image"), (req, res) => {
   const {
     company_name,
@@ -42,23 +58,15 @@ app.post("/submit", upload.single("image"), (req, res) => {
   } = req.body;
   const image = req.file ? req.file.buffer : null;
 
-  const sql = `
-    INSERT INTO page
-    (id, Image, Company_Name, Address, Email, Number, Desc_Title, Description, Twitter, Instagram, Linkedin)
+  // Base query for INSERT
+  let sql = `
+    INSERT INTO page (id, Image, Company_Name, Address, Email, Number, Desc_Title, Description, Twitter, Instagram, Linkedin)
     VALUES (0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON DUPLICATE KEY UPDATE
-      Image = VALUES(Image),
-      Company_Name = VALUES(Company_Name),
-      Address = VALUES(Address),
-      Email = VALUES(Email),
-      Number = VALUES(Number),
-      Desc_Title = VALUES(Desc_Title),
-      Description = VALUES(Description),
-      Twitter = VALUES(Twitter),
-      Instagram = VALUES(Instagram),
-      Linkedin = VALUES(Linkedin)
   `;
 
+  // Dynamic UPDATE clause
+  const updates = [];
   const values = [
     image,
     company_name,
@@ -72,6 +80,21 @@ app.post("/submit", upload.single("image"), (req, res) => {
     linkedin,
   ];
 
+  if (image !== null) updates.push("Image = VALUES(Image)");
+  if (company_name) updates.push("Company_Name = VALUES(Company_Name)");
+  if (address) updates.push("Address = VALUES(Address)");
+  if (email) updates.push("Email = VALUES(Email)");
+  if (number) updates.push("Number = VALUES(Number)");
+  if (title) updates.push("Desc_Title = VALUES(Desc_Title)");
+  if (description) updates.push("Description = VALUES(Description)");
+  if (twitter) updates.push("Twitter = VALUES(Twitter)");
+  if (instagram) updates.push("Instagram = VALUES(Instagram)");
+  if (linkedin) updates.push("Linkedin = VALUES(Linkedin)");
+
+  // Combine updates into the query
+  sql += updates.join(", ");
+
+  // Execute the query
   db.query(sql, values, (err, result) => {
     if (err) {
       console.error("Error inserting or updating data:", err);
