@@ -14,7 +14,7 @@ const passwordInput = document.getElementById("password");
 const displayUsername = document.getElementById("displayUsername");
 const logoutButton = document.querySelector(".logout-button");
 
-const companyName = document.getElementById("title");
+const companyName = document.getElementById("companyName");
 const descriptionTitle = document.getElementById("descriptionTitle");
 const description = document.getElementById("description");
 const address = document.querySelector("#footer .col:nth-child(3) .nav-link");
@@ -41,26 +41,26 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Data fetched from the backend:", record);
 
         // Populate the form fields with the retrieved data
-        companyName.textContent = record.Company_Name;
-        console.log(record.Company_Name);
-        console.log(companyName.value);
-        address.textContent = record.Address;
-        email.textContent = record.Email;
-        phoneNumber.textContent = record.Number;
-        descriptionTitle.textContent = record.Desc_Title;
-        description.textContent = record.Description;
-        twitterLink.href = record.Twitter;
-        instagramLink.href = record.Instagram;
-        linkedinLink.href = record.Linkedin;
+        if (companyName) { companyName.textContent = record.Company_Name;}
+        if (address) {address.textContent = record.Address;}
+        if (email) { email.textContent = record.Email; }
+        if (phoneNumber) { phoneNumber.textContent = record.Number; }
+        if (descriptionTitle) { descriptionTitle.textContent = record.Desc_Title; }
+        if (description) { description.textContent = record.Description; }
+        if (twitterLink) { twitterLink.href = record.Twitter; }
+        if (instagramLink) { instagramLink.href = record.Instagram; }
+        if (linkedinLink) { linkedinLink.href = record.Linkedin; }
 
-        if (record.Image && record.Image.data) {
-          const byteArray = new Uint8Array(record.Image.data);
-          const blob = new Blob([byteArray], { type: "image/jpeg" }); // Adjust type if needed (e.g., image/png)
-          const imageUrl = URL.createObjectURL(blob);
+        if (imageSrc) {
+          if (record.Image && record.Image.data) {
+            const byteArray = new Uint8Array(record.Image.data);
+            const blob = new Blob([byteArray], { type: "image/jpeg" }); // Adjust type if needed (e.g., image/png)
+            const imageUrl = URL.createObjectURL(blob);
 
-          // Set the `src` attribute of the image element
-          imageSrc.src = imageUrl;
-          imageSrc.alt = "Company Image";
+            // Set the `src` attribute of the image element
+            imageSrc.src = imageUrl;
+            imageSrc.alt = "Company Image";
+          }
         }
 
 

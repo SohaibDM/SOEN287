@@ -11,12 +11,13 @@ function showSection(section) {
   }
 }
 
+
 // Replace '3' with the ID of the customer you want to display
 const specificCustomerId = 3; // Example: Fetch user with ID 3
 const usernameElement = document.getElementById("displayUsername");
 const username = document.getElementById("accountUsername");
 const Name = document.getElementById("name");
-const email = document.getElementById("email");
+const accountEmail = document.getElementById("email");
 const date = document.getElementById("date"); 
 const payment = document.getElementById("payment-card"); 
 
@@ -37,7 +38,7 @@ fetch(`http://localhost:3000/Frontend/account-settings/${specificCustomerId}`)
             usernameElement.textContent = data.Username; // Replace "Guest" with the chosen name
             username.textContent = data.Username; 
             Name.textContent = data.Name; 
-            email.textContent = data.Email; 
+            accountEmail.textContent = data.Email; 
             date.textContent = formatDate(data.DOB); 
             payment.textContent = data.payment; 
 

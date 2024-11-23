@@ -22,15 +22,15 @@
   <body>
     <div id="header">
         <div id="title">
-           <a href="home-page.html" style="text-decoration: none; color: inherit;">
-              <h1>Company Name</h1>
+           <a href="./home-page.html" style="text-decoration: none; color: inherit;">
+              <h1 id="companyName">Company Name</h1>
           </a>
         </div>
         
         <div id="nav-bar">
             <ul>
                 <li><a href="#footer">About Us</a></li>
-                <li><a href="/ServicesPage.html">Services</a></li>
+                <li><a href="./ServicesPage.html">Services</a></li>
             </ul>
         </div>
         
@@ -64,30 +64,37 @@
             <div class="user-info d-flex align-items-center">
               <img class="account-image" src="man_icon.png" alt="account-image" />
               <div class="ml-3">
-                <p class="thin-text">Client</p>
+                <p class="thin-text">Username:</p>
                 <p class="Username" id="accountUsername">Username</p>
               </div>
             </div>
             <hr class="line d-flex align-items-center" />
             <p class="details-text">Details</p>
             <div class="info-container d-flex justify-content-left">
-              <p class="personal-info" id="name">Name</p>
-              <p class="change-info-text">Change my username</p>
+              <div class="info-container label-value-container">
+                <p class="change-info-text">name:</p>
+                <p class="personal-info" id="name">Name</p>
+              </div>
             </div>
             <div class="info-container d-flex justify-content-left">
-              <p class="personal-info" id="date">03/10/1996</p>
-              <p class="change-info-text">Change my birth date</p>
+              <div class="info-container label-value-container">
+                <p class="change-info-text">birth date:</p>
+                <p class="personal-info" id="date">03/10/1996</p>
+              </div>
             </div>
             <div class="info-container d-flex justify-content-left">
-              <p class="personal-info" id="email">**********rtn@gmail.com</p>
-              <p class="change-info-text">Change my email</p>
+              <div class="info-container label-value-container">
+                <p class="change-info-text">email:</p>
+                <p class="personal-info" id="email">**********rtn@gmail.com</p>
+              </div>
             </div>
             <div class="info-container d-flex justify-content-left">
-              <p class="personal-info" id="payment-card">**********3954</p>
-              <p class="change-info-text">Change my payment method</p>
+              <div class="info-container label-value-container">
+                <p class="change-info-text">payment method:</p>
+                <p class="personal-info" id="payment-card">**********3954</p>
+              </div>
             </div>
             <hr class="line d-flex align-items-center" />
-            <button type="button" class="sign-out-button">Sign out</button>
           </div>
         </div>
 
@@ -220,8 +227,9 @@
   </div>
   </div>
 
-    <script src="account-script.js"></script>
     <script src="script.js"></script>
+    <script src="account-script.js"></script>
+    
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
