@@ -52,16 +52,13 @@ document.addEventListener("DOMContentLoaded", function () {
         if (linkedinLink) { linkedinLink.href = record.Linkedin; }
 
         if (imageSrc) {
-          if (record.Image && record.Image.data) {
-            const byteArray = new Uint8Array(record.Image.data);
-            const blob = new Blob([byteArray], { type: "image/jpeg" }); // Adjust type if needed (e.g., image/png)
-            const imageUrl = URL.createObjectURL(blob);
-
-            // Set the `src` attribute of the image element
+          if (record.Image_Path) {
+            const imageUrl = `http://localhost:3000${record.Image_Path}`; // Full URL for the image
             imageSrc.src = imageUrl;
             imageSrc.alt = "Company Image";
           }
         }
+
 
 
         console.log("Form fields populated with backend data.");

@@ -3,15 +3,35 @@ const mysql = require("mysql");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const multer = require("multer");
-
+const path = require("path");
+const fs = require("fs");
 const app = express();
 const port = 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-const storage = multer.memoryStorage();
+
+
+
+// Configure storage for file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadDir = path.join(__dirname, "uploads");
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir); // Ensure the upload directory exists
+    }
+    cb(null, uploadDir); // Save files in the 'uploads' directory
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = `${Date.now()}-${file.originalname}`;
+    cb(null, uniqueName); // Generate a unique filename
+  },
+});
+
 const upload = multer({ storage: storage });
+
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -52,7 +72,9 @@ app.get("/Frontend/account-settings/:customer_ID", (req, res) => {
 
 app.get("/data", (req, res) => {
   const sql = `
-    SELECT * FROM page
+    SELECT id, Company_Name, Address, Email, Number, Desc_Title, Description, Twitter, Instagram, Linkedin, 
+           Image_Path 
+    FROM page;
   `;
 
   db.query(sql, (err, result) => {
@@ -64,6 +86,7 @@ app.get("/data", (req, res) => {
     res.send(result);
   });
 });
+
 
 app.post("/submit", upload.single("image"), (req, res) => {
   const {
@@ -77,11 +100,13 @@ app.post("/submit", upload.single("image"), (req, res) => {
     instagram,
     linkedin,
   } = req.body;
-  const image = req.file ? req.file.buffer : null;
+
+  // Check if an image was uploaded
+  const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
 
   // Base query for INSERT
   let sql = `
-    INSERT INTO page (id, Image, Company_Name, Address, Email, Number, Desc_Title, Description, Twitter, Instagram, Linkedin)
+    INSERT INTO page (id, Image_Path, Company_Name, Address, Email, Number, Desc_Title, Description, Twitter, Instagram, Linkedin)
     VALUES (0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON DUPLICATE KEY UPDATE
   `;
@@ -89,7 +114,7 @@ app.post("/submit", upload.single("image"), (req, res) => {
   // Dynamic UPDATE clause
   const updates = [];
   const values = [
-    image,
+    imagePath, // Save the relative path to the image
     company_name,
     address,
     email,
@@ -101,7 +126,7 @@ app.post("/submit", upload.single("image"), (req, res) => {
     linkedin,
   ];
 
-  if (image !== null) updates.push("Image = VALUES(Image)");
+  if (imagePath) updates.push("Image_Path = VALUES(Image_Path)");
   if (company_name) updates.push("Company_Name = VALUES(Company_Name)");
   if (address) updates.push("Address = VALUES(Address)");
   if (email) updates.push("Email = VALUES(Email)");
@@ -125,6 +150,7 @@ app.post("/submit", upload.single("image"), (req, res) => {
     res.send("Data saved or updated successfully!");
   });
 });
+
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
