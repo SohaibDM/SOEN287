@@ -11,6 +11,11 @@ const port = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use(
+  "/serviceImages",
+  express.static(path.join(__dirname, "serviceImages"))
+);
+
 
 
 
@@ -213,6 +218,76 @@ app.post("/addService", serviceUpload.single("serviceImage"), (req, res) => {
       return;
     }
     res.send("Service added successfully!");
+  });
+});
+
+
+app.get("/services", (req, res) => {
+  const sql = `
+    SELECT service_ID, Title, Category, Price, originalPrice, Availability, Image
+    FROM services;
+  `;
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error("Error fetching services:", err);
+      res.status(500).send("Failed to fetch services.");
+      return;
+    }
+    res.json(result); // Send the result as a JSON response
+  });
+});
+
+
+app.delete("/deleteService/:id", (req, res) => {
+  const serviceId = req.params.id;
+
+  // Step 1: Get the image path for the service
+  const selectQuery = `
+    SELECT Image FROM services WHERE service_ID = ?;
+  `;
+
+  db.query(selectQuery, [serviceId], (err, result) => {
+    if (err) {
+      console.error("Error fetching service:", err);
+      res.status(500).send("Failed to fetch service details.");
+      return;
+    }
+
+    if (result.length === 0) {
+      res.status(404).send("Service not found.");
+      return;
+    }
+
+    const imagePath = result[0].Image;
+
+    // Step 2: Delete the image file if it exists
+    if (imagePath) {
+      const absolutePath = path.join(__dirname, imagePath);
+      fs.unlink(absolutePath, (unlinkErr) => {
+        if (unlinkErr && unlinkErr.code !== "ENOENT") {
+          console.error("Error deleting image file:", unlinkErr);
+          res.status(500).send("Failed to delete image file.");
+          return;
+        }
+        console.log("Image file deleted successfully.");
+      });
+    }
+
+    // Step 3: Delete the service record from the database
+    const deleteQuery = `
+      DELETE FROM services WHERE service_ID = ?;
+    `;
+
+    db.query(deleteQuery, [serviceId], (deleteErr) => {
+      if (deleteErr) {
+        console.error("Error deleting service:", deleteErr);
+        res.status(500).send("Failed to delete service.");
+        return;
+      }
+
+      res.send("Service and its image deleted successfully!");
+    });
   });
 });
 
