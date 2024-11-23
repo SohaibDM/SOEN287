@@ -74,7 +74,7 @@ app.get("/Frontend/account-settings/:customer_ID", (req, res) => {
   console.log("Received customer_ID:", userId);
   const query = "SELECT Username, Name, Email, DOB, payment FROM customers WHERE customer_ID = ?";
   const query_order = "SELECT service_ID, isPaid, purchaseDate FROM bought_services WHERE customer_ID = ?";
-  const query_service = "SELECT * FROM services WHERE service_ID = ?"; // Query for full service details
+  const query_service = "SELECT * FROM services WHERE service_ID IN (?, ?, ...)"; // Query for full service details
 
   // Fetch customer details
   db.query(query, [userId], (err, result) => {
