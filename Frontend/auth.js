@@ -2,6 +2,7 @@
 const API_BASE_URL = "http://localhost:3000";
 
 // Function to handle login
+// Function to handle login
 async function handleLogin(event) {
   event.preventDefault();
 
@@ -26,18 +27,22 @@ async function handleLogin(event) {
 
     if (response.ok) {
       alert("Login successful!");
-      localStorage.setItem("user", JSON.stringify(result.user)); // Save user info if needed
-      window.location.href = "home-page.html"; // Redirect to the homepage
+      
+      // Store customer ID in sessionStorage
+      sessionStorage.setItem("customer_id", result.user.id);
+      sessionStorage.setItem("user", result.user.username);
+
+      // Redirect to the homepage
+      window.location.href = "home-page.html"; 
     } else {
-      alert(
-        result.message || "Failed to login. Please check your credentials."
-      );
+      alert(result.message || "Failed to login. Please check your credentials.");
     }
   } catch (error) {
     console.error("Error logging in:", error);
     alert("An error occurred. Please try again.");
   }
 }
+
 
 // Function to handle registration
 async function handleRegistration(event) {

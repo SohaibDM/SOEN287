@@ -13,7 +13,8 @@ function showSection(section) {
 
 
 // Replace '3' with the ID of the customer you want to display
-const specificCustomerId = 3; // Example: Fetch user with ID 3
+const specificCustomerId = sessionStorage.getItem("customer_id");
+console.log(specificCustomerId) // Example: Fetch user with ID 3
 const usernameElement = document.getElementById("displayUsername");
 const username = document.getElementById("accountUsername");
 const Name = document.getElementById("name");
