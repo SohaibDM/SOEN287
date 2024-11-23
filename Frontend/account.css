@@ -130,3 +130,9 @@ body {
   gap: 10px;
   align-items: center;
 }
+
+.service-description {
+  color: #c7c7c7 !important;
+  font-size: 20px !important;
+  font-weight: normal !important;
+}
