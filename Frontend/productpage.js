@@ -19,7 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((service) => {
       // Populate the page with service details
       console.log(service);
-      document.querySelector(".card-img-top").src = `http://localhost:3000${service.Image}`;
+      document.querySelector(
+        ".card-img-top"
+      ).src = `http://localhost:3000${service.Image}`;
       document.querySelector(".display-5").textContent = service.Title;
       document.querySelector(
         ".text-decoration-line-through"
@@ -29,7 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelector(
         ".text-decoration-line-through + span"
       ).textContent = `$${service.Price}`;
-      console.log(service.Description);
       document.querySelector(".lead").textContent = service.Description;
       document.querySelector(
         ".small.mb-1"
@@ -37,6 +38,47 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelector(
         "#availability"
       ).textContent = `Availability: ${service.Availability}`;
+
+      // Add event listener for the "Add to Cart" button
+      document
+        .querySelector("#addToCartButton")
+        .addEventListener("click", () => {
+          const customerId = sessionStorage.getItem("customer_id");
+
+          if (!customerId) {
+            alert("You need to be logged in to add a service to the cart.");
+            return;
+          }
+
+          // Prepare the data to be sent to the backend
+          const purchaseDate = new Date().toISOString().split("T")[0]; // Get today's date in 'YYYY-MM-DD' format
+          const data = {
+            customer_id: customerId,
+            service_id: serviceId,
+            purchaseDate: purchaseDate,
+            isPaid: false, // Set the default value for isPaid to false
+          };
+
+          // Send a POST request to add the service to the cart (boughtServices table)
+          fetch("http://localhost:3000/addToCart", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          })
+            .then((response) => {
+              if (response.ok) {
+                alert("Service added to cart successfully!");
+              } else {
+                throw new Error("Failed to add service to cart.");
+              }
+            })
+            .catch((error) => {
+              console.error("Error adding service to cart:", error);
+              alert("Failed to add service to cart.");
+            });
+        });
     })
     .catch((error) => {
       console.error("Error loading service details:", error);

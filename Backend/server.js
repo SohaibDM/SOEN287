@@ -411,6 +411,36 @@ app.post("/register", (req, res) => {
 });
 
 
+// Endpoint to add a service to the cart (boughtServices table)
+app.post("/addToCart", (req, res) => {
+  const service_id = req.body.service_id; // The service ID passed in the body
+  const customerId = req.body.customer_id;
+  const purchaseDate = req.body.purchaseDate; // The customer ID from the session
+
+  if (!customerId) {
+    return res.status(400).json({ success: false, message: "Customer not logged in." });
+  }
+
+  // Insert the data into the boughtServices table
+  const sql = `
+    INSERT INTO bought_services (customer_ID, service_ID, purchaseDate, isPaid)
+    VALUES (?, ?, ?, ?)
+  `;
+
+  // Set default value for isPaid as false (service is added to cart, not purchased yet)
+  const values = [customerId, service_id, purchaseDate, false];
+
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error("Error adding service to cart:", err);
+      return res.status(500).json({ success: false, message: "Failed to add service to cart." });
+    }
+
+    res.json({ success: true, message: "Service added to cart successfully!" });
+  });
+});
+
+
 
 
 app.listen(port, () => {
