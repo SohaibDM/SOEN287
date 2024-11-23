@@ -19,8 +19,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <div class="col-md-4 mb-4">
                     <div class="bbb_deals">
                         <div class="bbb_deals_title">
-                            <a href="/productPage.html?id=${
-                              service.id
+                            <a href="./productPage1.html?id=${
+                              service.service_ID
                             }" style="text-decoration: none; color: inherit;">
                                 ${service.Title || "Untitled Service"}
                             </a>

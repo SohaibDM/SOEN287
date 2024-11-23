@@ -196,19 +196,34 @@ const serviceUpload = multer({ storage: serviceStorage });
 
 // Correct the middleware in the '/addService' route
 app.post("/addService", serviceUpload.single("serviceImage"), (req, res) => {
-  const { serviceName, category, price, originalPrice, availability } = req.body;
+  const {
+    serviceName,
+    category,
+    price,
+    originalPrice,
+    availability,
+    description,
+  } = req.body;
 
   // Check if an image was uploaded
   const imagePath = req.file ? `/serviceImages/${req.file.filename}` : null;
 
   // SQL query to insert the service details
   const sql = `
-    INSERT INTO services (Title, Category, Price, originalPrice, Availability, Image)
-    VALUES (?, ?, ?, ?, ?, ?)
+    INSERT INTO services (Title, Category, Price, originalPrice, Availability, Description, Image)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
 
   // Values to be inserted
-  const values = [serviceName, category, price, originalPrice, availability, imagePath];
+  const values = [
+    serviceName,
+    category,
+    price,
+    originalPrice,
+    availability,
+    description,
+    imagePath,
+  ];
 
   // Execute the query
   db.query(sql, values, (err, result) => {
@@ -220,6 +235,7 @@ app.post("/addService", serviceUpload.single("serviceImage"), (req, res) => {
     res.send("Service added successfully!");
   });
 });
+
 
 
 app.get("/services", (req, res) => {
@@ -288,6 +304,32 @@ app.delete("/deleteService/:id", (req, res) => {
 
       res.send("Service and its image deleted successfully!");
     });
+  });
+});
+
+
+app.get("/services/:id", (req, res) => {
+  const serviceId = req.params.id;
+
+  const sql = `
+    SELECT service_ID, Title, Category, Price, originalPrice, Availability, Description, Image
+    FROM services
+    WHERE service_ID = ?;
+  `;
+
+  db.query(sql, [serviceId], (err, result) => {
+    if (err) {
+      console.error("Error fetching service details:", err);
+      res.status(500).send("Failed to fetch service details.");
+      return;
+    }
+
+    if (result.length === 0) {
+      res.status(404).send("Service not found.");
+      return;
+    }
+
+    res.json(result[0]); // Return the first matching service
   });
 });
 

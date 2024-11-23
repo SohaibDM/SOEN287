@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2024 at 05:05 AM
+-- Generation Time: Nov 23, 2024 at 08:40 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -99,7 +99,7 @@ CREATE TABLE `page` (
 --
 
 INSERT INTO `page` (`ID`, `Image_Path`, `Company_Name`, `Address`, `Email`, `Number`, `Desc_Title`, `Description`, `Twitter`, `Instagram`, `Linkedin`) VALUES
-(0, '/uploads/1732324141853-Moons.png', 'not bilel', 'bilelbilel', 'bilel@bilel.bilel', '000-000-0000', 'bilel', 'bilel\r\nbilel\r\nbilel\r\nbilelllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll lllllllllllllllllllllllllllllllllllllllllll', 'https://google.com', 'https://google.com', 'https://google.com');
+(0, '/uploads/1732340393186-Screenshot 2024-07-06 164134.png', 'not bilel', 'bilelbilel', 'bilel@bilel.bilel', '000-000-0000', 'bilel', 'bilel\r\nbilel\r\nbilel\r\nbilelllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll lllllllllllllllllllllllllllllllllllllllllll', 'https://google.com', 'https://google.com', 'https://google.com');
 
 -- --------------------------------------------------------
 
@@ -114,6 +114,7 @@ CREATE TABLE `services` (
   `Price` int(11) NOT NULL,
   `originalPrice` int(11) NOT NULL,
   `Availability` int(11) NOT NULL,
+  `description` text NOT NULL,
   `Image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -121,10 +122,9 @@ CREATE TABLE `services` (
 -- Dumping data for table `services`
 --
 
-INSERT INTO `services` (`service_ID`, `Title`, `Category`, `Price`, `originalPrice`, `Availability`, `Image`) VALUES
-(2, 'service from db', 'new ', 19901, 22110, 2, '/serviceImages/1732327231832-PFP.png'),
-(3, 'new', 'wen', 90, 900, 90, '/serviceImages/1732327720847-PFP.png'),
-(4, 'new', 'nfie', 90, 900, 2, '/serviceImages/1732328476844-PFP.png');
+INSERT INTO `services` (`service_ID`, `Title`, `Category`, `Price`, `originalPrice`, `Availability`, `description`, `Image`) VALUES
+(16, 'new des', 'desc', 76, 78, 3, 'fbweoufywf\r\nfwfaefwfweF\r\nWfewefawfwfwefwgergagergeagrfaf\r\nFwefeeeeeeeeeeeeeeeeeewwwwwwwwwwe', '/serviceImages/1732387541797-PFP.png'),
+(17, 'des new', 'de', 67, 76, 76, 'bfffffffffffffffffffffffffffffffffffffff\r\nf\r\n\r\nffffffffffffffffffffffffffffffffffffffff', '/serviceImages/1732387666622-PFP.png');
 
 --
 -- Indexes for dumped tables
@@ -181,7 +181,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `service_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `service_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables

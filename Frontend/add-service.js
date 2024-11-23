@@ -21,6 +21,10 @@ document
         document.getElementById("availability").value
       );
       formData.append(
+        "description",
+        document.getElementById("servicedescription").value
+      ); // Add the description
+      formData.append(
         "serviceImage",
         document.getElementById("serviceImage").files[0]
       );
@@ -34,7 +38,7 @@ document
           if (!response.ok) {
             throw new Error("Failed to fetch from the server.");
           }
-          
+
           return response.text(); // Handle plain text response
         })
         .then((data) => {

@@ -22,6 +22,7 @@
     text-align: left;
 }
 
+.form-container textarea,
 .form-container input[type="text"],
 .form-container input[type="file"],
 .form-container input[type="number"] {
