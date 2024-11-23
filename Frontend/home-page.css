@@ -97,11 +97,6 @@ html,
     margin: 0;
   }
 
-  /* .album py-5 bg-body-tertiary {
-      background-color: rgba(115, 102, 141, 0.5);
-      border-radius: 20px;z
-      padding: 50px 0;
-  } */
 
   .album.py-5.bg-body-tertiary {
     background-color: transparent !important;

@@ -1,0 +1,132 @@
+body {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #3C314F, #000000);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+  font-family: 'Poppins';
+  margin: 0;
+}
+
+.username{
+  color: white;
+  font-weight: normal;
+  font-size: 20px;
+  text-decoration:none !important;
+  margin-right: 40px;
+}
+
+.account-page{
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.left-column {
+  background-color: #554274;
+  border-radius: 10px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start; 
+}
+.custom-btn {
+  color: white !important;
+  font-size: 20px !important;
+  font-weight: lighter !important;
+  background-color: #A782E5 !important;
+  border-radius: 23px !important;
+  padding-top: 5px !important;
+  padding-left: 25px !important;
+  padding-bottom: 5px !important;
+  margin-bottom: 5px !important;
+  margin-top: 5px !important;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left !important;
+}
+.right-column{
+  background-color: rgba(85,66,116,0.1); 
+  border-radius: 10px;
+  padding: 18px; 
+  height: 750px;
+}
+
+.title-paragraph{
+  color: white !important;
+  width: 92% !important;
+  padding-left: 0px !important;
+  font-size: 30px !important;
+  font-weight: bold;
+}
+
+.user-info{
+  background-color: #1A1524;
+  width: 92% !important;
+  padding: 15px; 
+  border-radius: 10px;
+}
+.Username{
+  color: white;
+  font-size: 25px !important;
+  font-weight: bold;
+}
+.thin-text{
+  color: #c7c7c7 !important;
+  font-size: 20px !important;
+}
+.account-image{
+  width: 100px;
+  height: auto;
+  max-height: 100%;
+  border-radius: 50%;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.line {
+  border: none; 
+  height: 2px; 
+  background-color: white; 
+  width: 92% !important; 
+  margin-top: 26px !important; 
+}
+
+.personal-info{
+  color: white !important;
+  font-size: 22px !important;
+  font-weight: normal;
+  margin-right: 72px;
+}
+.info-container{
+  display: flex;
+  align-items: center;
+  width: 92% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.details-text {
+  color: white !important;
+  padding-left: 4% !important;
+  font-size: 30px !important;
+  font-weight: bold;
+}
+.change-info-text {
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-size: 22px !important;
+}
+.sign-out-button{
+  background-color: #A00000;
+  color: white;
+  padding: 7px;
+  border-radius: 25px;
+  margin-top: 20px !important;
+  margin-left: 75%;
+  width: 160px !important;
+}
+
+.label-value-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}

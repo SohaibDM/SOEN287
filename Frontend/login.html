@@ -12,17 +12,22 @@
     <div id="header">
         <div id="title">
            <a href="home-page.html" style="text-decoration: none; color: inherit;">
-              <h1>Company Name</h1>
+              <h1 id="companyName">Company Name</h1>
           </a>
         </div>
         
         <div id="nav-bar">
             <ul>
                 <li><a href="./home-page.html#footer">About Us</a></li>
-                <li><a href="/ServicesPage.html">Services</a></li>
+                <li><a href="./ServicesPage.html">Services</a></li>
             </ul>
         </div>
         
+        <div id="search-bar">
+            <form action="/search" method="get" >
+                <input type="text" placeholder="search" name="q">
+            </form>
+        </div>
     <button class="btnLogin-popup login-button" onclick="window.location.href='login.html'">Login</button>
     <button class="btnLogin-popup logout-button" style="margin:2px;">Logout</button>
 

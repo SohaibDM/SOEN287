@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="add-service.css">
+    <title>Add New Service</title>
+</head>
+<body>
+
+    <div id="header">
+        <div id="title">
+           <a href="home-page.html" style="text-decoration: none; color: inherit;">
+              <h1 id="companyName">Company Name</h1>
+          </a>
+        </div>
+        
+        <div id="nav-bar">
+            <ul>
+                <li><a href="#about-us">About Us</a></li>
+                <li><a href="/ServicesPage.html">Services</a></li>
+            </ul>
+        </div>
+        
+         <div id="search-bar">
+            <form action="/search" method="get" >
+                <input type="text" placeholder="search" name="q">
+            </form>
+        </div>
+    <button class="btnLogin-popup login-button" onclick="window.location.href='login.html'">Login</button>
+    <button class="btnLogin-popup logout-button" style="margin:2px;">Logout</button>
+
+
+        <div id="account">
+             <p><a href="account-settings.html" id="displayUsername" onclick="checkUser()">Guest</a></p>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h2>Add New Service</h2>
+        <form class="service-form" >
+            <label for="serviceName">Service Name:</label>
+            <input type="text" id="serviceName" name="serviceName" placeholder="Enter service name" required>
+
+            <label for="category">Category:</label>
+            <input type="text" id="category" name="category" placeholder="Enter category" required>
+
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" placeholder="Enter price" required>
+
+            <label for="originalPrice">Original Price:</label>
+            <input type="number" id="originalPrice" name="originalPrice" placeholder="Enter original price" required>
+
+            <label for="availability">Availability:</label>
+            <input type="number" id="availability" name="availability" placeholder="Enter availability count" required>
+
+            <label for="serviceImage">Upload Image:</label>
+            <input type="file" id="serviceImage" name="serviceImage" accept="image/*">
+
+            <button type="submit" class="submit-button">Add Service</button>
+        </form>
+    </div>
+    
+    <script src="script.js"></script> 
+    <script src="add-service.js"></script>
+</body>
+</html>
