@@ -15,14 +15,33 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 
 
-// Configure storage for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const uploadDir = path.join(__dirname, "uploads");
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir); // Ensure the upload directory exists
     }
-    cb(null, uploadDir); // Save files in the 'uploads' directory
+
+    // Delete all files in the 'uploads' folder before saving the new file
+    fs.readdir(uploadDir, (err, files) => {
+      if (err) {
+        console.error("Error reading uploads directory:", err);
+        cb(err, uploadDir);
+        return;
+      }
+
+      files.forEach((file) => {
+        const filePath = path.join(uploadDir, file);
+        fs.unlink(filePath, (err) => {
+          if (err) {
+            console.error("Error deleting file:", filePath, err);
+          } else {
+            console.log(`Deleted file: ${filePath}`);
+          }
+        });
+      });
+      cb(null, uploadDir);
+    });
   },
   filename: (req, file, cb) => {
     const uniqueName = `${Date.now()}-${file.originalname}`;
@@ -150,6 +169,54 @@ app.post("/submit", upload.single("image"), (req, res) => {
     res.send("Data saved or updated successfully!");
   });
 });
+
+
+// Configure storage specifically for service images
+const serviceStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadDir = path.join(__dirname, "serviceImages");
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir); // Ensure the directory exists
+    }
+    cb(null, uploadDir); // Save files in 'serviceImages'
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = `${Date.now()}-${file.originalname}`;
+    cb(null, uniqueName); // Generate a unique filename
+  },
+});
+
+// Use the updated storage configuration for service uploads
+const serviceUpload = multer({ storage: serviceStorage });
+
+// Correct the middleware in the '/addService' route
+app.post("/addService", serviceUpload.single("serviceImage"), (req, res) => {
+  const { serviceName, category, price, originalPrice, availability } = req.body;
+
+  // Check if an image was uploaded
+  const imagePath = req.file ? `/serviceImages/${req.file.filename}` : null;
+
+  // SQL query to insert the service details
+  const sql = `
+    INSERT INTO services (Title, Category, Price, originalPrice, Availability, Image)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `;
+
+  // Values to be inserted
+  const values = [serviceName, category, price, originalPrice, availability, imagePath];
+
+  // Execute the query
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error("Error inserting data:", err);
+      res.status(500).send("Failed to add the service.");
+      return;
+    }
+    res.send("Service added successfully!");
+  });
+});
+
+
 
 
 app.listen(port, () => {
