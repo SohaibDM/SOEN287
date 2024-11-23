@@ -34,6 +34,7 @@ document
           if (!response.ok) {
             throw new Error("Failed to fetch from the server.");
           }
+          
           return response.text(); // Handle plain text response
         })
         .then((data) => {
