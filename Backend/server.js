@@ -77,21 +77,59 @@ db.connect((err) => {
 app.get("/Frontend/account-settings/:customer_ID", (req, res) => {
   const userId = req.params.customer_ID; // Use the ID passed in the URL
   const query = "SELECT Username, Name, Email, DOB, payment FROM customers WHERE customer_ID = ?";
-  
+  const query_order = "SELECT service_ID, isPaid, purchaseDate FROM bought_services WHERE customer_ID = ?";
+  const query_service = "SELECT * FROM services WHERE service_ID IN (?)"; // Query for full service details
+
+  // Fetch customer details
   db.query(query, [userId], (err, result) => {
-    if (err){
+    if (err) {
       console.error('Error accessing customer: ', err);
       res.status(500).send("Internal Server Error");
-    }
-    else{
+    } else {
       if (result.length > 0) {
-        res.json(result[0]); // Return all fields
+        // Fetch bought services
+        db.query(query_order, [userId], (err2, result2) => {
+          if (err2) {
+            console.error('Error accessing the bought services:', err2);
+            res.status(500).send("Internal Server Error");
+          } else {
+            if (result2.length > 0) {
+              const serviceIds = result2.map((service) => service.service_ID); // Extract all service IDs
+
+              // Fetch full service info for bought services
+              db.query(query_service, [serviceIds], (err3, result3) => {
+                if (err3) {
+                  console.error('Error accessing service details:', err3);
+                  res.status(500).send("Internal Server Error");
+                } else {
+                  res.json({
+                    customer: result[0],
+                    boughtServices: result2,
+                    serviceDetails: result3,
+                  });
+                }
+              });
+            } else {
+              res.json({
+                customer: result[0],
+                boughtServices: [],
+                serviceDetails: [],
+                message: "You did not buy any services yet!",
+              });
+            }
+          }
+        });
       } else {
-        res.json({ Username: 'Guest',Name: "N/A", Email: "N/A", DOB: "N/A", payment: "N/A",}); // Fallback if user not found
+        res.json({
+          customer: { Username: 'Guest', Name: "N/A", Email: "N/A", DOB: "N/A", payment: "N/A" },
+          boughtServices: [],
+          serviceDetails: [],
+        });
       }
     }
   });
 });
+
 
 
 app.get("/data", (req, res) => {
