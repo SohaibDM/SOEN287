@@ -30,12 +30,12 @@ function formatDate(dateString) {
   const day = String(dateObj.getDate()).padStart(2, '0'); // Get day and pad with leading zero if needed
   return `${year}/${month}/${day}`;
 }
-
+console.log("EEEEEEEEEEEEEEEEEEE");
 // Fetch user info for the chosen ID
 fetch(`http://localhost:3000/Frontend/account-settings/${specificCustomerId}`)
     .then(response => response.json())
     .then(data => {
-      console.log("EEEEEEEEEEEEEEEEEEE");
+      
         if (data.customer && data.customer.Username) {
             usernameElement.textContent = data.Username; // Replace "Guest" with the chosen name
             username.textContent = data.Username; 
