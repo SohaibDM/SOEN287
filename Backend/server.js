@@ -334,6 +334,83 @@ app.get("/services/:id", (req, res) => {
 });
 
 
+// Login route
+app.post("/login", (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    res.status(400).json({ success: false, message: "Username and password are required." });
+    return;
+  }
+
+  const sql = "SELECT * FROM customers WHERE Username = ?";
+  db.query(sql, [username], (err, results) => {
+    if (err) {
+      console.error("Error during login query:", err);
+      res.status(500).json({ success: false, message: "Internal server error." });
+      return;
+    }
+
+    if (results.length === 0) {
+      res.status(401).json({ success: false, message: "Invalid username or password." });
+      return;
+    }
+
+    const user = results[0];
+    if (user.Password !== password) {
+      res.status(401).json({ success: false, message: "Invalid username or password." });
+    } else {
+      res.json({
+        success: true,
+        message: "Login successful!",
+        user: {
+          id: user.customer_ID,
+          username: user.Username,
+          email: user.Email,
+          name: user.Name,
+        },
+      });
+    }
+  });
+});
+
+// Registration route
+app.post("/register", (req, res) => {
+  const { fullName, birthdate, email, address, username, password, confirmPassword } = req.body;
+
+  if ( !username || !password || !confirmPassword) {
+    console.log(username, password, confirmPassword);
+    res.status(400).json({ success: false, message: "username and password are required." });
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    res.status(400).json({ success: false, message: "Passwords do not match." });
+    return;
+  }
+
+  const sql = `
+    INSERT INTO customers (Name, DOB, Email, Address, Username, Password)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `;
+
+  db.query(sql, [fullName, birthdate, email, address, username, password], (err, result) => {
+    if (err) {
+      if (err.code === "ER_DUP_ENTRY") {
+        res.status(409).json({ success: false, message: "Username or email already exists." });
+      } else {
+        console.error("Error during registration query:", err);
+        res.status(500).json({ success: false, message: "Internal server error." });
+      }
+      return;
+    }
+
+    console.log("Registration successful!");
+    res.json({ success: true, message: "Registration successful!" });
+  });
+});
+
+
 
 
 app.listen(port, () => {
