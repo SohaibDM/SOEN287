@@ -8,36 +8,66 @@ function formatDate(dateString) {
   }
 
 
-
   fetch(`http://localhost:3000/Frontend/bought-services.html`)
   .then((response) => response.json())
   .then((data) => {
     if (data.boughtServices && data.boughtServices.length > 0) {
-    const tableBody = document.getElementById("table-body");
+      const tableBody = document.getElementById("table-body");
 
-    // Loop through bought services and populate rows
-    data.boughtServices.forEach((service) => {
-    // Find the associated customer and service details
-    const customer = data.customers.find((cust) => cust.customer_ID === service.customer_ID);
-    const serviceDetail = data.serviceDetails.find((srv) => srv.service_ID === service.service_ID);
+      // Function to render table rows
+      const renderTable = (filteredData) => {
+        // Clear the existing rows
+        tableBody.innerHTML = "";
 
-    // Create a new row
-    const row = document.createElement("tr");
+        // Populate table with filtered data
+        filteredData.forEach((service) => {
+          const customer = data.customers.find((cust) => cust.customer_ID === service.customer_ID);
+          const serviceDetail = data.serviceDetails.find((srv) => srv.service_ID === service.service_ID);
 
-    // Populate row cells
-    row.innerHTML = `
-        <td scope="row" id="service-name">${serviceDetail?.Title || "Unknown Service"}</td>
-        <td id="customer-name">${customer?.Name || "Unknown Customer"}</td>
-        <td id="customer-username">${customer?.Username || "N/A"}</td>
-        <td id="date-availed">${formatDate(service.purchaseDate) || "N/A"}</td>
-        <td id="status">${service.isPaid ? "Paid" : "Unpaid"}</td>
-    `;
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td scope="row" id="service-name">${serviceDetail?.Title || "Unknown Service"}</td>
+            <td id="customer-name">${customer?.Name || "Unknown Customer"}</td>
+            <td id="customer-username">${customer?.Username || "N/A"}</td>
+            <td id="date-availed">${formatDate(service.purchaseDate) || "N/A"}</td>
+            <td id="status">${service.isPaid ? "Paid" : "Unpaid"}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      };
 
-    // Append the row to the table body
-    tableBody.appendChild(row);
-    });
-} else {
-    console.log("No services bought yet.");
-}
-})
-.catch((error) => console.error("Error fetching user data:", error));
+      // Initial render of all rows
+      renderTable(data.boughtServices);
+
+      // Add event listeners for filters
+      const usernameInput = document.querySelector(".name-input");
+      const dateInput = document.querySelector(".date-input");
+
+      const filterTable = () => {
+        const usernameFilter = usernameInput.value.toLowerCase();
+        const dateFilter = dateInput.value;
+
+        const filteredServices = data.boughtServices.filter((service) => {
+          const customer = data.customers.find((cust) => cust.customer_ID === service.customer_ID);
+          const usernameMatches = customer?.Username.toLowerCase().includes(usernameFilter);
+          const dateMatches = service.purchaseDate.startsWith(dateFilter);
+          
+          // Apply filters if values are provided
+          return (
+            (usernameFilter ? usernameMatches : true) &&
+            (dateFilter ? dateMatches : true)
+          );
+        });
+
+        renderTable(filteredServices);
+      };
+
+      // Attach filtering logic to input events
+      usernameInput.addEventListener("input", filterTable);
+      dateInput.addEventListener("input", filterTable);
+    } else {
+      console.log("No services bought yet.");
+    }
+  })
+  .catch((error) => console.error("Error fetching user data:", error));
+
