@@ -1,4 +1,3 @@
-
 const express = require("express");
 const mysql = require("mysql");
 const bodyParser = require("body-parser");
@@ -197,10 +196,7 @@ app.post("/register", (req, res) => {
     VALUES (?, ?, ?, ?, ?, ?)
   `;
 
-  db.query(
-    sql,
-    [full_name, birthdate, email, address, username, password],
-    (err, result) => {
+  db.query(sql,[full_name, birthdate, email, address, username, password], (err, result) => {
       if (err) {
         if (err.code === "ER_DUP_ENTRY") {
           // already exists
@@ -218,3 +214,51 @@ console.log("Registration successful!");
   );
 });
 
+//admin registration
+app.post("/admin/register", (req, res) => {
+  const { full_name, birthdate, email, address, username, password, confirm_password } = req.body;
+
+  if (password !== confirm_password) {
+    res.status(400).json({ success: false, message: "Passwords do not match." });
+    return;
+  }
+
+  const sql = `
+    INSERT INTO admins (Name, DOB, Email, Address, Username, Password)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `;
+
+  db.query(sql, [full_name, birthdate, email, address, username, password], (err, result) => {
+    if (err) {
+      if (err.code === "ER_DUP_ENTRY") {
+        res.status(409).json({ success: false, message: "Username or email already exists." });
+      } else {
+        console.error("Error during admin registration:", err);
+        res.status(500).json({ success: false, message: "Internal server error." });
+      }
+      return;
+    }
+console.log("Registration successful!");
+    res.json({ success: true, message: "Admin registration successful!" });
+  });
+});
+
+// admin login
+app.post("/admin/login", (req, res) => {
+  const { username, password } = req.body;
+
+  const sql = "SELECT * FROM admins WHERE Username = ? AND Password = ?";
+  db.query(sql, [username, password], (err, results) => {
+    if (err) {
+      console.error("Error during admin login:", err);
+      res.status(500).json({ success: false, message: "Internal server error." });
+      return;
+    }
+
+    if (results.length > 0) {
+      res.json({ success: true, message: "Admin login successful!", admin: results[0] });
+    } else {
+      res.status(401).json({ success: false, message: "Invalid admin credentials." });
+    }
+  });
+});
