@@ -1,0 +1,40 @@
+.info-table {
+    margin-top: 50px !important;
+    width: 80% !important;
+    margin: 0 auto;
+    border-color: aliceblue !important;
+}
+
+td {
+    background-color: #A782E5 !important;
+    padding: 20px !important;
+}
+
+th {
+    background-color: #5d3d93 !important;
+    padding: 20px !important;
+}
+.filter-group {
+    display: flex;
+    align-items: center; /* Vertically align items */
+    margin-left: 10%; /* Adjust horizontal positioning */
+    margin-top: 28px;
+}
+
+.filter-group p {
+    font-weight: bold;
+    color: aliceblue;
+    margin-right: 10px; /* Add space between the label and input */
+}
+
+.filter-group input {
+    padding: 5px;
+    font-size: 14px;
+}
+
+.name-input, .date-input {
+    margin-left: 45px !important;
+    background-color: #5d3d93 !important;
+    width: 20% !important;
+}
+

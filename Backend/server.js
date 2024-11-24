@@ -15,7 +15,7 @@ app.use(
   "/serviceImages",
   express.static(path.join(__dirname, "serviceImages"))
 );
-
+app.use("/Frontend", express.static(path.join(__dirname, "Frontend")));
 
 
 
@@ -73,7 +73,6 @@ db.connect((err) => {
   console.log("Connected to the database.");
 });
 
-
 app.get("/Frontend/account-settings/:customer_ID", (req, res) => {
   const userId = req.params.customer_ID; // Use the ID passed in the URL
   const query = "SELECT Username, Name, Email, DOB, payment FROM customers WHERE customer_ID = ?";
@@ -129,6 +128,60 @@ app.get("/Frontend/account-settings/:customer_ID", (req, res) => {
     }
   });
 });
+
+
+
+app.get("/Frontend/bought-services.html", (req, res) => {
+  // Queries
+  const query_bought = "SELECT customer_ID, service_ID, isPaid, purchaseDate FROM bought_services";
+  const query_customers = "SELECT customer_ID, Username, Name, Email, DOB, payment FROM customers";
+  const query_services = "SELECT * FROM services";
+
+  // Fetch all bought services
+  db.query(query_bought, (err, boughtServices) => {
+    if (err) {
+      console.error("Error accessing bought_services: ", err);
+      return res.status(500).send("Internal Server Error");
+    }
+
+    if (boughtServices.length === 0) {
+      // If no bought services, return empty result
+      return res.json({
+        customers: [],
+        boughtServices: [],
+        serviceDetails: [],
+      });
+    } else {
+      // Extract all unique customer IDs and service IDs
+      const customerIds = [...new Set(boughtServices.map((service) => service.customer_ID))];
+      const serviceIds = [...new Set(boughtServices.map((service) => service.service_ID))];
+
+      // Fetch all related customer info
+      db.query(query_customers, [customerIds], (err, customers) => {
+        if (err) {
+          console.error("Error accessing customers: ", err);
+          return res.status(500).send("Internal Server Error");
+        }
+
+        // Fetch all related service info
+        db.query(query_services, [serviceIds], (err, services) => {
+          if (err) {
+            console.error("Error accessing services: ", err);
+            return res.status(500).send("Internal Server Error");
+          }
+
+          // Send the combined response
+          res.json({
+            boughtServices: boughtServices,
+            customers: customers,
+            serviceDetails: services,
+          });
+        });
+      });
+    }
+  });
+});
+
 
 
 

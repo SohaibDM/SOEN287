@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./home-page.css">
+    <link rel="stylesheet" href="admin-customization.css">
+    <link rel="stylesheet" href="bought-services.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <title>bought-services</title>
+</head>
+<body>
+    <div id="header">
+        <div id="title">
+           <a href="./home-page.html" style="text-decoration: none; color: inherit;">
+              <h1 id="companyName">Company Name</h1>
+          </a>
+        </div>
+        
+        <div id="nav-bar">
+            <ul>
+                <li><a href="#about-us">About Us</a></li>
+                <li><a href="./ServicesPage.html">Services</a></li>
+            </ul>
+        </div>
+        
+         <div id="search-bar">
+            <form action="/search" method="get" >
+                <input type="text" placeholder="search" name="q">
+            </form>
+        </div>
+    <button class="btnLogin-popup logout-button" style="margin:2px;">Logout</button>
+
+
+        <div id="account">
+             <p><a href="./account-settings.html" id="displayUsername" onclick="checkUser()">Guest</a></p>
+        </div>
+    </div>
+
+
+    <div class="filter-group">
+    <p class="filter-name" id="filter-first">filter by Customer Username: </p>
+    <input type="text" placeholder="Enter a username" class="name-input">
+    </div>
+    <div class="filter-group" id="filter-second">
+    <p class="filter-date">filter by date: </p>
+    <input type="text" placeholder="Format: YYYY-MM-DD" class="date-input">
+    </div>
+
+
+
+    <table class="info-table table table-dark">
+        
+        <thead>
+          <tr>
+            <th scope="col">Service Name</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Customer Username</th>
+            <th scope="col">Date Availed</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+            <!--
+          <tr>
+            <td scope="row" id="service-name">1</td>
+            <td id="customer-name">Mark</td>
+            <td id="customer-username">Mark1</td>
+            <td id="date-availed">Otto</td>
+            <td id="status">@mdo</td>
+          </tr>
+        -->
+        </tbody>
+      </table>
+    
+      <script src="bought-services.js"></script>
+</body>
+</html>
+
+
+    
