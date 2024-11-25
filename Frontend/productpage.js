@@ -21,7 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log(service);
       document.querySelector(
         ".card-img-top"
-      ).src = `http://localhost:3000${service.Image}`;
+      ).src = service.Image.startsWith('http') 
+        ? service.Image 
+        : `http://localhost:3000${service.Image}`;      
       document.querySelector(".display-5").textContent = service.Title;
       document.querySelector(
         ".text-decoration-line-through"
