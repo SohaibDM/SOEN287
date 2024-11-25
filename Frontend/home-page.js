@@ -26,9 +26,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                             </a>
                         </div>
                         <div class="bbb_deals_image">
-                            <img src="http://localhost:3000${
-                              service.Image
-                            }" alt="${service.Title || "Untitled Service"}">
+                          <img 
+                              src="${service.Image.startsWith('http') ? service.Image : `http://localhost:3000${service.Image}`}" 
+                              alt="${service.Title || 'Untitled Service'}">
                         </div>
                         <div class="bbb_deals_content">
                             <div class="bbb_deals_item_category">
