@@ -136,3 +136,36 @@ body {
   font-size: 20px !important;
   font-weight: normal !important;
 }
+
+.service-bloc {
+  background-color: #1A1524;
+  /* Dark background */
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.service-title {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.service-price {
+  font-size: 20px;
+  background-color: #A782E5;
+  border-radius: 23px;
+  padding: 5px 25px;
+}
+.pay-button {
+  background-color: #4CAF50 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border: none !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  margin-left: 10px !important;
+}

@@ -608,6 +608,41 @@ app.post("/admin/login", (req, res) => {
 });
 
 
+// Endpoint to fetch unpaid services using transaction_ID
+app.get("/customer/:customerId/unpaid-services", (req, res) => {
+  const customerId = req.params.customerId;
+  const sql = `
+    SELECT bs.transaction_ID, s.Title, s.Price
+    FROM services s
+    JOIN bought_services bs ON s.service_ID = bs.service_ID
+    WHERE bs.customer_ID = ? AND bs.isPaid = 0;
+  `;
+
+  db.query(sql, [customerId], (err, results) => {
+    if (err) {
+      console.error("Error fetching unpaid services:", err);
+      res.status(500).send("Internal Server Error");
+      return;
+    }
+    res.json(results);
+  });
+});
+
+// Payment endpoint updated to use transaction_ID
+app.post("/Frontend/pay-service", (req, res) => {
+  const { transactionId } = req.body;
+  const sql = `UPDATE bought_services SET isPaid = 1 WHERE transaction_ID = ?`;
+
+  db.query(sql, [transactionId], (error, results) => {
+    if (error) {
+      console.error("Database error:", error);
+      return res.status(500).json({ success: false, message: "Payment failed" });
+    }
+    res.json({ success: true, message: "Payment successful" });
+  });
+});
+
+
 
 
 

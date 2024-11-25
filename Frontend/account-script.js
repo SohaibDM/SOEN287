@@ -1,13 +1,19 @@
 function showSection(section) {
   const accountSection = document.getElementById("account-section");
   const ordersSection = document.getElementById("orders-section");
+  const paymentSection = document.getElementById("payment-section");
+
+  accountSection.classList.add("d-none");
+  ordersSection.classList.add("d-none");
+  paymentSection.classList.add("d-none");
 
   if (section === "account") {
     accountSection.classList.remove("d-none");
-    ordersSection.classList.add("d-none");
   } else if (section === "orders") {
     ordersSection.classList.remove("d-none");
-    accountSection.classList.add("d-none");
+  } else if (section === "payment") {
+    paymentSection.classList.remove("d-none");
+    fetchUnpaidServices(specificCustomerId);
   }
 }
 
@@ -29,6 +35,62 @@ function formatDate(dateString) {
   const day = String(dateObj.getDate()).padStart(2, "0"); // Get day and pad with leading zero if needed
   return `${year}/${month}/${day}`;
 }
+
+function fetchUnpaidServices(customerId) {
+  fetch(`http://localhost:3000/customer/${customerId}/unpaid-services`)
+    .then((response) => response.json())
+    .then((services) => {
+      const servicesList = document.getElementById("unpaid-services-list");
+      servicesList.innerHTML = ""; // Clear previous entries
+
+      if (services.length === 0) {
+        servicesList.innerHTML = "<p>No unpaid services.</p>";
+      } else {
+        services.forEach((service) => {
+          const serviceDiv = document.createElement("div");
+          serviceDiv.classList.add("service-bloc"); // Apply the style class
+
+          const title = document.createElement("p");
+          title.classList.add("service-title");
+          title.textContent = service.Title;
+
+          const price = document.createElement("p");
+          price.classList.add("service-price");
+          price.textContent = `$${service.Price}`;
+
+          const payButton = document.createElement("button");
+          payButton.textContent = "Pay Now";
+          payButton.classList.add("btn", "pay-button"); // Additional CSS for styling
+          payButton.onclick = () => processPayment(service.transaction_ID);
+
+          serviceDiv.appendChild(title);
+          serviceDiv.appendChild(price);
+          serviceDiv.appendChild(payButton);
+          servicesList.appendChild(serviceDiv);
+        });
+      }
+    })
+    .catch((error) => console.error("Failed to fetch unpaid services:", error));
+}
+
+function processPayment(transactionId) {
+  console.log("Processing payment for transaction ID:", transactionId); 
+  fetch(`http://localhost:3000/Frontend/pay-service`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ transactionId: transactionId }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      alert(data.message); // Alert the payment status
+      fetchUnpaidServices(specificCustomerId); // Refresh the list to update the status
+    })
+    .catch((error) => console.error("Error processing payment:", error));
+}
+
+
 
 // Fetch user info for the chosen ID
 fetch(`http://localhost:3000/Frontend/account-settings/${specificCustomerId}`)

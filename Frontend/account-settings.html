@@ -55,6 +55,7 @@
           <div class="d-grid gap-2">
             <button class="btn custom-btn" type="button" onclick="showSection('account')">My Account</button>
             <button class="btn custom-btn" type="button" onclick="showSection('orders')">My Orders</button>
+            <button class="btn custom-btn" type="button" onclick="showSection('payment')">Pay</button>
           </div>
         </div>
 
@@ -104,8 +105,21 @@
             
           </div>
         </div>
+
+        <div class="col-md-8 right-column mx-4 d-none" id="payment-section">
+          <div class="row d-flex justify-content-center" id="payment_holder">
+            <p class="title-paragraph">Unpaid Services</p>
+            <div id="unpaid-services-list">
+              <!-- Unpaid services will be dynamically rendered here -->
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
+
+    
+
 
 
     <div id ="footer">
