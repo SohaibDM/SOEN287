@@ -168,21 +168,18 @@ adminPopupBtn.addEventListener("click", (event) => {
 });
 
 function checkUser() {
-  // Get the customer_id from sessionStorage
   const customerId = sessionStorage.getItem("customer_id");
 
-  // If no customer_id is found, redirect to the login page
   if (!customerId) {
     alert("You need to be logged in to access this page.");
     window.location.href = "login.html";
   } else {
     console.log("User is logged in with ID:", customerId);
-
-    // Update the displayUsername element with the username
+    window.location.href = "account-settings.html";
     const displayUsername = document.getElementById("displayUsername");
     if (displayUsername) {
-      const username = sessionStorage.getItem("user"); // Retrieve the username
-      displayUsername.textContent = username || "guest"; // Fallback to "User" if username is missing
+      const username = sessionStorage.getItem("user"); 
+      displayUsername.textContent = username || "guest"; 
     }
   }
 }
