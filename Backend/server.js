@@ -532,6 +532,83 @@ app.post("/addToCart", (req, res) => {
 });
 
 
+// Admin registration route
+app.post("/admin/register", (req, res) => {
+  const { fullName, birthdate, email, address, username, password, confirmPassword } = req.body;
+
+  if (!username || !password || !confirmPassword) {
+    res.status(400).json({ success: false, message: "Username, password, and confirmation are required." });
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    res.status(400).json({ success: false, message: "Passwords do not match." });
+    return;
+  }
+
+  const sql = `
+    INSERT INTO admins (Name, DOB, Email, Address, Username, Password)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `;
+
+  db.query(sql, [fullName, birthdate, email, address, username, password], (err, result) => {
+    if (err) {
+      if (err.code === "ER_DUP_ENTRY") {
+        res.status(409).json({ success: false, message: "Username or email already exists." });
+      } else {
+        console.error("Error during admin registration query:", err);
+        res.status(500).json({ success: false, message: "Internal server error." });
+      }
+      return;
+    }
+
+    res.json({ success: true, message: "Admin registration successful!" });
+  });
+});
+
+
+// Admin login route
+app.post("/admin/login", (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    res.status(400).json({ success: false, message: "Username and password are required." });
+    return;
+  }
+
+  const sql = "SELECT * FROM admins WHERE Username = ?";
+  db.query(sql, [username], (err, results) => {
+    if (err) {
+      console.error("Error during admin login query:", err);
+      res.status(500).json({ success: false, message: "Internal server error." });
+      return;
+    }
+
+    if (results.length === 0) {
+      res.status(401).json({ success: false, message: "Invalid username or password." });
+      return;
+    }
+
+    const admin = results[0];
+    if (admin.Password !== password) {
+      res.status(401).json({ success: false, message: "Invalid username or password." });
+    } else {
+      res.json({
+        success: true,
+        message: "Admin login successful!",
+        admin: {
+          id: admin.admin_ID,
+          username: admin.Username,
+          email: admin.Email,
+          name: admin.Name,
+        },
+      });
+    }
+  });
+});
+
+
+
 
 
 app.listen(port, () => {
