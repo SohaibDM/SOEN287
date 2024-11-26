@@ -725,8 +725,8 @@ app.post("/Frontend/pay-service", (req, res) => {
   });
 });
 
-// PUT endpoint to update a service
-app.put("/services/:id", upload.single('serviceImage'), (req, res) => {
+// PUT endpoint to update a service with correct image storage handling
+app.put("/services/:id", serviceUpload.single('serviceImage'), (req, res) => {
   const serviceId = req.params.id;
   let serviceData = req.body;
 
@@ -734,18 +734,6 @@ app.put("/services/:id", upload.single('serviceImage'), (req, res) => {
   if (req.body.data) {
     serviceData = JSON.parse(req.body.data);
   }
-
-  // Prepare the SQL query to update service details
-  const sqlUpdate = `
-    UPDATE services SET
-      Title = ?,
-      Category = ?,
-      Price = ?,
-      originalPrice = ?,
-      Availability = ?,
-      Description = ?
-    WHERE service_ID = ?;
-  `;
 
   // Values to update
   const updateValues = [
@@ -758,6 +746,18 @@ app.put("/services/:id", upload.single('serviceImage'), (req, res) => {
     serviceId
   ];
 
+  // Prepare the SQL query to update service details
+  let sqlUpdate = `
+    UPDATE services SET
+      Title = ?,
+      Category = ?,
+      Price = ?,
+      originalPrice = ?,
+      Availability = ?,
+      Description = ?
+    WHERE service_ID = ?;
+  `;
+
   // Execute the update query
   db.query(sqlUpdate, updateValues, (err, result) => {
     if (err) {
@@ -767,7 +767,7 @@ app.put("/services/:id", upload.single('serviceImage'), (req, res) => {
 
     // Check if an image file was uploaded and update the image path in the database
     if (req.file) {
-      const imagePath = `/uploads/${req.file.filename}`;
+      const imagePath = `/serviceImages/${req.file.filename}`;
       const sqlUpdateImage = `UPDATE services SET Image = ? WHERE service_ID = ?`;
 
       db.query(sqlUpdateImage, [imagePath, serviceId], (imgErr, imgResult) => {
@@ -775,14 +775,13 @@ app.put("/services/:id", upload.single('serviceImage'), (req, res) => {
           console.error("Failed to update service image:", imgErr);
           return res.status(500).send("Failed to update service image.");
         }
-        res.send("Service updated successfully!");
+        res.send("Service updated successfully with new image!");
       });
     } else {
       res.send("Service updated successfully without image change.");
     }
   });
 });
-
 
 
 
