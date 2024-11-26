@@ -725,7 +725,63 @@ app.post("/Frontend/pay-service", (req, res) => {
   });
 });
 
+// PUT endpoint to update a service with correct image storage handling
+app.put("/services/:id", serviceUpload.single('serviceImage'), (req, res) => {
+  const serviceId = req.params.id;
+  let serviceData = req.body;
 
+  // Parse service data if it's sent as a JSON string under the 'data' form field
+  if (req.body.data) {
+    serviceData = JSON.parse(req.body.data);
+  }
+
+  // Values to update
+  const updateValues = [
+    serviceData.Title,
+    serviceData.Category,
+    serviceData.Price,
+    serviceData.originalPrice,
+    serviceData.Availability,
+    serviceData.Description,
+    serviceId
+  ];
+
+  // Prepare the SQL query to update service details
+  let sqlUpdate = `
+    UPDATE services SET
+      Title = ?,
+      Category = ?,
+      Price = ?,
+      originalPrice = ?,
+      Availability = ?,
+      Description = ?
+    WHERE service_ID = ?;
+  `;
+
+  // Execute the update query
+  db.query(sqlUpdate, updateValues, (err, result) => {
+    if (err) {
+      console.error("Failed to update service details:", err);
+      return res.status(500).send("Failed to update service.");
+    }
+
+    // Check if an image file was uploaded and update the image path in the database
+    if (req.file) {
+      const imagePath = `/serviceImages/${req.file.filename}`;
+      const sqlUpdateImage = `UPDATE services SET Image = ? WHERE service_ID = ?`;
+
+      db.query(sqlUpdateImage, [imagePath, serviceId], (imgErr, imgResult) => {
+        if (imgErr) {
+          console.error("Failed to update service image:", imgErr);
+          return res.status(500).send("Failed to update service image.");
+        }
+        res.send("Service updated successfully with new image!");
+      });
+    } else {
+      res.send("Service updated successfully without image change.");
+    }
+  });
+});
 
 
 

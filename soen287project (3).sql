@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2024 at 02:34 AM
+-- Generation Time: Nov 26, 2024 at 05:42 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -37,6 +37,13 @@ CREATE TABLE `admins` (
   `Password` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `admins`
+--
+
+INSERT INTO `admins` (`admin_ID`, `Name`, `Email`, `DOB`, `Address`, `Username`, `Password`) VALUES
+(5, 'admin', 'admin@gmail.com', '2023-01-19', 'adminamindnafi', 'admin', 'admin');
+
 -- --------------------------------------------------------
 
 --
@@ -44,6 +51,7 @@ CREATE TABLE `admins` (
 --
 
 CREATE TABLE `bought_services` (
+  `transaction_ID` int(11) NOT NULL,
   `customer_ID` int(11) NOT NULL,
   `service_ID` int(11) NOT NULL,
   `isPaid` tinyint(1) NOT NULL,
@@ -54,12 +62,11 @@ CREATE TABLE `bought_services` (
 -- Dumping data for table `bought_services`
 --
 
-INSERT INTO `bought_services` (`customer_ID`, `service_ID`, `isPaid`, `purchaseDate`) VALUES
-(2, 1, 1, '2022-02-06'),
-(3, 3, 0, '2022-03-09'),
-(1, 1, 1, '2000-02-06'),
-(6, 2, 0, '2024-03-05'),
-(1, 3, 0, '2024-11-25');
+INSERT INTO `bought_services` (`transaction_ID`, `customer_ID`, `service_ID`, `isPaid`, `purchaseDate`) VALUES
+(1, 5, 16, 1, '2024-11-25'),
+(2, 7, 16, 1, '2024-11-26'),
+(3, 5, 17, 1, '2024-11-26'),
+(4, 8, 16, 1, '2024-11-26');
 
 -- --------------------------------------------------------
 
@@ -73,7 +80,7 @@ CREATE TABLE `customers` (
   `Email` varchar(150) NOT NULL,
   `DOB` date NOT NULL,
   `Address` varchar(250) NOT NULL,
-  `payment` varchar(20) NOT NULL,
+  `payment` varchar(20) NOT NULL DEFAULT 'visa',
   `Username` varchar(10) NOT NULL,
   `Password` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -83,10 +90,10 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`customer_ID`, `Name`, `Email`, `DOB`, `Address`, `payment`, `Username`, `Password`) VALUES
-(1, 'mo', 'mo@gmail.com', '2000-02-01', 'vgbhjnkml', '74105204107410', 'user1', 'pass1'),
-(2, 'bo', 'mo@gmail.com', '2023-02-01', 'yrjtyjty', '52085208520', 'user2', 'pass1'),
-(3, 'John Doe', 'johndoe@example.com', '1990-01-01', '123 Main St', '001233455431', 'johndoe', 'securepassword'),
-(6, 'mo', 'mo@gmail.com', '2000-02-01', 'vgbhjnkml', '74105204107410', 'user1', 'pass1');
+(5, 'john doe', 'john@doe.com', '2023-01-19', '123 rue john', 'visa', 'johnD', 'admin'),
+(6, 'cus tomer', 'customer@customer.com', '2023-02-24', 'customer street', 'visa', 'cusT', 'admin'),
+(7, 'customer', 'customer@gmail.com', '2023-01-19', 'adddd', 'visa', 'customer', 'admin'),
+(8, 'test', 'test@gmail.com', '2023-01-19', 'test test', 'visa', 'test', 'admin');
 
 -- --------------------------------------------------------
 
@@ -113,7 +120,7 @@ CREATE TABLE `page` (
 --
 
 INSERT INTO `page` (`ID`, `Image_Path`, `Company_Name`, `Address`, `Email`, `Number`, `Desc_Title`, `Description`, `Twitter`, `Instagram`, `Linkedin`) VALUES
-(0, '/uploads/1732340393186-Screenshot 2024-07-06 164134.png', 'not bilel', 'bilelbilel', 'bilel@bilel.bilel', '000-000-0000', 'bilel', 'bilel\r\nbilel\r\nbilel\r\nbilelllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll lllllllllllllllllllllllllllllllllllllllllll', 'https://google.com', 'https://google.com', 'https://google.com');
+(0, '/uploads/1732639270831-PFP.png', 'new company', 'bilelbilel', 'bilel@bilel.bilel', '000-000-0000', 'bilel', 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\r\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\r\nAAAAAAAAAAAAAAAAAAAAAAAAAAAA', 'https://google.com', 'https://google.com', 'https://google.com');
 
 -- --------------------------------------------------------
 
@@ -137,12 +144,9 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`service_ID`, `Title`, `Category`, `Price`, `originalPrice`, `Availability`, `description`, `Image`) VALUES
-(1, 'new des', 'desc', 76, 78, 3, 'fbweoufywf\r\nfwfaefwfweF\r\nWfewefawfwfwefwgergagergeagrfaf\r\nFwefeeeeeeeeeeeeeeeeeewwwwwwwwwwe', '/serviceImages/1732387541797-PFP.png'),
-(2, 'des new', 'de', 67, 76, 76, 'bfffffffffffffffffffffffffffffffffffffff\r\nf\r\n\r\nffffffffffffffffffffffffffffffffffffffff', '/serviceImages/1732387666622-PFP.png'),
-(3, 'Graphic Des', 'desinggng', 410, 520, 21, 'ajdhbaskjfnhsodljf', 'https://leonardo-cdn.b-cdn.net/wp-content/uploads/2023/07/image-129-300x200.jpeg'),
-(4, 'service 4', 'temp', 410, 520, 21, 'ajdhbaskjfnhsodljf', 'https://leonardo-cdn.b-cdn.net/wp-content/uploads/2023/07/image-129-300x200.jpeg'),
-(5, 'java dev', 'code', 410, 520, 21, 'ajdhbaskjfnhsodljf', 'https://leonardo-cdn.b-cdn.net/wp-content/uploads/2023/07/image-129-300x200.jpeg'),
-(6, 'java dev2', 'coding', 410, 520, 21, 'ajdhbaskjfnhsodljf', 'https://leonardo-cdn.b-cdn.net/wp-content/uploads/2023/07/image-129-300x200.jpeg');
+(16, 'edit', 'edit', 45, 54, 2, 'EDIT\nEDIT\nEDIT\nEDIT', '/serviceImages/1732639296060-PFP.png'),
+(17, 'des new', 'de', 67, 76, 76, 'bfffffffffffffffffffffffffffffffffffffff\r\nf\r\n\r\nffffffffffffffffffffffffffffffffffffffff', '/serviceImages/1732387666622-PFP.png'),
+(18, 'try again', 'new', 34, 56, 0, 'new service description try out hopefully this works\r\nnew service description try out hopefully this works\r\nnew service description try out hopefully this works\r\nnew service description try out hopefully this works\r\n\r\n', '/serviceImages/1732400171036-PFP.png');
 
 --
 -- Indexes for dumped tables
@@ -158,6 +162,7 @@ ALTER TABLE `admins`
 -- Indexes for table `bought_services`
 --
 ALTER TABLE `bought_services`
+  ADD PRIMARY KEY (`transaction_ID`),
   ADD KEY `customer_ID` (`customer_ID`),
   ADD KEY `service_ID` (`service_ID`);
 
@@ -187,19 +192,25 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `admin_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `admin_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `bought_services`
+--
+ALTER TABLE `bought_services`
+  MODIFY `transaction_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `customer_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `service_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `service_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Constraints for dumped tables
