@@ -30,15 +30,11 @@
       </div>
 
       <div id="search-bar">
-        <form id="searchForm">
-          <input
-            type="text"
-            placeholder="search services"
-            name="q"
-            id="searchInput"
-          />
+        <form action="/search" method="get">
+            <input type="text" placeholder="search" name="q" id="search-input" autocomplete="off">
+            <div id="search-results"></div>
         </form>
-      </div>
+    </div>
       <button
         class="btnLogin-popup login-button"
         onclick="window.location.href='login.html'"

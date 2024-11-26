@@ -74,3 +74,44 @@ document.addEventListener("DOMContentLoaded", async () => {
     servicesContainer.innerHTML = `<p style="color: white;">Failed to load services. Please try again later.</p>`;
   }
 });
+
+
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+
+// Handle input for search
+async function handleSearch(event) {
+    const query = event.target.value.trim(); // Get user input
+    searchResults.innerHTML = ''; // Clear previous results
+
+    if (!query) {
+        searchResults.style.display = 'none';
+        return; // Exit if input is empty
+    }
+
+    try {
+        // Fetch matching services from the server
+        const response = await fetch(`http://localhost:3000/Frontend/home-page.html?q=${encodeURIComponent(query)}`);
+        if (!response.ok) throw new Error('Failed to fetch services');
+        const services = await response.json();
+
+        // Display results
+        services.forEach(service => {
+            const div = document.createElement('div');
+            div.className = 'search-result-item';
+            div.textContent = service.Title;
+            div.onclick = () => {
+                window.location.href = `./productPage1.html?id=${service.service_ID}`; // Redirect to service details
+            };
+            searchResults.appendChild(div);
+        });
+
+        searchResults.style.display = services.length ? 'block' : 'none';
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+// Add event listener to the search bar
+searchInput.addEventListener('input', handleSearch);
+

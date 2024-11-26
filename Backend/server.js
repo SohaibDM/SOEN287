@@ -182,6 +182,89 @@ app.get("/Frontend/bought-services.html", (req, res) => {
   });
 });
 
+app.get("/Frontend/ServicesPage.html", (req, res) => {
+  const searchQuery = req.query.q; // Get the search query from the request
+
+  if (!searchQuery) {
+    return res.json([]); // Return an empty array if no query is provided
+  }
+
+  // Query to search for services by title
+  const query = "SELECT * FROM services WHERE Title LIKE ? LIMIT 10";
+
+  // Use wildcards for partial matching
+  db.query(query, [`%${searchQuery}%`], (err, results) => {
+    if (err) {
+      console.error("Error accessing services: ", err);
+      return res.status(500).send("Internal Server Error");
+    }
+
+    res.json(results); // Send matching services as JSON
+  });
+});
+
+app.get("/Frontend/productPage1.html", (req, res) => {
+  const searchQuery = req.query.q; // Get the search query from the request
+
+  if (!searchQuery) {
+    return res.json([]); // Return an empty array if no query is provided
+  }
+
+  // Query to search for services by title
+  const query = "SELECT * FROM services WHERE Title LIKE ? LIMIT 10";
+
+  // Use wildcards for partial matching
+  db.query(query, [`%${searchQuery}%`], (err, results) => {
+    if (err) {
+      console.error("Error accessing services: ", err);
+      return res.status(500).send("Internal Server Error");
+    }
+
+    res.json(results); // Send matching services as JSON
+  });
+});
+
+app.get("/Frontend/home-page.html", (req, res) => {
+  const searchQuery = req.query.q; // Get the search query from the request
+
+  if (!searchQuery) {
+    return res.json([]); // Return an empty array if no query is provided
+  }
+
+  // Query to search for services by title
+  const query = "SELECT * FROM services WHERE Title LIKE ? LIMIT 10";
+
+  // Use wildcards for partial matching
+  db.query(query, [`%${searchQuery}%`], (err, results) => {
+    if (err) {
+      console.error("Error accessing services: ", err);
+      return res.status(500).send("Internal Server Error");
+    }
+
+    res.json(results); // Send matching services as JSON
+  });
+});
+
+app.get("/Frontend/account-settings.html", (req, res) => {
+  const searchQuery = req.query.q; // Get the search query from the request
+
+  if (!searchQuery) {
+    return res.json([]); // Return an empty array if no query is provided
+  }
+
+  // Query to search for services by title
+  const query = "SELECT * FROM services WHERE Title LIKE ? LIMIT 10";
+
+  // Use wildcards for partial matching
+  db.query(query, [`%${searchQuery}%`], (err, results) => {
+    if (err) {
+      console.error("Error accessing services: ", err);
+      return res.status(500).send("Internal Server Error");
+    }
+
+    res.json(results); // Send matching services as JSON
+  });
+});
 
 
 

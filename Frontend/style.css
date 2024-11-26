@@ -19,6 +19,25 @@ body {
 }
 
 
+#search-results {
+    position: absolute;
+    background: #A782E5;
+    width: 11.5%;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none; /* Hidden by default */
+    z-index: 1000;
+}
+
+.search-result-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.search-result-item:hover {
+    background-color: #f0f0f0;
+}
+
  #header {
     display: flex;
     justify-content: space-between;

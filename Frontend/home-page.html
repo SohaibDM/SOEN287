@@ -27,10 +27,11 @@
         </div>
         
         <div id="search-bar">
-            <form action="/search" method="get" >
-                <input type="text" placeholder="search" name="q">
-            </form>
-        </div>
+          <form action="/search" method="get">
+              <input type="text" placeholder="search" name="q" id="search-input" autocomplete="off">
+              <div id="search-results"></div>
+          </form>
+      </div>
 
     <button class="btnLogin-popup login-button" onclick="window.location.href='login.html'">Login</button>
     <button class="btnLogin-popup logout-button" style="margin:2px;">Logout</button>
