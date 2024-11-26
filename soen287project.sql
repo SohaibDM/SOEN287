@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2024 at 08:40 PM
+-- Generation Time: Nov 26, 2024 at 02:34 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -50,6 +50,17 @@ CREATE TABLE `bought_services` (
   `purchaseDate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `bought_services`
+--
+
+INSERT INTO `bought_services` (`customer_ID`, `service_ID`, `isPaid`, `purchaseDate`) VALUES
+(2, 1, 1, '2022-02-06'),
+(3, 3, 0, '2022-03-09'),
+(1, 1, 1, '2000-02-06'),
+(6, 2, 0, '2024-03-05'),
+(1, 3, 0, '2024-11-25');
+
 -- --------------------------------------------------------
 
 --
@@ -72,7 +83,10 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`customer_ID`, `Name`, `Email`, `DOB`, `Address`, `payment`, `Username`, `Password`) VALUES
-(3, 'John Doe', 'johndoe@example.com', '1990-01-01', '123 Main St', '001233455431', 'johndoe', 'securepassword');
+(1, 'mo', 'mo@gmail.com', '2000-02-01', 'vgbhjnkml', '74105204107410', 'user1', 'pass1'),
+(2, 'bo', 'mo@gmail.com', '2023-02-01', 'yrjtyjty', '52085208520', 'user2', 'pass1'),
+(3, 'John Doe', 'johndoe@example.com', '1990-01-01', '123 Main St', '001233455431', 'johndoe', 'securepassword'),
+(6, 'mo', 'mo@gmail.com', '2000-02-01', 'vgbhjnkml', '74105204107410', 'user1', 'pass1');
 
 -- --------------------------------------------------------
 
@@ -123,8 +137,12 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`service_ID`, `Title`, `Category`, `Price`, `originalPrice`, `Availability`, `description`, `Image`) VALUES
-(16, 'new des', 'desc', 76, 78, 3, 'fbweoufywf\r\nfwfaefwfweF\r\nWfewefawfwfwefwgergagergeagrfaf\r\nFwefeeeeeeeeeeeeeeeeeewwwwwwwwwwe', '/serviceImages/1732387541797-PFP.png'),
-(17, 'des new', 'de', 67, 76, 76, 'bfffffffffffffffffffffffffffffffffffffff\r\nf\r\n\r\nffffffffffffffffffffffffffffffffffffffff', '/serviceImages/1732387666622-PFP.png');
+(1, 'new des', 'desc', 76, 78, 3, 'fbweoufywf\r\nfwfaefwfweF\r\nWfewefawfwfwefwgergagergeagrfaf\r\nFwefeeeeeeeeeeeeeeeeeewwwwwwwwwwe', '/serviceImages/1732387541797-PFP.png'),
+(2, 'des new', 'de', 67, 76, 76, 'bfffffffffffffffffffffffffffffffffffffff\r\nf\r\n\r\nffffffffffffffffffffffffffffffffffffffff', '/serviceImages/1732387666622-PFP.png'),
+(3, 'Graphic Des', 'desinggng', 410, 520, 21, 'ajdhbaskjfnhsodljf', 'https://leonardo-cdn.b-cdn.net/wp-content/uploads/2023/07/image-129-300x200.jpeg'),
+(4, 'service 4', 'temp', 410, 520, 21, 'ajdhbaskjfnhsodljf', 'https://leonardo-cdn.b-cdn.net/wp-content/uploads/2023/07/image-129-300x200.jpeg'),
+(5, 'java dev', 'code', 410, 520, 21, 'ajdhbaskjfnhsodljf', 'https://leonardo-cdn.b-cdn.net/wp-content/uploads/2023/07/image-129-300x200.jpeg'),
+(6, 'java dev2', 'coding', 410, 520, 21, 'ajdhbaskjfnhsodljf', 'https://leonardo-cdn.b-cdn.net/wp-content/uploads/2023/07/image-129-300x200.jpeg');
 
 --
 -- Indexes for dumped tables
@@ -175,7 +193,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `customer_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `services`
