@@ -19,11 +19,11 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((service) => {
       // Populate the page with service details
       console.log(service);
-      document.querySelector(
-        ".card-img-top"
-      ).src = service.Image.startsWith('http') 
-        ? service.Image 
-        : `http://localhost:3000${service.Image}`;      
+      document.querySelector(".card-img-top").src = service.Image.startsWith(
+        "http"
+      )
+        ? service.Image
+        : `http://localhost:3000${service.Image}`;
       document.querySelector(".display-5").textContent = service.Title;
       document.querySelector(
         ".text-decoration-line-through"
@@ -52,6 +52,15 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
           }
 
+          // Check if service is available
+          if (service.Availability <= 0) {
+            alert("This service is out of stock and will be deleted soon.");
+            return; // Do nothing if out of stock
+          }
+
+          // Reduce availability by 1
+          service.Availability -= 1;
+
           // Prepare the data to be sent to the backend
           const purchaseDate = new Date().toISOString().split("T")[0]; // Get today's date in 'YYYY-MM-DD' format
           const data = {
@@ -72,6 +81,10 @@ document.addEventListener("DOMContentLoaded", () => {
             .then((response) => {
               if (response.ok) {
                 alert("Service added to cart successfully!");
+                // Optionally update the availability on the page
+                document.querySelector(
+                  "#availability"
+                ).textContent = `Availability: ${service.Availability}`;
               } else {
                 throw new Error("Failed to add service to cart.");
               }
@@ -79,6 +92,23 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch((error) => {
               console.error("Error adding service to cart:", error);
               alert("Failed to add service to cart.");
+            });
+
+          // Update the service availability on the backend
+          fetch(`http://localhost:3000/updateAvailability/${serviceId}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ availability: service.Availability }),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Failed to update availability.");
+              }
+            })
+            .catch((error) => {
+              console.error("Error updating availability:", error);
             });
         });
     })
@@ -88,41 +118,45 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-const searchInput = document.getElementById('search-input');
-const searchResults = document.getElementById('search-results');
+const searchInput = document.getElementById("search-input");
+const searchResults = document.getElementById("search-results");
 
 // Handle input for search
 async function handleSearch(event) {
-    const query = event.target.value.trim(); // Get user input
-    searchResults.innerHTML = ''; // Clear previous results
+  const query = event.target.value.trim(); // Get user input
+  searchResults.innerHTML = ""; // Clear previous results
 
-    if (!query) {
-        searchResults.style.display = 'none';
-        return; // Exit if input is empty
-    }
+  if (!query) {
+    searchResults.style.display = "none";
+    return; // Exit if input is empty
+  }
 
-    try {
-        // Fetch matching services from the server
-        const response = await fetch(`http://localhost:3000/Frontend/productPage1.html?q=${encodeURIComponent(query)}`);
-        if (!response.ok) throw new Error('Failed to fetch services');
-        const services = await response.json();
+  try {
+    // Fetch matching services from the server
+    const response = await fetch(
+      `http://localhost:3000/Frontend/productPage1.html?q=${encodeURIComponent(
+        query
+      )}`
+    );
+    if (!response.ok) throw new Error("Failed to fetch services");
+    const services = await response.json();
 
-        // Display results
-        services.forEach(service => {
-            const div = document.createElement('div');
-            div.className = 'search-result-item';
-            div.textContent = service.Title;
-            div.onclick = () => {
-                window.location.href = `./productPage1.html?id=${service.service_ID}`; // Redirect to service details
-            };
-            searchResults.appendChild(div);
-        });
+    // Display results
+    services.forEach((service) => {
+      const div = document.createElement("div");
+      div.className = "search-result-item";
+      div.textContent = service.Title;
+      div.onclick = () => {
+        window.location.href = `./productPage1.html?id=${service.service_ID}`; // Redirect to service details
+      };
+      searchResults.appendChild(div);
+    });
 
-        searchResults.style.display = services.length ? 'block' : 'none';
-    } catch (error) {
-        console.error(error);
-    }
+    searchResults.style.display = services.length ? "block" : "none";
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 // Add event listener to the search bar
-searchInput.addEventListener('input', handleSearch);
+searchInput.addEventListener("input", handleSearch);
