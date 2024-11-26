@@ -6,6 +6,7 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const app = express();
+const nodemailer = require("nodemailer");
 const port = 3000;
 
 app.use(cors());
@@ -782,6 +783,7 @@ app.put("/services/:id", serviceUpload.single('serviceImage'), (req, res) => {
     }
   });
 });
+
 
 
 
