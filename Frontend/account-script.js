@@ -49,7 +49,7 @@ function fetchUnpaidServices(customerId) {
         services.forEach((service) => {
           const serviceDiv = document.createElement("div");
           serviceDiv.classList.add("service-bloc"); // Apply the style class
-
+          const orderID = service.transaction_ID;
           const title = document.createElement("p");
           title.classList.add("service-title");
           title.textContent = service.Title;
@@ -114,7 +114,7 @@ function deleteCustomer(specificCustomerId) {
 }
 
 // Example usage: Delete a customer with a specific ID
-document.getElementById("delete").addEventListener("click", () => {
+  document.getElementById("delete").addEventListener("click", () => {
   deleteCustomer(specificCustomerId);
 });
 
@@ -224,12 +224,34 @@ fetch(`http://localhost:3000/Frontend/account-settings/${specificCustomerId}`)
         const viewOrderButton = document.createElement("button");
         viewOrderButton.classList.add("btn", "custom-btn2");
         viewOrderButton.textContent =
-          service.isPaid === 1 ? "Paid" : "Not paid";
+        service.isPaid === 1 ? "Paid" : "Not paid";
+        
+        
+        const cancelService = document.createElement("button");
+        cancelService.classList.add("btn", "btn-danger"); // Add CSS classes
+        cancelService.id = "delete-bought-service";       // Assign an ID
+        cancelService.textContent = "Cancel Service";
+        cancelService.style.marginLeft = "66px";
 
         innerContainer.appendChild(infoContainer);
         innerContainer.appendChild(description);
         innerContainer.appendChild(serviceDescription); // Added service description here
         innerContainer.appendChild(viewOrderButton);
+        if(service.isPaid === 0){
+          innerContainer.appendChild(cancelService);
+        }
+
+        cancelService.addEventListener("click", () => {
+          const transactionId = service.transaction_ID; // Replace with the actual transaction ID
+
+          // Update the URL to include "cancel"
+          const currentUrl = window.location.href;
+          const newUrl = currentUrl.endsWith("/cancel") ? currentUrl : currentUrl + "/cancel";
+          window.history.pushState({}, "", newUrl); // Update the URL without reloading the page
+
+          // Call the delete function
+          deleteBoughtService(transactionId);
+        });
 
         serviceBloc.appendChild(innerContainer);
         servicesHolder.appendChild(serviceBloc);
@@ -274,6 +296,36 @@ fetch(`http://localhost:3000/Frontend/account-settings/${specificCustomerId}`)
       } catch (error) {
           console.error(error);
       }
+  }
+  
+  
+  function deleteBoughtService(transactionId) {
+    if (!transactionId) {
+      alert("Transaction ID is missing!");
+      return;
+    }
+    // Send DELETE request to the server with the transaction ID in the body
+    fetch("http://localhost:3000/Frontend/account-settings.html/cancel", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ BS_id: transactionId }), // Send transaction ID as JSON
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("Bought service deleted successfully");
+          window.location.href = "/Frontend/account-settings.html";
+        } else {
+          return response.text().then((text) => {
+            throw new Error(text);
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error deleting bought service:", error);
+        alert("Failed to delete the bought service: " + error.message);
+      });
   }
   
   // Add event listener to the search bar

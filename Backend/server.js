@@ -77,7 +77,7 @@ db.connect((err) => {
 app.get("/Frontend/account-settings/:customer_ID", (req, res) => {
   const userId = req.params.customer_ID; // Use the ID passed in the URL
   const query = "SELECT Username, Name, Email, DOB, payment FROM customers WHERE customer_ID = ?";
-  const query_order = "SELECT service_ID, isPaid, purchaseDate FROM bought_services WHERE customer_ID = ?";
+  const query_order = "SELECT * FROM bought_services WHERE customer_ID = ?";
   const query_service = "SELECT * FROM services WHERE service_ID IN (?)"; // Query for full service details
 
   // Fetch customer details
@@ -290,6 +290,29 @@ app.delete("/Frontend/account-settings.html", (req, res) => {
     }
 
     res.status(200).send("Customer deleted successfully");
+  });
+});
+
+app.delete("/Frontend/account-settings.html/cancel", (req, res) => {
+  const bought_ser_id = req.body.BS_id; // Extract the customer ID from the request body
+
+  if (!bought_ser_id) {
+    return res.status(400).send("bought service id is required");
+  }
+
+  // SQL query to delete the customer by ID
+  const query = "DELETE FROM bought_services WHERE transaction_ID = ?";
+
+  db.query(query, [bought_ser_id], (err, result) => {
+    if (err) {
+      console.error("Error deleting bought service: ", err);
+      return res.status(500).send("Internal Server Error");
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).send("bought service not found");
+    }
+    res.status(200).send("bought service deleted successfully");
   });
 });
 
