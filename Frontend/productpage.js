@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  fetch(`http://localhost:3000/services/${serviceId}`)
+  fetch(`https://soen287-2j07.onrender.com/services/${serviceId}`)
     .then((response) => {
       if (!response.ok) {
         throw new Error("Failed to fetch service details.");
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "http"
       )
         ? service.Image
-        : `http://localhost:3000${service.Image}`;
+        : `https://soen287-2j07.onrender.com${service.Image}`;
       document.querySelector(".display-5").textContent = service.Title;
       document.querySelector(
         ".text-decoration-line-through"
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
             isPaid: false, 
           };
 
-          fetch("http://localhost:3000/addToCart", {
+          fetch("https://soen287-2j07.onrender.com/addToCart", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
               alert("Failed to add service to cart.");
             });
 
-          fetch(`http://localhost:3000/updateAvailability/${serviceId}`, {
+          fetch(`https://soen287-2j07.onrender.com/updateAvailability/${serviceId}`, {
             method: "PATCH",
             headers: {
               "Content-Type": "application/json",
@@ -122,7 +122,7 @@ async function handleSearch(event) {
 
   try {
     const response = await fetch(
-      `http://localhost:3000/Frontend/productPage1.html?q=${encodeURIComponent(
+      `https://soen287-2j07.onrender.com/Frontend/productPage1.html?q=${encodeURIComponent(
         query
       )}`
     );

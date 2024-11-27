@@ -7,7 +7,7 @@ function formatDate(dateString) {
   }
 
 
-  fetch(`http://localhost:3000/Frontend/bought-services.html`)
+  fetch(`https://soen287-2j07.onrender.com/Frontend/bought-services.html`)
     .then((response) => response.json())
     .then((data) => {
       
@@ -57,7 +57,7 @@ function formatDate(dateString) {
               const transactionId = button.dataset.transactionId;
 
               fetch(
-                `http://localhost:3000/executeTransaction/${transactionId}`,
+                `https://soen287-2j07.onrender.com/executeTransaction/${transactionId}`,
                 {
                   method: "PATCH",
                   headers: {

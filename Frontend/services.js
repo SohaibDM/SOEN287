@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const servicesContainer = document.getElementById("services-container");
 
   try {
-    const response = await fetch("http://localhost:3000/services");
+    const response = await fetch("https://soen287-2j07.onrender.com/services");
     if (!response.ok) {
       throw new Error("Failed to fetch services");
     }
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         </div>
                         <div class="bbb_deals_image">
                         <img 
-                            src="${service.Image.startsWith('http') ? service.Image : `http://localhost:3000${service.Image}`}" 
+                            src="${service.Image.startsWith('http') ? service.Image : `https://soen287-2j07.onrender.com${service.Image}`}" 
                             alt="${service.Title || 'Untitled Service'}">
                         </div>
                         <div class="bbb_deals_content">
@@ -87,7 +87,7 @@ async function handleSearch(event) {
     }
 
     try {
-        const response = await fetch(`http://localhost:3000/Frontend/ServicesPage.html?q=${encodeURIComponent(query)}`);
+        const response = await fetch(`https://soen287-2j07.onrender.com/Frontend/ServicesPage.html?q=${encodeURIComponent(query)}`);
         if (!response.ok) throw new Error('Failed to fetch services');
         const services = await response.json();
 

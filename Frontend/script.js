@@ -28,7 +28,7 @@ const imageSrc = document.getElementById("companyImageDisplay");
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM loaded and parsed.");
 
-  fetch("http://localhost:3000/data")
+  fetch("https://soen287-2j07.onrender.com/data")
     .then((response) => {
       if (!response.ok) {
         throw new Error("Failed to fetch data from the backend.");
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (imageSrc) {
           if (record.Image_Path) {
-            const imageUrl = `http://localhost:3000${record.Image_Path}`; 
+            const imageUrl = `https://soen287-2j07.onrender.com${record.Image_Path}`; 
             imageSrc.src = imageUrl;
             imageSrc.alt = "Company Image";
           }

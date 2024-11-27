@@ -35,7 +35,7 @@ function formatDate(dateString) {
 }
 
 function fetchUnpaidServices(customerId) {
-  fetch(`http://localhost:3000/customer/${customerId}/unpaid-services`)
+  fetch(`https://soen287-2j07.onrender.com/customer/${customerId}/unpaid-services`)
     .then((response) => response.json())
     .then((services) => {
       const servicesList = document.getElementById("unpaid-services-list");
@@ -82,7 +82,7 @@ function deleteCustomer(specificCustomerId) {
     return;
   }
   
-  fetch("http://localhost:3000/Frontend/account-settings.html", {
+  fetch("https://soen287-2j07.onrender.com/Frontend/account-settings.html", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -114,7 +114,7 @@ document.getElementById("delete").addEventListener("click", () => {
 
 function processPayment(transactionId) {
   console.log("Processing payment for transaction ID:", transactionId); 
-  fetch(`http://localhost:3000/Frontend/pay-service`, {
+  fetch(`https://soen287-2j07.onrender.com/Frontend/pay-service`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -129,7 +129,7 @@ function processPayment(transactionId) {
     .catch((error) => console.error("Error processing payment:", error));
 }
 
-fetch(`http://localhost:3000/Frontend/account-settings/${specificCustomerId}`)
+fetch(`https://soen287-2j07.onrender.com/Frontend/account-settings/${specificCustomerId}`)
   .then((response) => response.json())
   .then((data) => {
     if (data.customer && data.customer.Username) {
@@ -261,7 +261,7 @@ async function handleSearch(event) {
   }
 
   try {
-    const response = await fetch(`http://localhost:3000/Frontend/account-settings.html?q=${encodeURIComponent(query)}`);
+    const response = await fetch(`https://soen287-2j07.onrender.com/Frontend/account-settings.html?q=${encodeURIComponent(query)}`);
     if (!response.ok) throw new Error('Failed to fetch services');
     const services = await response.json();
 
@@ -286,7 +286,7 @@ function deleteBoughtService(transactionId) {
     alert("Transaction ID is missing!");
     return;
   }
-  fetch("http://localhost:3000/Frontend/account-settings.html/cancel", {
+  fetch("https://soen287-2j07.onrender.com/Frontend/account-settings.html/cancel", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

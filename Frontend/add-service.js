@@ -28,7 +28,7 @@ document
         document.getElementById("serviceImage").files[0]
       );
 
-      fetch("http://localhost:3000/addService", {
+      fetch("https://soen287-2j07.onrender.com/addService", {
         method: "POST",
         body: formData,
       })

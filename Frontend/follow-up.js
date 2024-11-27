@@ -6,7 +6,7 @@ function formatDate(dateString) {
   return `${year}/${month}/${day}`;
 }
 
-fetch(`http://localhost:3000/Frontend/bought-services.html`)
+fetch(`https://soen287-2j07.onrender.com/Frontend/bought-services.html`)
   .then((response) => response.json())
   .then((data) => {
     if (data.boughtServices && data.boughtServices.length > 0) {

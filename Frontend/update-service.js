@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  fetch(`http://localhost:3000/services/${serviceId}`)
+  fetch(`https://soen287-2j07.onrender.com/services/${serviceId}`)
     .then((response) => {
       if (!response.ok) {
         throw new Error("Failed to fetch service details.");
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
       formData.append("serviceImage", imageInput.files[0]);
     }
 
-    fetch(`http://localhost:3000/services/${serviceId}`, {
+    fetch(`https://soen287-2j07.onrender.com/services/${serviceId}`, {
       method: "PUT",
       body: formData,
     })

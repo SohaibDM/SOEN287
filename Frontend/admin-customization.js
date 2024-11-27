@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("http://localhost:3000/data")
+  fetch("https://soen287-2j07.onrender.com/data")
     .then((response) => {
       if (!response.ok) {
         throw new Error("Failed to fetch data from the backend.");
@@ -63,7 +63,7 @@ document
 
     console.log("FormData ready to be sent.");
 
-    fetch("http://localhost:3000/submit", {
+    fetch("https://soen287-2j07.onrender.com/submit", {
       method: "POST",
       body: formData,
     })

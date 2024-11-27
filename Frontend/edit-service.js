@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const serviceList = document.getElementById("service-list");
 
   try {
-    const response = await fetch("http://localhost:3000/services");
+    const response = await fetch("https://soen287-2j07.onrender.com/services");
     if (!response.ok) {
       throw new Error("Failed to fetch services.");
     }
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <div class="col-md-4 mb-4">
           <div class="card bg-dark text-white">
             <img 
-              src="http://localhost:3000${service.Image}" 
+              src="https://soen287-2j07.onrender.com${service.Image}" 
               class="card-img-top" 
               alt="${service.Title || "Service"}"
               onerror="this.src='https://via.placeholder.com/300x200';"
