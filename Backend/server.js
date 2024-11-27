@@ -6,6 +6,7 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const app = express();
+const nodemailer = require("nodemailer");
 const port = 3000;
 
 app.use(cors());
@@ -640,6 +641,32 @@ app.post("/addToCart", (req, res) => {
   });
 });
 
+// Endpoint to update availability after adding to cart
+app.patch("/updateAvailability/:serviceId", (req, res) => {
+  const serviceId = req.params.serviceId;
+  const { availability } = req.body;
+
+  if (typeof availability !== "number" || availability < 0) {
+    return res.status(400).json({ success: false, message: "Invalid availability value." });
+  }
+
+  const sql = `UPDATE services SET Availability = ? WHERE service_ID = ?`;
+
+  db.query(sql, [availability, serviceId], (err, result) => {
+    if (err) {
+      console.error("Error updating availability:", err);
+      return res.status(500).json({ success: false, message: "Failed to update availability." });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ success: false, message: "Service not found." });
+    }
+
+    res.json({ success: true, message: "Availability updated successfully!" });
+  });
+});
+
+
 
 // Admin registration route
 app.post("/admin/register", (req, res) => {
@@ -808,6 +835,7 @@ app.put("/services/:id", serviceUpload.single('serviceImage'), (req, res) => {
     }
   });
 });
+
 
 
 
