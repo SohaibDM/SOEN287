@@ -268,6 +268,32 @@ app.get("/Frontend/account-settings.html", (req, res) => {
 
 
 
+app.delete("/Frontend/account-settings.html", (req, res) => {
+  const customerId = req.body.customer_ID; // Extract the customer ID from the request body
+
+  if (!customerId) {
+    return res.status(400).send("Customer ID is required");
+  }
+
+  // SQL query to delete the customer by ID
+  const query = "DELETE FROM customers WHERE customer_ID = ?";
+
+  db.query(query, [customerId], (err, result) => {
+    if (err) {
+      console.error("Error deleting customer: ", err);
+      return res.status(500).send("Internal Server Error");
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).send("Customer not found");
+    }
+
+    res.status(200).send("Customer deleted successfully");
+  });
+});
+
+
+
 app.get("/data", (req, res) => {
   const sql = `
     SELECT id, Company_Name, Address, Email, Number, Desc_Title, Description, Twitter, Instagram, Linkedin, 

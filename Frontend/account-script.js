@@ -73,6 +73,50 @@ function fetchUnpaidServices(customerId) {
     .catch((error) => console.error("Failed to fetch unpaid services:", error));
 }
 
+// Function to delete a customer
+function deleteCustomer(specificCustomerId) {
+  if (!specificCustomerId) {
+    alert("Customer ID is missing!");
+    return;
+  }
+
+  // Confirm deletion with the user
+  const confirmDelete = confirm("Are you sure you want to delete this customer?");
+  if (!confirmDelete) {
+    return;
+  }
+
+  // Send DELETE request to the server with the ID in the body
+  fetch("http://localhost:3000/Frontend/account-settings.html", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ customer_ID: specificCustomerId }), // Send ID as JSON
+  })
+    .then((response) => {
+      if (response.ok) {
+        alert("Customer deleted successfully");
+        
+        // Optionally, refresh the customer list or redirect
+      } else {
+        return response.text().then((text) => {
+          throw new Error(text);
+        });
+      }
+    })
+    .catch((error) => {
+      console.error("Error deleting customer:", error);
+      alert("Failed to delete the customer: " + error.message);
+    });
+}
+
+// Example usage: Delete a customer with a specific ID
+document.getElementById("delete").addEventListener("click", () => {
+  deleteCustomer(specificCustomerId);
+});
+
+
 function processPayment(transactionId) {
   console.log("Processing payment for transaction ID:", transactionId); 
   fetch(`http://localhost:3000/Frontend/pay-service`, {
