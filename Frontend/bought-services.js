@@ -55,6 +55,7 @@ function formatDate(dateString) {
 
           // Add event listeners for "Execute" buttons
           const executeButtons = document.querySelectorAll(".execute-button");
+          
           executeButtons.forEach((button) => {
             button.addEventListener("click", () => {
               // Fix the dataset key
