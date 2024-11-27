@@ -1,0 +1,6 @@
+we deployed the website here : https://soen287-1.onrender.com/home-page.html
+no installation or anything of the sort is required, just click the link and you will be redirected to the website.
+
+the guide on how to use the website is in the guide.txt file
+
+if you clicked the link it took a while to open, just wait because we deployed it on a free host so it might sleep and have to reboot.

@@ -7,11 +7,25 @@ Sohaib Daami 40260605
 
 
 
-instrcutions:
-to log in as admin you need to open the admin.html page use: username: admin1 , password: password1
-then you will be redirected to the edit page where you could customize the page or add and delete services
-
-to use the page as a customer, open the home-page.html page, and then navigate however you want 
-if you want to log in use:
+guide for admin:
+to use this website as an admin, you will need to access it using the url https://soen287-1.onrender.com/admin.html and there you will be prompted to login as an admin or register you can register or use a pre existing account:
 username: admin
-password: adminpass
+password: admin
+
+after logging in you will be redirected to the admin-customization page where you can edit the page, add delete and edit a service or check bought services and confirm the execution for them, or follow up with customers that have yet to pay for their services with an email
+
+guide for customers:
+to login you can either click the login button on the top right or click on guest where you will be redirected to a login page where you can register or use an existing account:
+username: johnD
+password: admin
+
+then you can click on your username at the top right to access your account settings where you could see your email, date of birth and everything, you could also see your orders with their status, orders that arent paid yet could be canceled you could also pay your bills by clicking on pay under my orders 
+
+you could get services by visiting the services page and clicking on the name of any service then clicking add to cart (if the availability is 0 then  you cant add it )
+you could log out using the logout button at the top right or delete your account using the button found in your settings page by clicking on your username at the top right
+
+
+the home page is where the information about the business is, the services page is where all the services are.
+
+To use the search bar just type one of the services' names and you will get a drop down menu with services that have that name just click on any of them and it will work
+
