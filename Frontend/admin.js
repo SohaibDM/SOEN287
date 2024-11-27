@@ -1,6 +1,4 @@
-
 const API_BASE_URL = "http://localhost:3000";
-
 
 async function handleAdminLogin(event) {
   event.preventDefault();
@@ -26,16 +24,9 @@ async function handleAdminLogin(event) {
 
     if (response.ok) {
       alert("Admin login successful!");
-
-
-
-      // Redirect to the admin dashboard
       window.location.href = "admin-customization.html";
     } else {
-      alert(
-        
-          "Failed to login as admin. Please check your credentials."
-      );
+      alert("Failed to login as admin. Please check your credentials.");
     }
   } catch (error) {
     console.error("Error logging in as admin:", error);
@@ -43,13 +34,10 @@ async function handleAdminLogin(event) {
   }
 }
 
-// Attach event listener to the admin login form
 document
   .getElementById("adminLoginForm")
   .addEventListener("submit", handleAdminLogin);
 
-
-  // Function to handle admin registration
 async function handleAdminRegistration(event) {
   event.preventDefault();
 
@@ -106,7 +94,7 @@ async function handleAdminRegistration(event) {
 
     if (response.ok) {
       alert("Admin registration successful!");
-      window.location.href = "admin.html"; // Redirect to the login page
+      window.location.href = "admin.html";
     } else {
       alert(result.message || "Failed to register admin. Please try again.");
     }
@@ -116,7 +104,6 @@ async function handleAdminRegistration(event) {
   }
 }
 
-// Attach event listener to the admin registration form
 const adminRegisterForm = document.getElementById("adminRegisterForm");
 if (adminRegisterForm) {
   adminRegisterForm.addEventListener("submit", handleAdminRegistration);

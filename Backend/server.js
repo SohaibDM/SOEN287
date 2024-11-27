@@ -6,7 +6,6 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const app = express();
-const nodemailer = require("nodemailer");
 const port = 3000;
 
 app.use(cors());
@@ -25,10 +24,9 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const uploadDir = path.join(__dirname, "uploads");
     if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir); // Ensure the upload directory exists
+      fs.mkdirSync(uploadDir); 
     }
 
-    // Delete all files in the 'uploads' folder before saving the new file
     fs.readdir(uploadDir, (err, files) => {
       if (err) {
         console.error("Error reading uploads directory:", err);
@@ -51,7 +49,7 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     const uniqueName = `${Date.now()}-${file.originalname}`;
-    cb(null, uniqueName); // Generate a unique filename
+    cb(null, uniqueName); 
   },
 });
 
@@ -75,28 +73,25 @@ db.connect((err) => {
 });
 
 app.get("/Frontend/account-settings/:customer_ID", (req, res) => {
-  const userId = req.params.customer_ID; // Use the ID passed in the URL
+  const userId = req.params.customer_ID; 
   const query = "SELECT Username, Name, Email, DOB, payment FROM customers WHERE customer_ID = ?";
   const query_order = "SELECT * FROM bought_services WHERE customer_ID = ?";
-  const query_service = "SELECT * FROM services WHERE service_ID IN (?)"; // Query for full service details
+  const query_service = "SELECT * FROM services WHERE service_ID IN (?)"; 
 
-  // Fetch customer details
   db.query(query, [userId], (err, result) => {
     if (err) {
       console.error('Error accessing customer: ', err);
       res.status(500).send("Internal Server Error");
     } else {
       if (result.length > 0) {
-        // Fetch bought services
         db.query(query_order, [userId], (err2, result2) => {
           if (err2) {
             console.error('Error accessing the bought services:', err2);
             res.status(500).send("Internal Server Error");
           } else {
             if (result2.length > 0) {
-              const serviceIds = result2.map((service) => service.service_ID); // Extract all service IDs
+              const serviceIds = result2.map((service) => service.service_ID);
 
-              // Fetch full service info for bought services
               db.query(query_service, [serviceIds], (err3, result3) => {
                 if (err3) {
                   console.error('Error accessing service details:', err3);
@@ -184,99 +179,93 @@ app.get("/Frontend/bought-services.html", (req, res) => {
 
 
 app.get("/Frontend/ServicesPage.html", (req, res) => {
-  const searchQuery = req.query.q; // Get the search query from the request
+  const searchQuery = req.query.q; 
 
   if (!searchQuery) {
-    return res.json([]); // Return an empty array if no query is provided
+    return res.json([]); 
   }
 
-  // Query to search for services by title
   const query = "SELECT * FROM services WHERE Title LIKE ? LIMIT 10";
 
-  // Use wildcards for partial matching
   db.query(query, [`%${searchQuery}%`], (err, results) => {
     if (err) {
       console.error("Error accessing services: ", err);
       return res.status(500).send("Internal Server Error");
     }
 
-    res.json(results); // Send matching services as JSON
+    res.json(results); 
   });
 });
 
 app.get("/Frontend/productPage1.html", (req, res) => {
-  const searchQuery = req.query.q; // Get the search query from the request
+  const searchQuery = req.query.q;
 
   if (!searchQuery) {
-    return res.json([]); // Return an empty array if no query is provided
+    return res.json([]); 
   }
 
-  // Query to search for services by title
+ 
   const query = "SELECT * FROM services WHERE Title LIKE ? LIMIT 10";
 
-  // Use wildcards for partial matching
+ 
   db.query(query, [`%${searchQuery}%`], (err, results) => {
     if (err) {
       console.error("Error accessing services: ", err);
       return res.status(500).send("Internal Server Error");
     }
 
-    res.json(results); // Send matching services as JSON
+    res.json(results); 
   });
 });
 
 app.get("/Frontend/home-page.html", (req, res) => {
-  const searchQuery = req.query.q; // Get the search query from the request
+  const searchQuery = req.query.q; 
 
   if (!searchQuery) {
-    return res.json([]); // Return an empty array if no query is provided
+    return res.json([]); 
   }
 
-  // Query to search for services by title
+  
   const query = "SELECT * FROM services WHERE Title LIKE ? LIMIT 10";
 
-  // Use wildcards for partial matching
   db.query(query, [`%${searchQuery}%`], (err, results) => {
     if (err) {
       console.error("Error accessing services: ", err);
       return res.status(500).send("Internal Server Error");
     }
 
-    res.json(results); // Send matching services as JSON
+    res.json(results); 
   });
 });
 
 app.get("/Frontend/account-settings.html", (req, res) => {
-  const searchQuery = req.query.q; // Get the search query from the request
+  const searchQuery = req.query.q; 
 
   if (!searchQuery) {
-    return res.json([]); // Return an empty array if no query is provided
+    return res.json([]);
   }
 
-  // Query to search for services by title
   const query = "SELECT * FROM services WHERE Title LIKE ? LIMIT 10";
 
-  // Use wildcards for partial matching
   db.query(query, [`%${searchQuery}%`], (err, results) => {
     if (err) {
       console.error("Error accessing services: ", err);
       return res.status(500).send("Internal Server Error");
     }
 
-    res.json(results); // Send matching services as JSON
+    res.json(results); 
   });
 });
 
 
 
 app.delete("/Frontend/account-settings.html", (req, res) => {
-  const customerId = req.body.customer_ID; // Extract the customer ID from the request body
+  const customerId = req.body.customer_ID; 
 
   if (!customerId) {
     return res.status(400).send("Customer ID is required");
   }
 
-  // SQL query to delete the customer by ID
   const query = "DELETE FROM customers WHERE customer_ID = ?";
 
   db.query(query, [customerId], (err, result) => {
@@ -294,13 +283,12 @@ app.delete("/Frontend/account-settings.html", (req, res) => {
 });
 
 app.delete("/Frontend/account-settings.html/cancel", (req, res) => {
-  const bought_ser_id = req.body.BS_id; // Extract the customer ID from the request body
+  const bought_ser_id = req.body.BS_id; 
 
   if (!bought_ser_id) {
     return res.status(400).send("bought service id is required");
   }
 
-  // SQL query to delete the customer by ID
   const query = "DELETE FROM bought_services WHERE transaction_ID = ?";
 
   db.query(query, [bought_ser_id], (err, result) => {
@@ -349,20 +337,17 @@ app.post("/submit", upload.single("image"), (req, res) => {
     linkedin,
   } = req.body;
 
-  // Check if an image was uploaded
   const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
 
-  // Base query for INSERT
   let sql = `
     INSERT INTO page (id, Image_Path, Company_Name, Address, Email, Number, Desc_Title, Description, Twitter, Instagram, Linkedin)
     VALUES (0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON DUPLICATE KEY UPDATE
   `;
 
-  // Dynamic UPDATE clause
   const updates = [];
   const values = [
-    imagePath, // Save the relative path to the image
+    imagePath, 
     company_name,
     address,
     email,
@@ -385,10 +370,8 @@ app.post("/submit", upload.single("image"), (req, res) => {
   if (instagram) updates.push("Instagram = VALUES(Instagram)");
   if (linkedin) updates.push("Linkedin = VALUES(Linkedin)");
 
-  // Combine updates into the query
   sql += updates.join(", ");
 
-  // Execute the query
   db.query(sql, values, (err, result) => {
     if (err) {
       console.error("Error inserting or updating data:", err);
@@ -400,25 +383,22 @@ app.post("/submit", upload.single("image"), (req, res) => {
 });
 
 
-// Configure storage specifically for service images
 const serviceStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     const uploadDir = path.join(__dirname, "serviceImages");
     if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir); // Ensure the directory exists
+      fs.mkdirSync(uploadDir); 
     }
-    cb(null, uploadDir); // Save files in 'serviceImages'
+    cb(null, uploadDir); 
   },
   filename: (req, file, cb) => {
     const uniqueName = `${Date.now()}-${file.originalname}`;
-    cb(null, uniqueName); // Generate a unique filename
+    cb(null, uniqueName); 
   },
 });
 
-// Use the updated storage configuration for service uploads
 const serviceUpload = multer({ storage: serviceStorage });
 
-// Correct the middleware in the '/addService' route
 app.post("/addService", serviceUpload.single("serviceImage"), (req, res) => {
   const {
     serviceName,
@@ -429,16 +409,13 @@ app.post("/addService", serviceUpload.single("serviceImage"), (req, res) => {
     description,
   } = req.body;
 
-  // Check if an image was uploaded
   const imagePath = req.file ? `/serviceImages/${req.file.filename}` : null;
 
-  // SQL query to insert the service details
   const sql = `
     INSERT INTO services (Title, Category, Price, originalPrice, Availability, Description, Image)
     VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
 
-  // Values to be inserted
   const values = [
     serviceName,
     category,
@@ -449,7 +426,6 @@ app.post("/addService", serviceUpload.single("serviceImage"), (req, res) => {
     imagePath,
   ];
 
-  // Execute the query
   db.query(sql, values, (err, result) => {
     if (err) {
       console.error("Error inserting data:", err);
@@ -474,7 +450,7 @@ app.get("/services", (req, res) => {
       res.status(500).send("Failed to fetch services.");
       return;
     }
-    res.json(result); // Send the result as a JSON response
+    res.json(result); 
   });
 });
 
@@ -482,7 +458,6 @@ app.get("/services", (req, res) => {
 app.delete("/deleteService/:id", (req, res) => {
   const serviceId = req.params.id;
 
-  // Step 1: Get the image path for the service
   const selectQuery = `
     SELECT Image FROM services WHERE service_ID = ?;
   `;
@@ -501,7 +476,6 @@ app.delete("/deleteService/:id", (req, res) => {
 
     const imagePath = result[0].Image;
 
-    // Step 2: Delete the image file if it exists
     if (imagePath) {
       const absolutePath = path.join(__dirname, imagePath);
       fs.unlink(absolutePath, (unlinkErr) => {
@@ -513,8 +487,6 @@ app.delete("/deleteService/:id", (req, res) => {
         console.log("Image file deleted successfully.");
       });
     }
-
-    // Step 3: Delete the service record from the database
     const deleteQuery = `
       DELETE FROM services WHERE service_ID = ?;
     `;
@@ -553,12 +525,10 @@ app.get("/services/:id", (req, res) => {
       return;
     }
 
-    res.json(result[0]); // Return the first matching service
+    res.json(result[0]); 
   });
 });
 
-
-// Login route
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
 
@@ -598,7 +568,6 @@ app.post("/login", (req, res) => {
   });
 });
 
-// Registration route
 app.post("/register", (req, res) => {
   const { fullName, birthdate, email, address, username, password, confirmPassword } = req.body;
 
@@ -635,23 +604,19 @@ app.post("/register", (req, res) => {
 });
 
 
-// Endpoint to add a service to the cart (boughtServices table)
 app.post("/addToCart", (req, res) => {
-  const service_id = req.body.service_id; // The service ID passed in the body
+  const service_id = req.body.service_id; 
   const customerId = req.body.customer_id;
-  const purchaseDate = req.body.purchaseDate; // The customer ID from the session
+  const purchaseDate = req.body.purchaseDate; 
 
   if (!customerId) {
     return res.status(400).json({ success: false, message: "Customer not logged in." });
   }
 
-  // Insert the data into the boughtServices table
   const sql = `
     INSERT INTO bought_services (customer_ID, service_ID, purchaseDate, isPaid)
     VALUES (?, ?, ?, ?)
   `;
-
-  // Set default value for isPaid as false (service is added to cart, not purchased yet)
   const values = [customerId, service_id, purchaseDate, false];
 
   db.query(sql, values, (err, result) => {
@@ -664,7 +629,6 @@ app.post("/addToCart", (req, res) => {
   });
 });
 
-// Endpoint to update availability after adding to cart
 app.patch("/updateAvailability/:serviceId", (req, res) => {
   const serviceId = req.params.serviceId;
   const { availability } = req.body;
@@ -691,7 +655,6 @@ app.patch("/updateAvailability/:serviceId", (req, res) => {
 
 
 
-// Admin registration route
 app.post("/admin/register", (req, res) => {
   const { fullName, birthdate, email, address, username, password, confirmPassword } = req.body;
 
@@ -726,7 +689,6 @@ app.post("/admin/register", (req, res) => {
 });
 
 
-// Admin login route
 app.post("/admin/login", (req, res) => {
   const { username, password } = req.body;
 
@@ -765,9 +727,6 @@ app.post("/admin/login", (req, res) => {
     }
   });
 });
-
-
-// Endpoint to fetch unpaid services using transaction_ID
 app.get("/customer/:customerId/unpaid-services", (req, res) => {
   const customerId = req.params.customerId;
   const sql = `
@@ -787,7 +746,6 @@ app.get("/customer/:customerId/unpaid-services", (req, res) => {
   });
 });
 
-// Payment endpoint updated to use transaction_ID
 app.post("/Frontend/pay-service", (req, res) => {
   const { transactionId } = req.body;
   const sql = `UPDATE bought_services SET isPaid = 1 WHERE transaction_ID = ?`;
@@ -801,17 +759,14 @@ app.post("/Frontend/pay-service", (req, res) => {
   });
 });
 
-// PUT endpoint to update a service with correct image storage handling
 app.put("/services/:id", serviceUpload.single('serviceImage'), (req, res) => {
   const serviceId = req.params.id;
   let serviceData = req.body;
 
-  // Parse service data if it's sent as a JSON string under the 'data' form field
   if (req.body.data) {
     serviceData = JSON.parse(req.body.data);
   }
 
-  // Values to update
   const updateValues = [
     serviceData.Title,
     serviceData.Category,
@@ -822,7 +777,6 @@ app.put("/services/:id", serviceUpload.single('serviceImage'), (req, res) => {
     serviceId
   ];
 
-  // Prepare the SQL query to update service details
   let sqlUpdate = `
     UPDATE services SET
       Title = ?,
@@ -834,14 +788,12 @@ app.put("/services/:id", serviceUpload.single('serviceImage'), (req, res) => {
     WHERE service_ID = ?;
   `;
 
-  // Execute the update query
   db.query(sqlUpdate, updateValues, (err, result) => {
     if (err) {
       console.error("Failed to update service details:", err);
       return res.status(500).send("Failed to update service.");
     }
 
-    // Check if an image file was uploaded and update the image path in the database
     if (req.file) {
       const imagePath = `/serviceImages/${req.file.filename}`;
       const sqlUpdateImage = `UPDATE services SET Image = ? WHERE service_ID = ?`;
@@ -860,8 +812,6 @@ app.put("/services/:id", serviceUpload.single('serviceImage'), (req, res) => {
 });
 
 
-// Endpoint to update isExecuted status
-// Endpoint to update isExecuted status
 app.patch("/executeTransaction/:transactionId", (req, res) => {
   const transactionId = req.params.transactionId;
   const { isExecuted } = req.body;

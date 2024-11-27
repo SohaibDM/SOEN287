@@ -17,9 +17,8 @@ function showSection(section) {
   }
 }
 
-// Replace '3' with the ID of the customer you want to display
 const specificCustomerId = sessionStorage.getItem("customer_id");
-console.log(specificCustomerId); // Example: Fetch user with ID 3
+console.log(specificCustomerId);
 const usernameElement = document.getElementById("displayUsername");
 const username = document.getElementById("accountUsername");
 const Name = document.getElementById("name");
@@ -27,12 +26,11 @@ const accountEmail = document.getElementById("email");
 const date = document.getElementById("date");
 const payment = document.getElementById("payment-card");
 
-// Helper function to format the date as YYYY/MM/DD
 function formatDate(dateString) {
-  const dateObj = new Date(dateString); // Convert to Date object
+  const dateObj = new Date(dateString);
   const year = dateObj.getFullYear();
-  const month = String(dateObj.getMonth() + 1).padStart(2, "0"); // Get month and pad with leading zero if needed
-  const day = String(dateObj.getDate()).padStart(2, "0"); // Get day and pad with leading zero if needed
+  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+  const day = String(dateObj.getDate()).padStart(2, "0");
   return `${year}/${month}/${day}`;
 }
 
@@ -41,14 +39,14 @@ function fetchUnpaidServices(customerId) {
     .then((response) => response.json())
     .then((services) => {
       const servicesList = document.getElementById("unpaid-services-list");
-      servicesList.innerHTML = ""; // Clear previous entries
+      servicesList.innerHTML = "";
 
       if (services.length === 0) {
         servicesList.innerHTML = "<p>No unpaid services.</p>";
       } else {
         services.forEach((service) => {
           const serviceDiv = document.createElement("div");
-          serviceDiv.classList.add("service-bloc"); // Apply the style class
+          serviceDiv.classList.add("service-bloc");
           const orderID = service.transaction_ID;
           const title = document.createElement("p");
           title.classList.add("service-title");
@@ -60,7 +58,7 @@ function fetchUnpaidServices(customerId) {
 
           const payButton = document.createElement("button");
           payButton.textContent = "Pay Now";
-          payButton.classList.add("btn", "pay-button"); // Additional CSS for styling
+          payButton.classList.add("btn", "pay-button");
           payButton.onclick = () => processPayment(service.transaction_ID);
 
           serviceDiv.appendChild(title);
@@ -73,33 +71,30 @@ function fetchUnpaidServices(customerId) {
     .catch((error) => console.error("Failed to fetch unpaid services:", error));
 }
 
-// Function to delete a customer
 function deleteCustomer(specificCustomerId) {
   if (!specificCustomerId) {
     alert("Customer ID is missing!");
     return;
   }
 
-  // Confirm deletion with the user
   const confirmDelete = confirm("Are you sure you want to delete this customer?");
   if (!confirmDelete) {
     return;
   }
   
-  // Send DELETE request to the server with the ID in the body
   fetch("http://localhost:3000/Frontend/account-settings.html", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ customer_ID: specificCustomerId }), // Send ID as JSON
+    body: JSON.stringify({ customer_ID: specificCustomerId }),
   })
     .then((response) => {
       if (response.ok) {
         alert("Customer deleted successfully");
-          sessionStorage.removeItem("customer_id"); // Remove customer_id from sessionStorage
-          sessionStorage.removeItem("user"); // Remove username from sessionStorage
-          window.location.href = "./home-page.html"; // Redirect to login page
+          sessionStorage.removeItem("customer_id");
+          sessionStorage.removeItem("user");
+          window.location.href = "./home-page.html";
        
       } else {
         return response.text().then((text) => {
@@ -113,11 +108,9 @@ function deleteCustomer(specificCustomerId) {
     });
 }
 
-// Example usage: Delete a customer with a specific ID
-  document.getElementById("delete").addEventListener("click", () => {
+document.getElementById("delete").addEventListener("click", () => {
   deleteCustomer(specificCustomerId);
 });
-
 
 function processPayment(transactionId) {
   console.log("Processing payment for transaction ID:", transactionId); 
@@ -130,15 +123,12 @@ function processPayment(transactionId) {
   })
     .then((response) => response.json())
     .then((data) => {
-      alert(data.message); // Alert the payment status
-      fetchUnpaidServices(specificCustomerId); // Refresh the list to update the status
+      alert(data.message);
+      fetchUnpaidServices(specificCustomerId);
     })
     .catch((error) => console.error("Error processing payment:", error));
 }
 
-
-
-// Fetch user info for the chosen ID
 fetch(`http://localhost:3000/Frontend/account-settings/${specificCustomerId}`)
   .then((response) => response.json())
   .then((data) => {
@@ -202,7 +192,6 @@ fetch(`http://localhost:3000/Frontend/account-settings/${specificCustomerId}`)
         infoContainer.appendChild(priceButton);
         infoContainer.appendChild(dateInfo);
 
-        // Create description paragraph for the service
         const serviceDescription = document.createElement("p");
         serviceDescription.classList.add("service-description");
 
@@ -226,30 +215,27 @@ fetch(`http://localhost:3000/Frontend/account-settings/${specificCustomerId}`)
         viewOrderButton.textContent =
         service.isPaid === 1 ? "Paid" : "Not paid";
         
-        
         const cancelService = document.createElement("button");
-        cancelService.classList.add("btn", "btn-danger"); // Add CSS classes
-        cancelService.id = "delete-bought-service";       // Assign an ID
+        cancelService.classList.add("btn", "btn-danger");
+        cancelService.id = "delete-bought-service";
         cancelService.textContent = "Cancel Service";
         cancelService.style.marginLeft = "66px";
 
         innerContainer.appendChild(infoContainer);
         innerContainer.appendChild(description);
-        innerContainer.appendChild(serviceDescription); // Added service description here
+        innerContainer.appendChild(serviceDescription);
         innerContainer.appendChild(viewOrderButton);
         if(service.isPaid === 0){
           innerContainer.appendChild(cancelService);
         }
 
         cancelService.addEventListener("click", () => {
-          const transactionId = service.transaction_ID; // Replace with the actual transaction ID
+          const transactionId = service.transaction_ID;
 
-          // Update the URL to include "cancel"
           const currentUrl = window.location.href;
           const newUrl = currentUrl.endsWith("/cancel") ? currentUrl : currentUrl + "/cancel";
-          window.history.pushState({}, "", newUrl); // Update the URL without reloading the page
+          window.history.pushState({}, "", newUrl);
 
-          // Call the delete function
           deleteBoughtService(transactionId);
         });
 
@@ -262,72 +248,65 @@ fetch(`http://localhost:3000/Frontend/account-settings/${specificCustomerId}`)
   })
   .catch((error) => console.error("Error fetching user data:", error));
 
-  const searchInput = document.getElementById('search-input');
-  const searchResults = document.getElementById('search-results');
-  
-  // Handle input for search
-  async function handleSearch(event) {
-      const query = event.target.value.trim(); // Get user input
-      searchResults.innerHTML = ''; // Clear previous results
-  
-      if (!query) {
-          searchResults.style.display = 'none';
-          return; // Exit if input is empty
-      }
-  
-      try {
-          // Fetch matching services from the server
-          const response = await fetch(`http://localhost:3000/Frontend/account-settings.html?q=${encodeURIComponent(query)}`);
-          if (!response.ok) throw new Error('Failed to fetch services');
-          const services = await response.json();
-  
-          // Display results
-          services.forEach(service => {
-              const div = document.createElement('div');
-              div.className = 'search-result-item';
-              div.textContent = service.Title;
-              div.onclick = () => {
-                  window.location.href = `./productPage1.html?id=${service.service_ID}`; // Redirect to service details
-              };
-              searchResults.appendChild(div);
-          });
-  
-          searchResults.style.display = services.length ? 'block' : 'none';
-      } catch (error) {
-          console.error(error);
-      }
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+
+async function handleSearch(event) {
+  const query = event.target.value.trim();
+  searchResults.innerHTML = '';
+
+  if (!query) {
+    searchResults.style.display = 'none';
+    return;
   }
-  
-  
-  function deleteBoughtService(transactionId) {
-    if (!transactionId) {
-      alert("Transaction ID is missing!");
-      return;
-    }
-    // Send DELETE request to the server with the transaction ID in the body
-    fetch("http://localhost:3000/Frontend/account-settings.html/cancel", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ BS_id: transactionId }), // Send transaction ID as JSON
+
+  try {
+    const response = await fetch(`http://localhost:3000/Frontend/account-settings.html?q=${encodeURIComponent(query)}`);
+    if (!response.ok) throw new Error('Failed to fetch services');
+    const services = await response.json();
+
+    services.forEach(service => {
+      const div = document.createElement('div');
+      div.className = 'search-result-item';
+      div.textContent = service.Title;
+      div.onclick = () => {
+        window.location.href = `./productPage1.html?id=${service.service_ID}`;
+      };
+      searchResults.appendChild(div);
+    });
+
+    searchResults.style.display = services.length ? 'block' : 'none';
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function deleteBoughtService(transactionId) {
+  if (!transactionId) {
+    alert("Transaction ID is missing!");
+    return;
+  }
+  fetch("http://localhost:3000/Frontend/account-settings.html/cancel", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ BS_id: transactionId }),
+  })
+    .then((response) => {
+      if (response.ok) {
+        alert("Bought service deleted successfully");
+        window.location.href = "/Frontend/account-settings.html";
+      } else {
+        return response.text().then((text) => {
+          throw new Error(text);
+        });
+      }
     })
-      .then((response) => {
-        if (response.ok) {
-          alert("Bought service deleted successfully");
-          window.location.href = "/Frontend/account-settings.html";
-        } else {
-          return response.text().then((text) => {
-            throw new Error(text);
-          });
-        }
-      })
-      .catch((error) => {
-        console.error("Error deleting bought service:", error);
-        alert("Failed to delete the bought service: " + error.message);
-      });
-  }
-  
-  // Add event listener to the search bar
-  searchInput.addEventListener('input', handleSearch);
-  
+    .catch((error) => {
+      console.error("Error deleting bought service:", error);
+      alert("Failed to delete the bought service: " + error.message);
+    });
+}
+
+searchInput.addEventListener('input', handleSearch);

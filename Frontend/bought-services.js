@@ -1,9 +1,8 @@
-// Helper function to format the date as YYYY/MM/DD
 function formatDate(dateString) {
-    const dateObj = new Date(dateString); // Convert to Date object
+    const dateObj = new Date(dateString); 
     const year = dateObj.getFullYear();
-    const month = String(dateObj.getMonth() + 1).padStart(2, "0"); // Get month and pad with leading zero if needed
-    const day = String(dateObj.getDate()).padStart(2, "0"); // Get day and pad with leading zero if needed
+    const month = String(dateObj.getMonth() + 1).padStart(2, "0"); 
+    const day = String(dateObj.getDate()).padStart(2, "0"); 
     return `${year}/${month}/${day}`;
   }
 
@@ -15,12 +14,9 @@ function formatDate(dateString) {
       if (data.boughtServices && data.boughtServices.length > 0) {
         const tableBody = document.getElementById("table-body");
 
-        // Function to render table rows
         const renderTable = (filteredData) => {
-          // Clear the existing rows
           tableBody.innerHTML = "";
 
-          // Populate table with filtered data
           filteredData.forEach((service) => {
             console.log(service.transaction_ID);
             const customer = data.customers.find(
@@ -53,16 +49,13 @@ function formatDate(dateString) {
             tableBody.appendChild(row);
           });
 
-          // Add event listeners for "Execute" buttons
           const executeButtons = document.querySelectorAll(".execute-button");
-          
+
           executeButtons.forEach((button) => {
             button.addEventListener("click", () => {
-              // Fix the dataset key
               console.log(button.dataset);
               const transactionId = button.dataset.transactionId;
 
-              // Call the backend to update the isExecuted status
               fetch(
                 `http://localhost:3000/executeTransaction/${transactionId}`,
                 {
@@ -82,7 +75,6 @@ function formatDate(dateString) {
                 .then((result) => {
                   if (result.success) {
                     alert("Transaction executed successfully!");
-                    // Refresh the table after execution
                     const row = button.closest("tr");
                     row.querySelector("#execute-status").innerHTML =
                       '<span class="badge bg-success">Executed</span>';
@@ -97,10 +89,8 @@ function formatDate(dateString) {
 
         };
 
-        // Initial render of all rows
         renderTable(data.boughtServices);
 
-        // Add event listeners for filters
         const usernameInput = document.querySelector(".name-input");
         const dateInput = document.querySelector(".date-input");
 
@@ -116,7 +106,6 @@ function formatDate(dateString) {
               customer?.Username.toLowerCase().includes(usernameFilter);
             const dateMatches = service.purchaseDate.startsWith(dateFilter);
 
-            // Apply filters if values are provided
             return (
               (usernameFilter ? usernameMatches : true) &&
               (dateFilter ? dateMatches : true)
@@ -126,7 +115,6 @@ function formatDate(dateString) {
           renderTable(filteredServices);
         };
 
-        // Attach filtering logic to input events
         usernameInput.addEventListener("input", filterTable);
         dateInput.addEventListener("input", filterTable);
       } else {

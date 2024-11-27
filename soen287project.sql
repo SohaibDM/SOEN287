@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2024 at 05:42 PM
+-- Generation Time: Nov 27, 2024 at 04:54 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -55,18 +55,22 @@ CREATE TABLE `bought_services` (
   `customer_ID` int(11) NOT NULL,
   `service_ID` int(11) NOT NULL,
   `isPaid` tinyint(1) NOT NULL,
-  `purchaseDate` date NOT NULL
+  `purchaseDate` date NOT NULL,
+  `isExecuted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `bought_services`
 --
 
-INSERT INTO `bought_services` (`transaction_ID`, `customer_ID`, `service_ID`, `isPaid`, `purchaseDate`) VALUES
-(1, 5, 16, 1, '2024-11-25'),
-(2, 7, 16, 1, '2024-11-26'),
-(3, 5, 17, 1, '2024-11-26'),
-(4, 8, 16, 1, '2024-11-26');
+INSERT INTO `bought_services` (`transaction_ID`, `customer_ID`, `service_ID`, `isPaid`, `purchaseDate`, `isExecuted`) VALUES
+(1, 5, 16, 1, '2024-11-25', 1),
+(2, 7, 16, 1, '2024-11-26', 1),
+(3, 5, 17, 1, '2024-11-26', 0),
+(4, 8, 16, 1, '2024-11-26', 0),
+(5, 5, 18, 1, '2024-11-26', 0),
+(7, 5, 16, 1, '2024-11-26', 0),
+(8, 5, 16, 1, '2024-11-26', 0);
 
 -- --------------------------------------------------------
 
@@ -144,8 +148,8 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`service_ID`, `Title`, `Category`, `Price`, `originalPrice`, `Availability`, `description`, `Image`) VALUES
-(16, 'edit', 'edit', 45, 54, 2, 'EDIT\nEDIT\nEDIT\nEDIT', '/serviceImages/1732639296060-PFP.png'),
-(17, 'des new', 'de', 67, 76, 76, 'bfffffffffffffffffffffffffffffffffffffff\r\nf\r\n\r\nffffffffffffffffffffffffffffffffffffffff', '/serviceImages/1732387666622-PFP.png'),
+(16, 'edit', 'edit', 45, 54, 0, 'EDIT\nEDIT\nEDIT\nEDIT', '/serviceImages/1732639296060-PFP.png'),
+(17, 'des new', 'de', 67, 76, 74, 'bfffffffffffffffffffffffffffffffffffffff\r\nf\r\n\r\nffffffffffffffffffffffffffffffffffffffff', '/serviceImages/1732387666622-PFP.png'),
 (18, 'try again', 'new', 34, 56, 0, 'new service description try out hopefully this works\r\nnew service description try out hopefully this works\r\nnew service description try out hopefully this works\r\nnew service description try out hopefully this works\r\n\r\n', '/serviceImages/1732400171036-PFP.png');
 
 --
@@ -198,13 +202,13 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `bought_services`
 --
 ALTER TABLE `bought_services`
-  MODIFY `transaction_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `transaction_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `customer_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `services`

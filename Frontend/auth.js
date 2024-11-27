@@ -1,8 +1,5 @@
-// Base URL for your API endpoints (update this as needed)
 const API_BASE_URL = "http://localhost:3000";
 
-// Function to handle login
-// Function to handle login
 async function handleLogin(event) {
   event.preventDefault();
 
@@ -27,12 +24,8 @@ async function handleLogin(event) {
 
     if (response.ok) {
       alert("Login successful!");
-      
-      // Store customer ID in sessionStorage
       sessionStorage.setItem("customer_id", result.user.id);
       sessionStorage.setItem("user", result.user.username);
-
-      // Redirect to the homepage
       window.location.href = "home-page.html"; 
     } else {
       alert(result.message || "Failed to login. Please check your credentials.");
@@ -43,31 +36,17 @@ async function handleLogin(event) {
   }
 }
 
-
-// Function to handle registration
 async function handleRegistration(event) {
   event.preventDefault();
 
   const form = event.target;
-  const fullName = form
-    .querySelector("input[placeholder='Full name']")
-    .value.trim();
-  const birthdate = form
-    .querySelector("input[placeholder='Birthdate']")
-    .value.trim();
+  const fullName = form.querySelector("input[placeholder='Full name']").value.trim();
+  const birthdate = form.querySelector("input[placeholder='Birthdate']").value.trim();
   const email = form.querySelector("input[placeholder='Email']").value.trim();
-  const address = form
-    .querySelector("input[placeholder='Adress']")
-    .value.trim();
-  const username = form
-    .querySelector("input[placeholder='Username']")
-    .value.trim();
-  const password = form
-    .querySelector("input[placeholder='Password']")
-    .value.trim();
-  const confirmPassword = form
-    .querySelector("input[placeholder='Confirm Password']")
-    .value.trim();
+  const address = form.querySelector("input[placeholder='Adress']").value.trim();
+  const username = form.querySelector("input[placeholder='Username']").value.trim();
+  const password = form.querySelector("input[placeholder='Password']").value.trim();
+  const confirmPassword = form.querySelector("input[placeholder='Confirm Password']").value.trim();
   const termsChecked = form.querySelector("input[type='checkbox']").checked;
 
   if (!termsChecked) {
@@ -95,7 +74,7 @@ async function handleRegistration(event) {
 
     if (response.ok) {
       alert("Registration successful!");
-      window.location.href = "login.html"; // Redirect to login page
+      window.location.href = "login.html";
     } else {
       alert(result.message || "Failed to register. Please try again.");
     }
@@ -105,7 +84,6 @@ async function handleRegistration(event) {
   }
 }
 
-// Attach event listeners to forms
 document.getElementById("loginForm").addEventListener("submit", handleLogin);
 
 const registerForm = document.querySelector(".form-box.register form");

@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Extract the serviceId from the query string
   const urlParams = new URLSearchParams(window.location.search);
   const serviceId = urlParams.get("id");
 
@@ -8,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // Fetch service details from the backend
   fetch(`http://localhost:3000/services/${serviceId}`)
     .then((response) => {
       if (!response.ok) {
@@ -17,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return response.json();
     })
     .then((service) => {
-      // Populate the form fields with service details
       document.getElementById("serviceName").value = service.Title;
       document.getElementById("category").value = service.Category;
       document.getElementById("price").value = service.Price;
@@ -30,12 +27,10 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Failed to load service details.");
     });
 
-  // Handle form submission for updating the service
   const form = document.querySelector(".service-form");
   form.addEventListener("submit", (event) => {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault();
 
-    // Collect updated service details from the form
     const updatedService = {
       Title: document.getElementById("serviceName").value,
       Category: document.getElementById("category").value,
@@ -45,7 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
       Description: document.getElementById("servicedescription").value,
     };
 
-    // Handle image upload if a new image is selected
     const imageInput = document.getElementById("serviceImage");
     const formData = new FormData();
     formData.append("data", JSON.stringify(updatedService));
@@ -54,7 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
       formData.append("serviceImage", imageInput.files[0]);
     }
 
-    // Send the updated service details to the backend
     fetch(`http://localhost:3000/services/${serviceId}`, {
       method: "PUT",
       body: formData,
@@ -62,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((response) => {
         if (response.ok) {
           alert("Service updated successfully!");
-          window.location.href = "./ServicesPage.html"; // Redirect to services page
+          window.location.href = "./ServicesPage.html"; 
         } else {
           throw new Error("Failed to update service.");
         }

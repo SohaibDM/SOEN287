@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const serviceList = document.getElementById("service-list");
 
   try {
-    // Fetch all services from the server
     const response = await fetch("http://localhost:3000/services");
     if (!response.ok) {
       throw new Error("Failed to fetch services.");
@@ -10,10 +9,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const services = await response.json();
 
-    // Clear the service list container
     serviceList.innerHTML = "";
 
-    // Loop through the services and create cards with delete buttons
     services.forEach((service) => {
       const serviceCard = `
         <div class="col-md-4 mb-4">
@@ -45,7 +42,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-// Function to delete a service
 async function deleteService(serviceId) {
   if (!confirm("Are you sure you want to delete this service?")) return;
 
@@ -62,7 +58,7 @@ async function deleteService(serviceId) {
     }
 
     alert("Service deleted successfully!");
-    location.reload(); // Reload the page to update the service list
+    location.reload(); 
   } catch (error) {
     console.error("Error deleting service:", error);
     alert("Failed to delete service. Please try again later.");

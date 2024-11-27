@@ -9,10 +9,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const services = await response.json();
 
-    // Clear the container before adding new services
     servicesContainer.innerHTML = "";
 
-    // Display only the first 3 services
     services.forEach((service) => {
       console.log(service);
       const serviceCard = `
@@ -79,29 +77,26 @@ document.addEventListener("DOMContentLoaded", async () => {
 const searchInput = document.getElementById('search-input');
 const searchResults = document.getElementById('search-results');
 
-// Handle input for search
 async function handleSearch(event) {
-    const query = event.target.value.trim(); // Get user input
-    searchResults.innerHTML = ''; // Clear previous results
+    const query = event.target.value.trim();
+    searchResults.innerHTML = ''; 
 
     if (!query) {
         searchResults.style.display = 'none';
-        return; // Exit if input is empty
+        return; 
     }
 
     try {
-        // Fetch matching services from the server
         const response = await fetch(`http://localhost:3000/Frontend/ServicesPage.html?q=${encodeURIComponent(query)}`);
         if (!response.ok) throw new Error('Failed to fetch services');
         const services = await response.json();
 
-        // Display results
         services.forEach(service => {
             const div = document.createElement('div');
             div.className = 'search-result-item';
             div.textContent = service.Title;
             div.onclick = () => {
-                window.location.href = `./productPage1.html?id=${service.service_ID}`; // Redirect to service details
+                window.location.href = `./productPage1.html?id=${service.service_ID}`;
             };
             searchResults.appendChild(div);
         });
@@ -112,7 +107,6 @@ async function handleSearch(event) {
     }
 }
 
-// Add event listener to the search bar
 searchInput.addEventListener('input', handleSearch);
 
 

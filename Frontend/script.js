@@ -28,7 +28,6 @@ const imageSrc = document.getElementById("companyImageDisplay");
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM loaded and parsed.");
 
-  // Fetch data from the backend
   fetch("http://localhost:3000/data")
     .then((response) => {
       if (!response.ok) {
@@ -38,10 +37,9 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .then((data) => {
       if (data && data.length > 0) {
-        const record = data[0]; // Assuming there's only one row in the `page` table
+        const record = data[0]; 
         console.log("Data fetched from the backend:", record);
 
-        // Populate the form fields with the retrieved data
         if (companyName) {
           companyName.textContent = record.Company_Name;
         }
@@ -72,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (imageSrc) {
           if (record.Image_Path) {
-            const imageUrl = `http://localhost:3000${record.Image_Path}`; // Full URL for the image
+            const imageUrl = `http://localhost:3000${record.Image_Path}`; 
             imageSrc.src = imageUrl;
             imageSrc.alt = "Company Image";
           }
@@ -87,42 +85,36 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Error fetching data:", error);
     });
 
-  // Check if the user is logged in
   const username = sessionStorage.getItem("user");
   const displayUsername = document.getElementById("displayUsername");
 
-  // Update the displayUsername text
   if (displayUsername) {
-    displayUsername.textContent = username || "Guest"; // Fallback to "Guest" if username is missing
+    displayUsername.textContent = username || "Guest"; 
   }
 
-  // Check if the user is logged in and adjust the header accordingly
   if (username) {
-    // Hide login button and show logout button
     if (loginButton) {
-      loginButton.style.display = "none"; // Hide the login button
+      loginButton.style.display = "none"; 
     }
 
     if (logoutButton) {
-      logoutButton.style.display = "block"; // Show the logout button
+      logoutButton.style.display = "block"; 
     }
   } else {
-    // Show login button if not logged in
     if (loginButton) {
-      loginButton.style.display = "block"; // Show the login button
+      loginButton.style.display = "block"; 
     }
 
     if (logoutButton) {
-      logoutButton.style.display = "none"; // Hide the logout button
+      logoutButton.style.display = "none";
     }
   }
 
-  // Logout functionality
   if (logoutButton) {
     logoutButton.addEventListener("click", function () {
-      sessionStorage.removeItem("customer_id"); // Remove customer_id from sessionStorage
-      sessionStorage.removeItem("user"); // Remove username from sessionStorage
-      window.location.href = "login.html"; // Redirect to login page
+      sessionStorage.removeItem("customer_id"); 
+      sessionStorage.removeItem("user"); 
+      window.location.href = "login.html"; 
     });
   }
 });

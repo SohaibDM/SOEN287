@@ -1,17 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Fetch the existing data from the backend
   fetch("http://localhost:3000/data")
     .then((response) => {
       if (!response.ok) {
         throw new Error("Failed to fetch data from the backend.");
       }
-      return response.json(); // Parse the JSON response
+      return response.json();
     })
     .then((data) => {
       if (data && data.length > 0) {
-        const record = data[0]; // Assuming there's only one row in the `page` table
+        const record = data[0];
 
-        // Populate the form fields with the retrieved data
         document.getElementById("name").value = record.Company_Name || "";
         document.getElementById("address").value = record.Address || "";
         document.getElementById("email").value = record.Email || "";
@@ -37,9 +35,8 @@ document.addEventListener("DOMContentLoaded", function () {
 document
   .querySelector(".split-form")
   .addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault();
 
-    // Create a FormData object
     const formData = new FormData();
     formData.append("image", document.getElementById("upload").files[0]);
     formData.append("company_name", document.getElementById("name").value);
@@ -66,14 +63,13 @@ document
 
     console.log("FormData ready to be sent.");
 
-    // Send the FormData object to the backend
     fetch("http://localhost:3000/submit", {
       method: "POST",
-      body: formData, // Send FormData directly
+      body: formData,
     })
       .then((response) => response.text())
       .then((data) => {
-        alert(data); // Display success or error message
+        alert(data);
       })
       .catch((error) => {
         console.error("Error:", error);
