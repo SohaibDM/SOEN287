@@ -85,7 +85,7 @@ function deleteCustomer(specificCustomerId) {
   if (!confirmDelete) {
     return;
   }
-
+  
   // Send DELETE request to the server with the ID in the body
   fetch("http://localhost:3000/Frontend/account-settings.html", {
     method: "DELETE",
@@ -97,8 +97,10 @@ function deleteCustomer(specificCustomerId) {
     .then((response) => {
       if (response.ok) {
         alert("Customer deleted successfully");
-        
-        // Optionally, refresh the customer list or redirect
+          sessionStorage.removeItem("customer_id"); // Remove customer_id from sessionStorage
+          sessionStorage.removeItem("user"); // Remove username from sessionStorage
+          window.location.href = "./home-page.html"; // Redirect to login page
+       
       } else {
         return response.text().then((text) => {
           throw new Error(text);
