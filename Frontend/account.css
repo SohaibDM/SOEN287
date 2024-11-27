@@ -45,6 +45,11 @@ body {
   box-sizing: border-box;
   text-align: left !important;
 }
+
+.delete-btn {
+  width: 25% !important;
+}
+
 .right-column{
   background-color: rgba(85,66,116,0.1); 
   border-radius: 10px;
