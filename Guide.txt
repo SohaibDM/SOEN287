@@ -12,7 +12,7 @@ to use this website as an admin, you will need to access it using the url https:
 username: admin
 password: admin
 
-after logging in you will be redirected to the admin-customization page where you can edit the page, add delete and edit a service or check bought services and confirm the execution for them, or follow up with customers that have yet to pay for their services with an email
+after logging in you will be redirected to the admin-customization page where you can edit the page, add delete and edit a service or check bought services and confirm the execution for them, or follow up with customers that have yet to pay for their services with an email, after editing or doing anything else  just click the company name at the top left to be redirected to the page.
 
 guide for customers:
 to login you can either click the login button on the top right or click on guest where you will be redirected to a login page where you can register or use an existing account:
