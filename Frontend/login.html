@@ -23,14 +23,11 @@
             </ul>
         </div>
         
-        <div id="search-bar">
+        <div id="search-bar" style="display: none !important;">
             <form action="/search" method="get" >
                 <input type="text" placeholder="search" name="q">
             </form>
         </div>
-    <button class="btnLogin-popup login-button" onclick="window.location.href='login.html'">Login</button>
-    <button class="btnLogin-popup logout-button" style="margin:2px;">Logout</button>
-
 
         <div id="account">
              <p><a   id="displayUsername" onclick="checkUser()">Guest</a></p>
@@ -60,7 +57,7 @@
                         </div>
                         <button type="submit" class="btn">Login</button>
                         <div class="login-register">
-                        <p>Don't have an account? <a href="#" class="register-link">Register</a></p>
+                        <p>Don't have an account? <a href="#" class="register-link" style="color: #A782E5;">Register</a></p>
                         </div>
                     </form>
                     </div>
